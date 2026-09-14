@@ -2,7 +2,7 @@
 
 ## Commencer à développer
 
-Créer l'environnemet virtuel.
+Créer l'environnement virtuel.
 ```shell
 python3 -m venv .venv
 ```
@@ -19,7 +19,7 @@ Ajouter des dépendances.
 ```
 
 ## Jouer au jeu
-Seplacer dans le répertoire du projet et lancer le jeu.
+Se placer dans le répertoire du projet et lancer le jeu.
 ```shell
 python3 main.py
 ```
