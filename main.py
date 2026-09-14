@@ -60,10 +60,11 @@ def main():
                 if (button_rect.left < pygame.mouse.get_pos()[0] < button_rect.right
                         and button_rect.top < pygame.mouse.get_pos()[1] < button_rect.bottom):
                     nb_click += 1
-                elif (not(hasFirstUp)
+                elif (not(hasFirstUp) and nb_click >= 20
                       and screen.get_width() / 4 - 10 < pygame.mouse.get_pos()[0] < screen.get_width() / 4 + 10
                       and screen.get_height() / 2 - 10 < pygame.mouse.get_pos()[1] < screen.get_height() / 2 + 10):
                     hasFirstUp = True
+                    nb_click -= 20
                     firstUpTime = t
 
         # Quitter le jeu
