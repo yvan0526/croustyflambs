@@ -6,7 +6,7 @@ def main():
     # Démmarre le module
     pygame.init()
     # définit l'écran et sa taille, retourne la surface pour le dessin
-    screen = pygame.display.set_mode((640, 360), pygame.FULLSCREEN)
+    screen = pygame.display.set_mode((640, 360))
     # Pour savoir quand la boucle du jeu se termine
     running = True
 
@@ -21,7 +21,7 @@ def main():
         # Texte
         text = font.render(f"{nb_click}", True, (0, 0, 0))
         text_rect = text.get_rect()
-        text_rect.center = ((int)(screen.get_width() / 2), (int)(screen.get_height() / 2 - 250))
+        text_rect.center = ((int)(screen.get_width() / 2), (int)(screen.get_height() / 2 - 100))
         screen.blit(text, text_rect)
 
         # Bouton
