@@ -33,7 +33,7 @@ def main():
             if event.type == pygame.QUIT:
                 pygame.quit()
                 quit()
-            elif event.type == pygame.MOUSEBUTTONDOWN:
+            elif event.type == pygame.MOUSEBUTTONDOWN and pygame.mouse.get_pressed()[0]:
                 # Incrémente lors d'un clic sur le bouton
                 if (button_rect.left < pygame.mouse.get_pos()[0] < button_rect.right
                         and button_rect.top < pygame.mouse.get_pos()[1] < button_rect.bottom):
