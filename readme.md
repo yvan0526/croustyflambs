@@ -1,4 +1,4 @@
-# NOM_DU_JEU
+# You have ten minutes to save the world before the eclipse or else it will end 
 
 ## Commencer à développer
 
