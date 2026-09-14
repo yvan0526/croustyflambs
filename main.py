@@ -43,13 +43,13 @@ def main():
         # Bouton principal
         button_rect = pygame.Rect(screen.get_width() / 2 - 50, screen.get_height() / 2 - 50, 100, 100)
         pygame.draw.rect(screen, "red", button_rect)
-        pygame.display.flip()
 
         # Bouton de la première amélioration (un autoclic)
         if not(hasFirstUp):
             buttonFirstUp = pygame.Rect(screen.get_width() / 4 - 10, screen.get_height() / 2 - 10, 20, 20)
             pygame.draw.rect(screen, "blue", buttonFirstUp)
-            pygame.display.flip()
+
+        pygame.display.flip()
 
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
