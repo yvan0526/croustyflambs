@@ -2,32 +2,21 @@ import math
 
 import pygame
 
+from UI import UI
+
+
 def main():
     # Démmarre le module
     pygame.init()
-    # définit l'écran et sa taille, retourne la surface pour le dessin
-    screen = pygame.display.set_mode((640, 360))
-    # Pour savoir quand la boucle du jeu se termine
-    running = True
 
-    font = pygame.font.SysFont(None, 80)
-    nb_click = 0
+    ui = UI()
+    running = True
+    score = 100
 
     # Boucle de l'animation
     while running:
-        # Couleur de fond
-        screen.fill("gray")
-
-        # Texte
-        text = font.render(f"{nb_click}", True, (0, 0, 0))
-        text_rect = text.get_rect()
-        text_rect.center = ((int)(screen.get_width() / 2), (int)(screen.get_height() / 2 - 100))
-        screen.blit(text, text_rect)
-
-        # Bouton
-        button_rect = pygame.Rect(screen.get_width() / 2 - 50, screen.get_height() / 2 - 50, 100, 100)
-        pygame.draw.rect(screen, "red", button_rect)
-        pygame.display.flip()
+        # Texte score
+        ui.display_score(score)
 
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
@@ -35,9 +24,11 @@ def main():
                 quit()
             elif event.type == pygame.MOUSEBUTTONDOWN and pygame.mouse.get_pressed()[0]:
                 # Incrémente lors d'un clic sur le bouton
-                if (button_rect.left < pygame.mouse.get_pos()[0] < button_rect.right
-                        and button_rect.top < pygame.mouse.get_pos()[1] < button_rect.bottom):
-                    nb_click += 1
+                if ui.check_mouse_click_fuelle_button():
+                    score += 1
+                    ui.display_button_down()
+            elif event.type == pygame.MOUSEBUTTONUP:
+                ui.display_button_up()
 
         # Quitter le jeu
         keys = pygame.key.get_pressed()
