@@ -1,8 +1,11 @@
 import math
 
 import pygame
-from pygame import Surface, Rect
+from pygame import Surface
 from pygame.ftfont import Font
+
+from message import Message
+
 
 class UI:
     # Écran pour l'affichage
@@ -20,20 +23,22 @@ class UI:
     moon_3_image: Surface
     moon_4_image: Surface
     moon_5_image: Surface
-    # Images bouton
-    button_down_image: Surface
+    # Images bouton fuelle
+    fuelle_button_image: Surface
     # Images progress bar
     progress_bar_background_image: Surface
     progress_bar_image: Surface
+    # Image bouton upgrade clic
+    upgrade_clic_button_image: Surface
+    # Image bouton auto clicker
+    autoclicker_button_image: Surface
+    # Image bouton upgrade power
+    upgrade_power_button_image: Surface
+    # Image bouton upgrade frequecy
+    upgrade_frequency_button_image: Surface
 
     # Police d'écriture score
     score_font: Font
-
-    # Police d'écriture message
-    message_font: Font
-
-    # Bouton
-    button_rect: Rect
 
     # Position de la lune
     sun_x: int
@@ -58,8 +63,7 @@ class UI:
         self.sun_x = 364
         self.sun_y = 84
         # Bouton fuelle
-        self.button_down_image = pygame.image.load("assets/Button_Down.png")
-        self.button_rect = pygame.Rect(296, 220, 48, 48)
+        self.fuelle_button_image = pygame.image.load("assets/Button_Down.png")
         # Police d'écriture score
         self.score_font = pygame.font.Font("assets/PressStart2P.ttf", 16)
         #Police d'écriture message
@@ -67,6 +71,14 @@ class UI:
         # Progress bar
         self.progress_bar_background_image = pygame.image.load("assets/Bar_Background.png")
         self.progress_bar_image = pygame.image.load("assets/Bar.png")
+        # Bouton upgrade clic
+        self.upgrade_clic_button_image = pygame.image.load("assets/Button_Upgrade_Down.png")
+        # Bouton auto clicker
+        self.autoclicker_button_image = pygame.image.load("assets/Button_AutoClicker_Down.png")
+        # Bouton upgrade power
+        self.upgrade_power_button_image = pygame.image.load("assets/Button_UpgradePower_Down.png")
+        # Bouton upgrade frequecy
+        self.upgrade_frequency_button_image = pygame.image.load("assets/Button_UpgradeFreq_Down.png")
 
     def display_background(self):
         self.screen.blit(self.background_image, (0, 0))
@@ -89,11 +101,10 @@ class UI:
         self.screen.blit(score_text, score_text_rect)
 
     def check_mouse_position_fuelle_button(self):
-        return (self.button_rect.left < pygame.mouse.get_pos()[0] < self.button_rect.right
-                        and self.button_rect.top < pygame.mouse.get_pos()[1] < self.button_rect.bottom)
+        return 296 < pygame.mouse.get_pos()[0] < 336 and 220 < pygame.mouse.get_pos()[1] < 260
 
-    def display_button_down(self):
-        self.screen.blit(self.button_down_image, (296, 220))
+    def display_fuelle_button_down(self):
+        self.screen.blit(self.fuelle_button_image, (296, 220))
 
     def display_window(self, angle):
         x1 = self.sun_x - 319
@@ -123,3 +134,57 @@ class UI:
         self.screen.blit(self.progress_bar_background_image, (200, 332))
         x = min(-40 + (score / score_max) * 240, 200)
         self.screen.blit(self.progress_bar_image, (x, 332))
+
+    def display_upgrade_clic_button_down(self):
+        self.screen.blit(self.upgrade_clic_button_image, (448, 190))
+
+    def display_autoclicker_button_down(self):
+        self.screen.blit(self.autoclicker_button_image, (552, 190))
+
+    def display_upgrade_power_button_down(self):
+        self.screen.blit(self.upgrade_power_button_image, (552, 229))
+
+    def display_upgrade_frequency_button_down(self):
+        self.screen.blit(self.upgrade_frequency_button_image, (552, 252))
+
+    def show_end_message(self, score):
+        message_end = Message(UI.screen, self.message_font)
+        message_credits = Message(UI.screen, self.message_font)
+        if score < 0:  # Casser la fenêtre met le score à une valeur négative et termine le jeu
+            message_end.show("Patron : Mais que faites-vous?! Je ne vous paie pas pour cela !", "Suivant")
+            message_end.show("Patron : Vous êtes renvoyé·e !", "Suivant")
+            message_end.show("VOUS AVEZ ÉTÉ RENVOYÉ·E. TOUT LE MONDE EST MORT.", "Fin")
+        elif score < 1:
+            message_end.show("VOTRE FUSÉE N'A PAS DÉCOLLÉ.\
+                            L'ÉCLIPSE A EU LIEU. RIEN N'EST ARRIVÉ. LE MONDE EST SAUVÉ", "Fin")
+        elif score < 410000000000000:
+            message_end.show("VOTRE FUSÉE A DÉCOLLÉ. ELLE S'EST MALHEUREUSEMENT ÉCRASÉE, PAR MANQUE DE CARBURANT.\
+                            L'IUT2 DE GRENOBLE A ÉTÉ RASÉ.\
+                            CÉDRIC GÉROT, S'ÉTANT RECONVERTI, EST ÉLU PRÉSIDENT DE LA RÉPUBLIQUE FRANÇAISE AVEC 69% DES VOIX.",
+                             "Fin")
+        elif score < 430000000000000:
+            message_end.show("VOTRE FUSÉE A DÉCOLLÉ. ELLE A DÉVIÉ DE SA TRAJECTOIRE, S'EST ARRÊTÉE, ET SE PERD DANS L'ESPACE.\
+                            L'ÉCLIPSE A EU LIEU. RIEN N'EST ARRIVÉ. LE MONDE EST SAUVÉ.", "Fin")
+        elif score < 750000000000000:
+            message_end.show("VOTRE FUSÉE A DÉCOLLÉ. ELLE A DÉVIÉ DE SA TRAJECTOIRE ET S'EST ARRÊTÉE EN ORBITE LUNAIRE.\
+                            DES HABITANTS DE LA LUNE ONT FAIT REPARTIR LA FUSÉE VERS LA TERRE.\
+                            LA POPULATION TERRESTRE EST RÉDUITE EN ESCLAVAGE.", "Fin")
+        elif score < 999999999999999:
+            message_end.show("VOTRE FUSÉE A DÉCOLLÉ. ELLE A LÉGÈREMENT DÉVIÉ DE SA TRAJECTOIRE ET SE DIRIGE VERS LE SOLEIL.\
+                            LE SOLEIL EXPLOSE.\
+                            8 MINUTES PLUS TARD, TOUT LE MONDE EST MORT.", "Fin")
+        elif score == 1000000000000000:
+            message_end.show("VOTRE FUSÉE A DÉCOLLÉ. ELLE A ATTEINT SA CIBLE. LA LUNE EXPLOSE.\
+                            LES DÉBRIS DE LA LUNE RETOMBENT SUR LA TERRE.\
+                            TOUT LE MONDE EST MORT.", "Fin")
+        else:
+            message_end.show("undefined Fin", "Undefined")
+        message_credits.show("Jeu réalisé dans le cadre de la SAE5.01: GameJam, du BUT Informatique, à l'université Grenoble-Alpes.\
+                                                        Création : équipe des croustiflambs (le b est muet)\
+                                                        Programmation : Célia MOULIN, Alenia LEFOYER, Yvan GIORDANO, Timothée DAGAND\
+                                                        Assets graphiques : Emma DHOURY\
+                                                        Sons : \
+                                                        Remerciements :\
+                                                        Merci à Jean-Pierre CHEVALLET pour son cours sur le langage Python et ses conseils lors du développement,\
+                                                        Merci à l'équipe enseignante du BUT Informatique de l'université Grenoble-Alpes,\
+                                                        Enfin, merci à vous d'avoir joué !", "Quitter")
