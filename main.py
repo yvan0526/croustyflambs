@@ -52,7 +52,7 @@ def main():
             moon_angle += 0.001
 
         # Affiche la progress bar
-        ui.display_progress_bar(score, 100)
+        ui.display_progress_bar(etat.score, 100)
 
         # Affiche le bureau
         ui.display_background()
@@ -73,7 +73,7 @@ def main():
             if ui.check_mouse_position_fuelle_button():
                 ui.display_button_down()
                 if not button_clicking:
-                    score += 1
+                    etat.score += 1
             button_clicking = True
         else:
             button_clicking = False
