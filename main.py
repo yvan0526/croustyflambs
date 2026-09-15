@@ -20,10 +20,19 @@ def main():
                  "Ne nous décevez pas.\n", "Ok")
 
     running = True
-    score = 100
+    score = 0
+    moon_angle = -math.pi / 2
 
     # Boucle de l'animation
     while running:
+        # Lune
+        ui.display_window(moon_angle)
+        if moon_angle < 0:
+            moon_angle += 0.001
+
+        # Affiche le bureau
+        ui.display_background()
+
         # Texte score
         ui.display_score(score)
 
@@ -37,10 +46,10 @@ def main():
                 continue
 
             elif event.type == pygame.MOUSEBUTTONDOWN and pygame.mouse.get_pressed()[0]:
-                # Incrémente lors d'un clic sur le bouton
-                if ui.check_mouse_click_fuelle_button():
-                    score += 1
+                # Clic bouton fuëlle
+                if ui.check_mouse_position_fuelle_button():
                     ui.display_button_down()
+                    score += 1
             elif event.type == pygame.MOUSEBUTTONUP:
                 ui.display_button_up()
 

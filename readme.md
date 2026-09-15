@@ -1,4 +1,4 @@
-# You have ten minutes to save the world before the eclipse or else it will end 
+# You have ten minutes to save the world before the eclipse or else everyone will die
 
 ## Commencer à développer
 
