@@ -1,8 +1,10 @@
 import math
-import events
+
 import pygame
 from UI import UI
 from message import Message
+
+from src.modele.etat import Etat
 
 def main():
     # Démarre le module
@@ -20,14 +22,22 @@ def main():
                  "Ne nous décevez pas.\n", "Ok")
 
     running = True
-    score = 0
+
+    clock = pygame.time.Clock()
+    dt: int = 0
+    t: int = 0
+
+    font = pygame.font.SysFont(None, 80)
+
+    hasFirstUp: bool = False
+    etat: Etat = Etat()
+
     moon_angle = -math.pi / 2
 
     # Boucle de l'animation
     while running:
-        # Fin du jeu n°1 (réservoir plein)
-        if score >= 1000000000000000:
-            pygame.event.post(events.GAME_END)
+        dt = clock.tick(60)
+        t += dt
 
         # Lune
         ui.display_window(moon_angle)
@@ -38,17 +48,20 @@ def main():
         ui.display_background()
 
         # Texte score
-        ui.display_score(score)
+        ui.display_score(etat.score)
+
+        # TODO: Refaire ça proprement
+        if not (hasFirstUp):
+            buttonFirstUp = pygame.Rect(ui.screen.get_width() / 4 - 10, ui.screen.get_height() / 2 - 10, 20, 20)
+            pygame.draw.rect(ui.screen, "blue", buttonFirstUp)
+        elif (t - etat.autocliqueur.temps_premier) / 1000 >= etat.autocliqueur.nb_tot_clics:
+            etat.clic_auto()
+            etat.autocliqueur.nb_tot_clics += 1
 
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 pygame.quit()
                 quit()
-
-            # Fin du jeu n°2 (fenêtre cassée)
-            if event.type == events.WINDOW_BREAK:
-                score = -1
-                pygame.event.post(events.GAME_END)
 
             if message.active:
                 message.handle_event(event)
@@ -58,7 +71,13 @@ def main():
                 # Clic bouton fuëlle
                 if ui.check_mouse_position_fuelle_button():
                     ui.display_button_down()
-                    score += 1
+                    etat.clic()
+                elif (not (hasFirstUp) and etat.score >= 20
+                  and ui.screen.get_width() / 4 - 10 < pygame.mouse.get_pos()[0] < ui.screen.get_width() / 4 + 10
+                  and ui.screen.get_height() / 2 - 10 < pygame.mouse.get_pos()[1] < ui.screen.get_height() / 2 + 10):
+                    hasFirstUp = True
+                    etat.score -= 20
+                    etat.init_autocliqueur(t)
             elif event.type == pygame.MOUSEBUTTONUP:
                 ui.display_button_up()
 
