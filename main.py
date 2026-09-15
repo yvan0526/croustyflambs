@@ -14,7 +14,7 @@ def main():
 
     ui = UI()
 
-    message = Message(ui.screen)
+    message = Message(ui.screen, ui.message_font)
     # Message affiché au démarrage
     message.show("MESSAGE D’URGENCE\n"
                  "Vous êtes notre seul espoir.\n"
@@ -35,6 +35,7 @@ def main():
     etat: Etat = Etat()
 
     moon_angle = -math.pi / 2
+    button_clicking = False
 
     # Boucle de l'animation
     while running:
@@ -50,6 +51,9 @@ def main():
         if moon_angle < 0:
             moon_angle += 0.001
 
+        # Affiche la progress bar
+        ui.display_progress_bar(score, 100)
+
         # Affiche le bureau
         ui.display_background()
 
@@ -63,6 +67,16 @@ def main():
         elif (t - etat.autocliqueur.temps_premier) / 1000 >= etat.autocliqueur.nb_tot_clics:
             etat.clic_auto()
             etat.autocliqueur.nb_tot_clics += 1
+
+        # Clic bouton fuëlle
+        if pygame.mouse.get_pressed()[0]:
+            if ui.check_mouse_position_fuelle_button():
+                ui.display_button_down()
+                if not button_clicking:
+                    score += 1
+            button_clicking = True
+        else:
+            button_clicking = False
 
         for event in pygame.event.get():
             if event.type == pygame.QUIT:

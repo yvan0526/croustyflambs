@@ -2,8 +2,8 @@ import pygame
 
 class Message:
 
-    def __init__(self, screen):
-        self.font = pygame.font.Font("assets/EarlyGameBoy.ttf", 8)
+    def __init__(self, screen, font):
+        self.font = font
         self.screen = screen
         self.text = ""
         self.button_text = ""
@@ -54,7 +54,7 @@ class Message:
 
         # Fond semi-transparent sur tout l'écran
         overlay = pygame.Surface(self.screen.get_size(), pygame.SRCALPHA)
-        overlay.fill((0, 0, 0, 210))
+        overlay.fill((0, 0, 0, 220))
         self.screen.blit(overlay, (0, 0))
 
         # Texte, avec retour à la ligne automatique
@@ -62,7 +62,7 @@ class Message:
         max_width = self.screen.get_width() - 2 * margin
         lines = self.wrap_text(self.text, max_width)
 
-        line_height = self.font.get_height()
+        line_height = self.font.get_height() +5
         total_text_height = len(lines) * line_height
         start_y = self.screen.get_height() // 2 - total_text_height // 2
 
@@ -77,7 +77,6 @@ class Message:
         button_y = start_y + total_text_height + 40
         max_y = self.screen.get_height() - self.button_rect.height // 2 - 10
         button_y = min(button_y, max_y)
-
         self.button_rect.center = (self.screen.get_width() // 2, button_y)
         pygame.draw.rect(self.screen, "black", self.button_rect, border_radius=4)
         pygame.draw.rect(self.screen, "white", self.button_rect, width=2, border_radius=4)
