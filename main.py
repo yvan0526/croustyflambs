@@ -29,8 +29,6 @@ def main():
     dt: int = 0
     t: int = 0
 
-    font = pygame.font.SysFont(None, 80)
-
     hasFirstUp: bool = False
     etat: Etat = Etat()
 
