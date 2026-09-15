@@ -13,6 +13,9 @@ def main():
     running = True
     score = 0
     moon_angle = -math.pi / 2
+    button_clicking = False
+
+    ui.display_init()
 
     # Boucle de l'animation
     while running:
@@ -27,17 +30,20 @@ def main():
         # Texte score
         ui.display_score(score)
 
+        # Clic bouton fuëlle
+        if pygame.mouse.get_pressed()[0]:
+            if ui.check_mouse_position_fuelle_button() and not button_clicking:
+                ui.display_button_down()
+                score += 1
+            button_clicking = True
+        else:
+            ui.display_button_up()
+            button_clicking = False
+
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 pygame.quit()
                 quit()
-            elif event.type == pygame.MOUSEBUTTONDOWN and pygame.mouse.get_pressed()[0]:
-                # Clic bouton fuëlle
-                if ui.check_mouse_position_fuelle_button():
-                    ui.display_button_down()
-                    score += 1
-            elif event.type == pygame.MOUSEBUTTONUP:
-                ui.display_button_up()
 
         # Quitter le jeu
         keys = pygame.key.get_pressed()

@@ -76,9 +76,12 @@ class UI:
         # Bouton
         self.button_rect = pygame.Rect(296, 220, 48, 48)
 
+    def display_init(self):
+        self.display_background()
+        self.display_button_up()
+
     def display_background(self):
         self.screen.blit(self.background_image, (0, 0))
-        self.screen.blit(self.button_up_image, (296, 220))
 
     def display_score(self, score: int):
         self.screen.blit(self.screen_score_image, (282, 185))
