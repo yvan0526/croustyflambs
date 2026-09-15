@@ -47,5 +47,7 @@ class Endings:
                                 Assets graphiques : Emma DHOURY\
                                 Sons : \
                                 Remerciements :\
-                                Merci aux enseignants blablabla toussa toussa\
-                                ")
+                                Merci à Jean-Pierre CHEVALLET pour son cours sur le langage Python et ses conseils lors du développement\
+                                Merci à \
+                                Merci à vous d'avoir joué\
+        ")
