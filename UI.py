@@ -169,11 +169,11 @@ class UI:
             message_end.show("VOTRE FUSÉE A DÉCOLLÉ. ELLE A DÉVIÉ DE SA TRAJECTOIRE ET S'EST ARRÊTÉE EN ORBITE LUNAIRE.\
                             DES HABITANTS DE LA LUNE ONT FAIT REPARTIR LA FUSÉE VERS LA TERRE.\
                             LA POPULATION TERRESTRE EST RÉDUITE EN ESCLAVAGE.", "Fin")
-        elif score < 999999999999999:
+        elif score <= 999999999999999:
             message_end.show("VOTRE FUSÉE A DÉCOLLÉ. ELLE A LÉGÈREMENT DÉVIÉ DE SA TRAJECTOIRE ET SE DIRIGE VERS LE SOLEIL.\
                             LE SOLEIL EXPLOSE.\
                             8 MINUTES PLUS TARD, TOUT LE MONDE EST MORT.", "Fin")
-        elif score == 1000000000000000:
+        elif score >= 1000000000000000:
             message_end.show("VOTRE FUSÉE A DÉCOLLÉ. ELLE A ATTEINT SA CIBLE. LA LUNE EXPLOSE.\
                             LES DÉBRIS DE LA LUNE RETOMBENT SUR LA TERRE.\
                             TOUT LE MONDE EST MORT.", "Fin")
