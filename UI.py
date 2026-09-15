@@ -21,17 +21,22 @@ class UI:
     moon_3_image: Surface
     moon_4_image: Surface
     moon_5_image: Surface
-    # Images bouton
-    button_down_image: Surface
+    # Images bouton fuelle
+    fuelle_button_image: Surface
     # Images progress bar
     progress_bar_background_image: Surface
     progress_bar_image: Surface
+    # Image bouton upgrade clic
+    upgrade_clic_button_image: Surface
+    # Image bouton auto clicker
+    autoclicker_button_image: Surface
+    # Image bouton upgrade power
+    upgrade_power_button_image: Surface
+    # Image bouton upgrade frequecy
+    upgrade_frequency_button_image: Surface
 
     # Police d'écriture score
     score_font: Font
-
-    # Bouton
-    button_rect: Rect
 
     # Position de la lune
     sun_x: int
@@ -56,13 +61,20 @@ class UI:
         self.sun_x = 364
         self.sun_y = 84
         # Bouton fuelle
-        self.button_down_image = pygame.image.load("assets/Button_Down.png")
-        self.button_rect = pygame.Rect(296, 220, 48, 48)
+        self.fuelle_button_image = pygame.image.load("assets/Button_Down.png")
         # Police d'écriture score
         self.score_font = pygame.font.Font("assets/PressStart2P.ttf", 16)
         # Progress bar
         self.progress_bar_background_image = pygame.image.load("assets/Bar_Background.png")
         self.progress_bar_image = pygame.image.load("assets/Bar.png")
+        # Bouton upgrade clic
+        upgrade_clic_button_image = pygame.image.load("assets/Button_Upgrade_Down.png")
+        # Bouton auto clicker
+        autoclicker_button_image = pygame.image.load("assets/Button_AutoClicker_Down.png")
+        # Bouton upgrade power
+        upgrade_power_button_image = pygame.image.load("assets/Button_UpgradePower_Down.png")
+        # Bouton upgrade frequecy
+        upgrade_frequency_button_image = pygame.image.load("assets/Button_UpgradeFreq_Down.png")
 
     def display_background(self):
         self.screen.blit(self.background_image, (0, 0))
@@ -85,11 +97,10 @@ class UI:
         self.screen.blit(score_text, score_text_rect)
 
     def check_mouse_position_fuelle_button(self):
-        return (self.button_rect.left < pygame.mouse.get_pos()[0] < self.button_rect.right
-                        and self.button_rect.top < pygame.mouse.get_pos()[1] < self.button_rect.bottom)
+        return 296 < pygame.mouse.get_pos()[0] < 336 and 220 < pygame.mouse.get_pos()[1] < 260
 
-    def display_button_down(self):
-        self.screen.blit(self.button_down_image, (296, 220))
+    def display_fuelle_button_down(self):
+        self.screen.blit(self.fuelle_button_image, (296, 220))
 
     def display_window(self, angle):
         x1 = self.sun_x - 319
@@ -119,3 +130,15 @@ class UI:
         self.screen.blit(self.progress_bar_background_image, (200, 332))
         x = min(-40 + (score / score_max) * 240, 200)
         self.screen.blit(self.progress_bar_image, (x, 332))
+
+    def display_upgrade_clic_button_down(self):
+        self.screen.blit(self.upgrade_clic_button_image, (448, 190))
+
+    def display_autoclicker_button_down(self):
+        self.screen.blit(self.autoclicker_button_image, (552, 190))
+
+    def display_upgrade_power_button_down(self):
+        self.screen.blit(self.upgrade_power_button_image, (552, 229))
+
+    def display_upgrade_frequency_button_down(self):
+        self.screen.blit(self.upgrade_frequency_button_image, (552, 252))

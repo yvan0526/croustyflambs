@@ -43,7 +43,7 @@ def main():
         # Clic bouton fuëlle
         if pygame.mouse.get_pressed()[0]:
             if ui.check_mouse_position_fuelle_button():
-                ui.display_button_down()
+                ui.display_fuelle_button_down()
                 if not button_clicking:
                     score += 1
             button_clicking = True
