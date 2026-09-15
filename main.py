@@ -2,6 +2,8 @@ import math
 
 import pygame
 
+from src.modele.etat import Etat
+
 def main():
     # Démmarre le module
     pygame.init()
@@ -17,25 +19,25 @@ def main():
     t: int = 0
 
     font = pygame.font.SysFont(None, 80)
-    nb_click = 0
 
     hasFirstUp: bool = False
-    firstUpTime: int = -1
-    nbAutoClicks: int = 0
+    etat: Etat = Etat()
 
     # Boucle de l'animation
     while running:
         dt = clock.tick(60)
         t += dt
-        if (t - firstUpTime) / 1000 > nbAutoClicks and hasFirstUp:
-            nb_click += 1
-            nbAutoClicks += 1
+
+        # Autocliqueur
+        if (t - etat.autocliqueur.temps_premier) / 1000 > etat.autocliqueur.nb_tot_clics and hasFirstUp:
+            etat.score += etat.autocliqueur.valeur
+            etat.autocliqueur.nb_tot_clics += 1
 
         # Couleur de fond
         screen.fill("gray")
 
         # Texte
-        text = font.render(f"{nb_click}", True, (0, 0, 0))
+        text = font.render(f"{etat.score}", True, (0, 0, 0))
         text_rect = text.get_rect()
         text_rect.center = ((int)(screen.get_width() / 2), (int)(screen.get_height() / 2 - 100))
         screen.blit(text, text_rect)
@@ -59,13 +61,13 @@ def main():
                 # Incrémente lors d'un clic sur le bouton
                 if (button_rect.left < pygame.mouse.get_pos()[0] < button_rect.right
                         and button_rect.top < pygame.mouse.get_pos()[1] < button_rect.bottom):
-                    nb_click += 1
-                elif (not(hasFirstUp) and nb_click >= 20
+                    etat.score += etat.valeur_clic
+                elif (not(hasFirstUp) and etat.score >= 20
                       and screen.get_width() / 4 - 10 < pygame.mouse.get_pos()[0] < screen.get_width() / 4 + 10
                       and screen.get_height() / 2 - 10 < pygame.mouse.get_pos()[1] < screen.get_height() / 2 + 10):
                     hasFirstUp = True
-                    nb_click -= 20
-                    firstUpTime = t
+                    etat.score -= 20
+                    etat.init_autocliqueur(t)
 
         # Quitter le jeu
         keys = pygame.key.get_pressed()
