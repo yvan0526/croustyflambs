@@ -11,7 +11,7 @@ class Endings:
         messageEnd = Message(16)
         for event in pygame.event.get():
             if event.type == gameEnd:
-                if windowBroken == True:
+                if self.score < 0:
                     messageEnd.print("Fin renvoi")
                     pygame.quit()
                 elif score < 10000000:
