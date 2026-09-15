@@ -3,21 +3,22 @@ import message
 
 class Endings:
     def main(self):
+        messageEnd = Message(16)
         for event in pygame.event.get():
             if event.type == gameEnd:
                 if windowBroken == True:
-                    display(Message("Fin renvoi"))
+                    messageEnd.print("Fin renvoi")
                 elif score < 10000000:
-                    display(Message("Fin Blanchon"))
+                    messageEnd.print("Fin Blanchon")
                 elif score < 410000000:
-                    display(Message("Fin Snoop Dogg"))
+                    messageEnd.print("Fin Snoop Dogg")
                 elif score < 430000000:
-                    display(Message("Bonne fin"))
+                    messageEnd.print("Bonne fin")
                 elif score < 750000000:
-                    display(Message("Fin invasion"))
+                    messageEnd.print("Fin invasion")
                 elif score < 999999999:
-                    display(Message("Fin solaire"))
+                    messageEnd.print("Fin solaire")
                 elif score == 1000000000:
-                    display(Message("Fin lunaire"))
+                    messageEnd.print("Fin lunaire")
                 else:
-                    display(Message("Erreur : Fin non définie"))
+                    messageEnd.print("undefined Fin")
