@@ -1,3 +1,5 @@
+# Classe prenant en charge l'autocliqueur. La fréquence, la valeur et le nombre d'autocliqueurs
+# peuvent éventuellement changer.
 class Autocliqueur:
     cps: int
     valeur: int
@@ -11,12 +13,3 @@ class Autocliqueur:
         self.quantite = 1
         self.nb_tot_clics = 0
         self.temps_premier = -1
-
-    def add_cps(self, nb: int = 1)-> None :
-        self.cps += nb
-
-    def add_valeur(self, nb: int = 1)-> None :
-        self.valeur += nb
-
-    def add_autocliqueur(self, nb: int = 1)-> None :
-        self.quantite += nb
