@@ -15,14 +15,15 @@ def main():
     moon_angle = -math.pi / 2
     button_clicking = False
 
-    ui.display_init()
-
     # Boucle de l'animation
     while running:
-        # Lune
+        # Affiche la Lune
         ui.display_window(moon_angle)
         if moon_angle < 0:
             moon_angle += 0.001
+
+        # Affiche la progress bar
+        ui.display_progress_bar(score, 100)
 
         # Affiche le bureau
         ui.display_background()
@@ -33,11 +34,10 @@ def main():
         # Clic bouton fuëlle
         if pygame.mouse.get_pressed()[0]:
             if ui.check_mouse_position_fuelle_button() and not button_clicking:
-                ui.display_button_down()
                 score += 1
+            ui.display_button_down()
             button_clicking = True
         else:
-            ui.display_button_up()
             button_clicking = False
 
         for event in pygame.event.get():
