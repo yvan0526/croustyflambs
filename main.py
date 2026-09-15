@@ -1,5 +1,5 @@
 import math
-
+import events
 import pygame
 from UI import UI
 from message import Message
@@ -25,6 +25,10 @@ def main():
 
     # Boucle de l'animation
     while running:
+        # Fin du jeu n°1 (réservoir plein)
+        if score >= 1000000000000000:
+            pygame.event.post(events.GAME_END)
+
         # Lune
         ui.display_window(moon_angle)
         if moon_angle < 0:
@@ -40,6 +44,11 @@ def main():
             if event.type == pygame.QUIT:
                 pygame.quit()
                 quit()
+
+            # Fin du jeu n°2 (fenêtre cassée)
+            if event.type == events.WINDOW_BREAK:
+                score = -1
+                pygame.event.post(events.GAME_END)
 
             if message.active:
                 message.handle_event(event)
