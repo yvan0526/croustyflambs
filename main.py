@@ -68,12 +68,19 @@ def main():
             etat.clic_auto()
             etat.autocliqueur.nb_tot_clics += 1
 
-        # Clic bouton fuëlle
         if pygame.mouse.get_pressed()[0]:
+            # Clic bouton fuëlle
             if ui.check_mouse_position_fuelle_button():
-                ui.display_button_down()
+                ui.display_fuelle_button_down()
                 if not button_clicking:
-                    etat.score += 1
+                    etat.clic()
+            # Clic bouton auto clicker
+            elif (not (hasFirstUp) and etat.score >= 20
+                  and ui.screen.get_width() / 4 - 10 < pygame.mouse.get_pos()[0] < ui.screen.get_width() / 4 + 10
+                  and ui.screen.get_height() / 2 - 10 < pygame.mouse.get_pos()[1] < ui.screen.get_height() / 2 + 10):
+                hasFirstUp = True
+                etat.score -= 20
+                etat.init_autocliqueur(t)
             button_clicking = True
         else:
             button_clicking = False
@@ -88,65 +95,11 @@ def main():
                 pygame.event.post(GAME_END)
 
             if event.type == GAME_END:
-                message_end = Message(UI.screen)
-                message_credits = Message(UI.screen)
-                if etat.score < 0: # Casser la fenêtre met le score à une valeur négative et termine le jeu
-                    message_end.show("Patron : Mais que faites-vous?! Je ne vous paie pas pour cela !", "Suivant")
-                    message_end.show("Patron : Vous êtes renvoyé·e !", "Suivant")
-                    message_end.show("VOUS AVEZ ÉTÉ RENVOYÉ·E. TOUT LE MONDE EST MORT.", "Fin")
-                elif etat.score < 1:
-                    message_end.show("VOTRE FUSÉE N'A PAS DÉCOLLÉ.\
-                    L'ÉCLIPSE A EU LIEU. RIEN N'EST ARRIVÉ. LE MONDE EST SAUVÉ", "Fin")
-                elif etat.score < 410000000000000:
-                    message_end.show("VOTRE FUSÉE A DÉCOLLÉ. ELLE S'EST MALHEUREUSEMENT ÉCRASÉE, PAR MANQUE DE CARBURANT.\
-                    L'IUT2 DE GRENOBLE A ÉTÉ RASÉ.\
-                    CÉDRIC GÉROT, S'ÉTANT RECONVERTI, EST ÉLU PRÉSIDENT DE LA RÉPUBLIQUE FRANÇAISE AVEC 69% DES VOIX.", "Fin")
-                elif etat.score < 430000000000000:
-                    message_end.show("VOTRE FUSÉE A DÉCOLLÉ. ELLE A DÉVIÉ DE SA TRAJECTOIRE, S'EST ARRÊTÉE, ET SE PERD DANS L'ESPACE.\
-                    L'ÉCLIPSE A EU LIEU. RIEN N'EST ARRIVÉ. LE MONDE EST SAUVÉ.", "Fin")
-                elif etat.score < 750000000000000:
-                    message_end.show("VOTRE FUSÉE A DÉCOLLÉ. ELLE A DÉVIÉ DE SA TRAJECTOIRE ET S'EST ARRÊTÉE EN ORBITE LUNAIRE.\
-                    DES HABITANTS DE LA LUNE ONT FAIT REPARTIR LA FUSÉE VERS LA TERRE.\
-                    LA POPULATION TERRESTRE EST RÉDUITE EN ESCLAVAGE.", "Fin")
-                elif etat.score < 999999999999999:
-                    message_end.show("VOTRE FUSÉE A DÉCOLLÉ. ELLE A LÉGÈREMENT DÉVIÉ DE SA TRAJECTOIRE ET SE DIRIGE VERS LE SOLEIL.\
-                    LE SOLEIL EXPLOSE.\
-                    8 MINUTES PLUS TARD, TOUT LE MONDE EST MORT.", "Fin")
-                elif etat.score == 1000000000000000:
-                    message_end.show("VOTRE FUSÉE A DÉCOLLÉ. ELLE A ATTEINT SA CIBLE. LA LUNE EXPLOSE.\
-                    LES DÉBRIS DE LA LUNE RETOMBENT SUR LA TERRE.\
-                    TOUT LE MONDE EST MORT.", "Fin")
-                else:
-                    message_end.show("undefined Fin", "Undefined")
-                message_credits.show("Jeu réalisé dans le cadre de la SAE5.01: GameJam, du BUT Informatique, à l'université Grenoble-Alpes.\
-                                                Création : équipe des croustiflambs (le b est muet)\
-                                                Programmation : Célia MOULIN, Alenia LEFOYER, Yvan GIORDANO, Timothée DAGAND\
-                                                Assets graphiques : Emma DHOURY\
-                                                Sons : \
-                                                Remerciements :\
-                                                Merci à Jean-Pierre CHEVALLET pour son cours sur le langage Python et ses conseils lors du développement,\
-                                                Merci à l'équipe enseignante du BUT Informatique de l'université Grenoble-Alpes,\
-                                                Enfin, merci à vous d'avoir joué !", "Quitter")
-                pygame.quit()
-                quit()
+                ui.show_end_message(etat.score)
+                running = False
 
             if message.active:
                 message.handle_event(event)
-                continue
-
-            elif event.type == pygame.MOUSEBUTTONDOWN and pygame.mouse.get_pressed()[0]:
-                # Clic bouton fuëlle
-                if ui.check_mouse_position_fuelle_button():
-                    ui.display_button_down()
-                    etat.clic()
-                elif (not (hasFirstUp) and etat.score >= 20
-                  and ui.screen.get_width() / 4 - 10 < pygame.mouse.get_pos()[0] < ui.screen.get_width() / 4 + 10
-                  and ui.screen.get_height() / 2 - 10 < pygame.mouse.get_pos()[1] < ui.screen.get_height() / 2 + 10):
-                    hasFirstUp = True
-                    etat.score -= 20
-                    etat.init_autocliqueur(t)
-            elif event.type == pygame.MOUSEBUTTONUP:
-                ui.display_button_up()
 
         # Quitter le jeu
         keys = pygame.key.get_pressed()
