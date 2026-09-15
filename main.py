@@ -10,7 +10,7 @@ def main():
 
     ui = UI()
 
-    message = Message(ui.screen, ui.score_font)
+    message = Message(ui.screen, ui.message_font)
     # Message affiché au démarrage
     message.show("MESSAGE D’URGENCE\n"
                  "Vous êtes notre seul espoir.\n"

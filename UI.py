@@ -4,7 +4,6 @@ import pygame
 from pygame import Surface, Rect
 from pygame.ftfont import Font
 
-
 class UI:
     # Écran pour l'affichage
     screen: Surface
@@ -29,6 +28,9 @@ class UI:
 
     # Police d'écriture score
     score_font: Font
+
+    # Police d'écriture message
+    message_font: Font
 
     # Bouton
     button_rect: Rect
@@ -60,6 +62,8 @@ class UI:
         self.button_rect = pygame.Rect(296, 220, 48, 48)
         # Police d'écriture score
         self.score_font = pygame.font.Font("assets/PressStart2P.ttf", 16)
+        #Police d'écriture message
+        self.message_font = pygame.font.Font("assets/PressStart2P.ttf", 8)
         # Progress bar
         self.progress_bar_background_image = pygame.image.load("assets/Bar_Background.png")
         self.progress_bar_image = pygame.image.load("assets/Bar.png")
