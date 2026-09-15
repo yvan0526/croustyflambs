@@ -10,7 +10,7 @@ def main():
 
     ui = UI()
 
-    message = Message(ui.screen)
+    message = Message(ui.screen, ui.score_font)
     # Message affiché au démarrage
     message.show("MESSAGE D’URGENCE\n"
                  "Vous êtes notre seul espoir.\n"
@@ -42,9 +42,10 @@ def main():
 
         # Clic bouton fuëlle
         if pygame.mouse.get_pressed()[0]:
-            if ui.check_mouse_position_fuelle_button() and not button_clicking:
-                score += 1
-            ui.display_button_down()
+            if ui.check_mouse_position_fuelle_button():
+                ui.display_button_down()
+                if not button_clicking:
+                    score += 1
             button_clicking = True
         else:
             button_clicking = False
@@ -57,14 +58,6 @@ def main():
             if message.active:
                 message.handle_event(event)
                 continue
-
-            elif event.type == pygame.MOUSEBUTTONDOWN and pygame.mouse.get_pressed()[0]:
-                # Clic bouton fuëlle
-                if ui.check_mouse_position_fuelle_button():
-                    ui.display_button_down()
-                    score += 1
-            elif event.type == pygame.MOUSEBUTTONUP:
-                ui.display_button_up()
 
         # Quitter le jeu
         keys = pygame.key.get_pressed()

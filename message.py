@@ -2,8 +2,8 @@ import pygame
 
 class Message:
 
-    def __init__(self, screen):
-        self.font = pygame.font.Font("assets/EarlyGameBoy.ttf", 8)
+    def __init__(self, screen, font):
+        self.font = font
         self.screen = screen
         self.text = ""
         self.button_text = ""

@@ -68,7 +68,6 @@ class UI:
         self.screen.blit(self.background_image, (0, 0))
 
     def display_score(self, score: int):
-        self.screen.blit(self.screen_score_image, (282, 185))
         if score >= 1000000000000000:
             score_text = self.score_font.render(f"{score // 1000000000000000}P", True, (255, 255, 255))
         elif score >= 1000000000000:
