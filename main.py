@@ -31,7 +31,6 @@ def main():
     # millisecondes * secondes * minutes
     timer_end = 1000 * 60 * 1
 
-    hasFirstUp: bool = False
     etat: Etat = Etat()
 
     moon_start_angle = -math.pi / 2
@@ -65,11 +64,7 @@ def main():
         # Texte score
         ui.display_score(etat.score)
 
-        # TODO: Refaire ça proprement
-        if not (hasFirstUp):
-            buttonFirstUp = pygame.Rect(ui.screen.get_width() / 4 - 10, ui.screen.get_height() / 2 - 10, 20, 20)
-            pygame.draw.rect(ui.screen, "blue", buttonFirstUp)
-        elif (t - etat.autocliqueur.temps_premier) / 1000 >= etat.autocliqueur.nb_tot_clics:
+        if etat.nb_ameliorations > 0 and (t - etat.autocliqueur.temps_premier) / 1000 >= etat.autocliqueur.nb_tot_clics:
             etat.clic_auto()
 
         if pygame.mouse.get_pressed()[0]:
@@ -79,10 +74,8 @@ def main():
                 if not button_clicking:
                     etat.clic()
             # Clic bouton auto clicker
-            elif not (hasFirstUp) and etat.score >= 20 and ui.check_mouse_position_autoclicker_button():
-                hasFirstUp = True
-                etat.score -= 20
-                etat.init_autocliqueur(t)
+            elif ui.check_mouse_position_autoclicker_button():
+                etat.add_autocliqueur(t)
                 ui.display_autoclicker_button_down()
             # Clic bouton fréquence autoclicliker
             elif ui.check_mouse_position_upgrade_frequency_button():
