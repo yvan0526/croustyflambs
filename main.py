@@ -77,9 +77,16 @@ def main():
         # Diodes
         ui.display_diodes(etat.autocliqueur.quantite)
 
+        # Prix
+        ui.display_clic_price(etat.PRIX_AMELIORATION[etat.nb_ameliorations])
+        ui.display_autoclicker_price(etat.PRIX_AMELIORATION[etat.nb_ameliorations])
+        ui.display_power_price(etat.PRIX_AMELIORATION[etat.nb_ameliorations])
+        ui.display_frequency_price(etat.PRIX_AMELIORATION[etat.nb_ameliorations])
+
         if etat.nb_ameliorations > 0 and (t - etat.autocliqueur.temps_premier) / 1000 >= etat.autocliqueur.nb_tot_clics:
             etat.clic_auto()
 
+        # Gestion de la souris
         if pygame.mouse.get_pressed()[0]:
             # Clic bouton fuëlle
             if ui.check_mouse_position_fuelle_button():

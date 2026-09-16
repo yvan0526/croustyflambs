@@ -43,6 +43,10 @@ class UI:
 
     # Police d'écriture score
     score_font: Font
+    # Police d'écriture message
+    message_font: Font
+    # Police d'écriture prix
+    price_font: Font
 
     # Position de la lune
     sun_x: int
@@ -70,8 +74,10 @@ class UI:
         self.fuelle_button_image = pygame.image.load("assets/Button_Down.png")
         # Police d'écriture score
         self.score_font = pygame.font.Font("assets/PressStart2P.ttf", 16)
-        #Police d'écriture message
+        # Police d'écriture message
         self.message_font = pygame.font.Font("assets/PressStart2P.ttf", 8)
+        # Police d'écriture prix
+        self.price_font = pygame.font.Font("assets/QuinqueFive.ttf", 5)
         # Progress bar
         self.progress_bar_background_image = pygame.image.load("assets/Bar_Background.png")
         self.progress_bar_image = pygame.image.load("assets/Bar.png")
@@ -182,6 +188,30 @@ class UI:
     def display_diodes(self, nb_diodes):
         for i in range(min(nb_diodes, 10)):
             self.screen.blit(self.diode_image, (513 + (i * 9), 215))
+
+    def display_clic_price(self, price):
+        price_text = self.price_font.render(f"{price}", True, (255, 255, 255))
+        price_text_rect = price_text.get_rect()
+        price_text_rect.center = (428, 201)
+        self.screen.blit(price_text, price_text_rect)
+
+    def display_autoclicker_price(self, price):
+        price_text = self.price_font.render(f"{price}", True, (255, 255, 255))
+        price_text_rect = price_text.get_rect()
+        price_text_rect.center = (531, 201)
+        self.screen.blit(price_text, price_text_rect)
+
+    def display_power_price(self, price):
+        price_text = self.price_font.render(f"{price}", True, (255, 255, 255))
+        price_text_rect = price_text.get_rect()
+        price_text_rect.center = (531, 240)
+        self.screen.blit(price_text, price_text_rect)
+
+    def display_frequency_price(self, price):
+        price_text = self.price_font.render(f"{price}", True, (255, 255, 255))
+        price_text_rect = price_text.get_rect()
+        price_text_rect.center = (531, 263)
+        self.screen.blit(price_text, price_text_rect)
 
     def show_end_message(self, score):
         message_end = Message(self.screen, self.message_font)
