@@ -57,12 +57,6 @@ def main():
             stagiaire_message = True
             stagiaire_message_ferme = True
 
-        # Fin réservoir plein
-        if etat.score >= 1000000000000000:
-            # Jouer son fin
-            etat.score = 1000000000000000
-            running = False
-
         for event in pygame.event.get():
             if message.active:
                 message.handle_event(event)
@@ -83,7 +77,6 @@ def main():
                 message.show(ui.get_credits_text(), 'Quitter')
                 pygame.event.post(pygame.event.Event(pygame.QUIT))
 
-
         # Lune
         ui.display_window(moon_angle)
         if moon_angle < 0:
@@ -93,6 +86,8 @@ def main():
             # Fin timer
             print("fin timer")
             running = False
+            # Arrêter musique jeu
+            # Démarrer musique fin
             pygame.event.post(pygame.event.Event(GAME_END))
 
         # Affiche la progress bar
@@ -151,6 +146,7 @@ def main():
                 # Clic sur le bouton
                 if pygame.mouse.get_pressed()[0] and ui.check_mouse_position_phone_button():
                     ui.display_phone_button_down()
+                    # Jouer son appel
 
         if (t - etat.autocliqueur.temps_premier) * etat.autocliqueur.cps / 1000 >= etat.autocliqueur.nb_tot_clics:
             etat.clic_auto()
