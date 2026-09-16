@@ -61,6 +61,8 @@ class UI:
     price_font: Font
     # Police d'écriture écran upgrade
     upgrade_screen_font: Font
+    # Police d'écriture fréquence stagiaire
+    stagiaire_font: Font
 
     def __init__(self):
         self.screen = pygame.display.set_mode((640, 360), pygame.FULLSCREEN | pygame.SCALED)
@@ -85,6 +87,8 @@ class UI:
         self.price_font = pygame.font.Font("assets/QuinqueFive.ttf", 5)
         # Police d'écriture écrans upgrades
         self.upgrade_screen_font = pygame.font.Font("assets/QuinqueFive.ttf", 5)
+        # Police d'écriture fréquence stagiaire
+        self.stagiaire_font = pygame.font.Font("assets/QuinqueFive.ttf", 5)
         # Progress bar
         self.progress_bar_background_image = pygame.image.load("assets/Bar_Background.png")
         self.progress_bar_image = pygame.image.load("assets/Bar.png")
@@ -252,28 +256,70 @@ class UI:
         self.screen.blit(self.led_image, (486, 278))
 
     def display_clic_price(self, price):
-        price_text = self.price_font.render(f"{price}F", True, (255, 255, 255))
+        if price >= 1000000000000:
+            price_text = self.score_font.render(f"{price // 1000000000000}T", True, (255, 255, 255))
+        elif price >= 1000000000:
+            price_text = self.score_font.render(f"{price//1000000000}G", True, (255, 255, 255))
+        elif price >= 1000000:
+            price_text = self.score_font.render(f"{price // 1000000}M", True, (255, 255, 255))
+        elif price >= 1000:
+            price_text = self.score_font.render(f"{price//1000}K", True, (255, 255, 255))
+        else:
+            price_text = self.score_font.render(f"{price}", True, (255, 255, 255))
         price_text_rect = price_text.get_rect()
         price_text_rect.center = (428, 201)
         self.screen.blit(price_text, price_text_rect)
 
     def display_autoclicker_price(self, price):
-        price_text = self.price_font.render(f"{price}F", True, (255, 255, 255))
+        if price >= 1000000000000:
+            price_text = self.score_font.render(f"{price // 1000000000000}T", True, (255, 255, 255))
+        elif price >= 1000000000:
+            price_text = self.score_font.render(f"{price//1000000000}G", True, (255, 255, 255))
+        elif price >= 1000000:
+            price_text = self.score_font.render(f"{price // 1000000}M", True, (255, 255, 255))
+        elif price >= 1000:
+            price_text = self.score_font.render(f"{price//1000}K", True, (255, 255, 255))
+        else:
+            price_text = self.score_font.render(f"{price}", True, (255, 255, 255))
         price_text_rect = price_text.get_rect()
         price_text_rect.center = (531, 201)
         self.screen.blit(price_text, price_text_rect)
 
     def display_power_price(self, price):
-        price_text = self.price_font.render(f"{price}F", True, (255, 255, 255))
+        if price >= 1000000000000:
+            price_text = self.score_font.render(f"{price // 1000000000000}T", True, (255, 255, 255))
+        elif price >= 1000000000:
+            price_text = self.score_font.render(f"{price//1000000000}G", True, (255, 255, 255))
+        elif price >= 1000000:
+            price_text = self.score_font.render(f"{price // 1000000}M", True, (255, 255, 255))
+        elif price >= 1000:
+            price_text = self.score_font.render(f"{price//1000}K", True, (255, 255, 255))
+        else:
+            price_text = self.score_font.render(f"{price}", True, (255, 255, 255))
         price_text_rect = price_text.get_rect()
         price_text_rect.center = (531, 240)
         self.screen.blit(price_text, price_text_rect)
 
     def display_frequency_price(self, price):
-        price_text = self.price_font.render(f"{price}F", True, (255, 255, 255))
+        if price >= 1000000000000:
+            price_text = self.score_font.render(f"{price // 1000000000000}T", True, (255, 255, 255))
+        elif price >= 1000000000:
+            price_text = self.score_font.render(f"{price//1000000000}G", True, (255, 255, 255))
+        elif price >= 1000000:
+            price_text = self.score_font.render(f"{price // 1000000}M", True, (255, 255, 255))
+        elif price >= 1000:
+            price_text = self.score_font.render(f"{price//1000}K", True, (255, 255, 255))
+        else:
+            price_text = self.score_font.render(f"{price}", True, (255, 255, 255))
         price_text_rect = price_text.get_rect()
         price_text_rect.center = (531, 263)
         self.screen.blit(price_text, price_text_rect)
+
+    def display_frequency_stagiaire(self, stagiaire):
+        stagiaire_text = self.price_font.render(f"{stagiaire}", True, (255, 255, 255))
+        stagiaire_text_rect = stagiaire_text.get_rect()
+        stagiaire_text_rect.center = (105, 261)
+        self.screen.blit(stagiaire_text, stagiaire_text_rect)
 
     def display_clic_power(self, clic_power):
         clic_power_text = self.upgrade_screen_font.render(f"{clic_power}f/c", True, (255, 255, 255))
@@ -315,10 +361,10 @@ class UI:
             return "Votre fusée a décollé. Elle a dévié de sa trajectoire, s'est arrêtée, et se perd dans l'espace.\nL'éclipse a eu lieu. Rien n'est arrivé. Le monde est sauvé."
         elif score < 750000000000000:
             return "Votre fusée a décollé. Elle a dévié de sa trajectoire et s'est arrêtée en orbite lunaire.\nDes habitants de la Lune ont fait repartir la fusée vers la Terre.\nLa population terrestre est réduit en esclavage."
-        elif score <= 999999999999999 or score > 1050000000000000:
-            return "Votre fusée a décollé. Elle a légèrement dévié de sa trajectoire et se dirige vers le Soleil.\nUne semaine plus tard, le Soleil explose.\n8 minutes plus tard, tout le monde est mort."
-        elif 1000000000000000 <= score <= 1050000000000000:
+        elif score <= 1050000000000000:
             return "Votre fusée a décollé. Elle a atteint sa cible. La Lune explose.\nLes débris de la Lune retombent sur la Terre.\nTout le monde est mort."
+        elif score > 1050000000000000:
+            return "Votre fusée a décollé. Elle a légèrement dévié de sa trajectoire et se dirige vers le Soleil.\nUne semaine plus tard, le Soleil explose.\n8 minutes plus tard, tout le monde est mort."
         else:
             return "undefined Fin"
 
