@@ -31,7 +31,7 @@ def main():
     dt: int = 0
     t: int = 0
     # millisecondes * secondes * minutes
-    timer_end = 1000 * 5
+    timer_end = 1000 * 60 * 10
 
     etat: Etat = Etat()
 
@@ -151,7 +151,7 @@ def main():
             etat.clic_auto()
             
         # Gestion de la souris
-        if pygame.mouse.get_pressed()[0]:
+        if pygame.mouse.get_pressed()[0] and not message.active:
             # Clic bouton fuëlle
             if ui.check_mouse_position_fuelle_button():
                 ui.display_fuelle_button_down()
