@@ -28,11 +28,14 @@ def main():
     clock = pygame.time.Clock()
     dt: int = 0
     t: int = 0
+    # millisecondes * secondes * minutes
+    timer_end = 1000 * 60 * 1
 
     hasFirstUp: bool = False
     etat: Etat = Etat()
 
-    moon_angle = -math.pi / 2
+    moon_start_angle = -math.pi / 2
+    moon_angle = moon_start_angle
     button_clicking = False
 
     # Boucle de l'animation
@@ -47,10 +50,11 @@ def main():
         # Lune
         ui.display_window(moon_angle)
         if moon_angle < 0:
-            moon_angle += 0.001
-        else:
+            angle = abs(moon_start_angle) / timer_end * dt
+            moon_angle += angle
+        #else:
             # Fin timer
-            pygame.event.post(pygame.event.Event(GAME_END))
+        #    pygame.event.post(pygame.event.Event(GAME_END))
 
         # Affiche la progress bar
         ui.display_progress_bar(etat.score, 100)
