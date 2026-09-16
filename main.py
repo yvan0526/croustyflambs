@@ -42,12 +42,15 @@ def main():
 
         # Fin réservoir plein
         if etat.score >= 1000000000000000:
-            pygame.event.post(GAME_END)
+            pygame.event.post(pygame.event.Event(GAME_END))
 
         # Lune
         ui.display_window(moon_angle)
         if moon_angle < 0:
             moon_angle += 0.001
+        else:
+            # Fin timer
+            pygame.event.post(pygame.event.Event(GAME_END))
 
         # Affiche la progress bar
         ui.display_progress_bar(etat.score, 100)

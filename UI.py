@@ -148,8 +148,8 @@ class UI:
         self.screen.blit(self.upgrade_frequency_button_image, (552, 252))
 
     def show_end_message(self, score):
-        message_end = Message(UI.screen, self.message_font)
-        message_credits = Message(UI.screen, self.message_font)
+        message_end = Message(self.screen, self.message_font)
+        message_credits = Message(self.screen, self.message_font)
         if score < 0:  # Casser la fenêtre met le score à une valeur négative et termine le jeu
             message_end.show("Patron : Mais que faites-vous?! Je ne vous paie pas pour cela !", "Suivant")
             message_end.show("Patron : Vous êtes renvoyé·e !", "Suivant")
