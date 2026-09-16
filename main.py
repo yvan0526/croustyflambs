@@ -1,6 +1,10 @@
 import math
 
+import pygame
+
+import animations
 from UI import UI
+from animation import Animation
 from message import Message
 from events import *
 
@@ -27,7 +31,7 @@ def main():
     dt: int = 0
     t: int = 0
     # millisecondes * secondes * minutes
-    timer_end = 1000 * 60 * 1
+    timer_end = 1000 * 5
 
     etat: Etat = Etat()
 
@@ -110,10 +114,10 @@ def main():
         ui.display_diodes(etat.autocliqueur.quantite)
 
         # Prix
-        ui.display_clic_price(etat.PRIX_AMELIORATION[etat.valeur_clic])
-        ui.display_autoclicker_price(etat.PRIX_AMELIORATION[etat.autocliqueur.quantite])
-        ui.display_power_price(etat.PRIX_AMELIORATION[etat.autocliqueur.valeur])
-        ui.display_frequency_price(etat.PRIX_AMELIORATION[etat.autocliqueur.cps])
+        ui.display_clic_price(etat.calc_prix(etat.valeur_clic, "faible"))
+        ui.display_autoclicker_price(etat.calc_prix(etat.autocliqueur.quantite, "moyen"))
+        ui.display_power_price(etat.calc_prix(etat.autocliqueur.valeur, "faible"))
+        ui.display_frequency_price(etat.calc_prix(etat.autocliqueur.cps, "faible"))
 
         # Valeur du clic screen
         ui.display_clic_power(etat.valeur_clic)
@@ -194,6 +198,14 @@ def main():
         if keys[pygame.K_ESCAPE]:
             game_quit = True
         else:
+            # Animation de fin
+            animation_fin = animations.get_end_animation(ui, etat.score)
+            while not animation_fin.is_finished:
+                dt = clock.tick(60)
+                t += dt
+                animation_fin.play(t)
+
+            # Message de fin
             message.show(ui.get_message_text(etat.score), 'Fin')
             while message.active:
                 message.draw()
@@ -201,6 +213,8 @@ def main():
                 for event in pygame.event.get():
                     if message.active:
                         message.handle_event(event)
+
+            # Crédits
             message.show(ui.get_credits_text(), 'Quitter')
             while message.active:
                 message.draw()
