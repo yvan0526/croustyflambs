@@ -144,6 +144,7 @@ def main():
         ui.display_autoclicker_price(etat.calc_prix(etat.autocliqueur.quantite, "moyen"))
         ui.display_power_price(etat.calc_prix(etat.autocliqueur.valeur, "faible"))
         ui.display_frequency_price(etat.calc_prix(etat.autocliqueur.cps, "faible"))
+        ui.display_right_clic_price(1000)
 
         # Valeur du clic screen
         ui.display_clic_power(etat.valeur_clic)

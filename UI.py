@@ -315,6 +315,21 @@ class UI:
         price_text_rect.center = (531, 263)
         self.screen.blit(price_text, price_text_rect)
 
+    def display_right_clic_price(self, price):
+        if price >= 1000000000000:
+            price_text = self.price_font.render(f"{price // 1000000000000}T", True, (255, 255, 255))
+        elif price >= 1000000000:
+            price_text = self.price_font.render(f"{price//1000000000}G", True, (255, 255, 255))
+        elif price >= 1000000:
+            price_text = self.price_font.render(f"{price // 1000000}M", True, (255, 255, 255))
+        elif price >= 1000:
+            price_text = self.price_font.render(f"{price//1000}K", True, (255, 255, 255))
+        else:
+            price_text = self.price_font.render(f"{price}", True, (255, 255, 255))
+        price_text_rect = price_text.get_rect()
+        price_text_rect.center = (427, 287)
+        self.screen.blit(price_text, price_text_rect)
+
     def display_frequency_stagiaire(self, stagiaire):
         stagiaire_text = self.price_font.render(f"{stagiaire}", True, (255, 255, 255))
         stagiaire_text_rect = stagiaire_text.get_rect()
