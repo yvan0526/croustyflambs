@@ -1,13 +1,8 @@
 import math
-
-import pygame
-
 import animations
 from UI import UI
-from animation import Animation
 from message import Message
 from events import *
-
 from src.modele.etat import Etat
 
 def main():
