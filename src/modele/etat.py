@@ -22,7 +22,7 @@ class Etat:
 
     # Méthode gérant un clic automatique
     def clic_auto(self)-> None :
-        self.score += self.autocliqueur.valeur
+        self.score += self.autocliqueur.valeur * self.autocliqueur.quantite
         self.autocliqueur.nb_tot_clics += 1
 
     # Méthode gérant l'amélioration du clic droit
@@ -52,7 +52,9 @@ class Etat:
             self.nb_ameliorations += 1
     # Vérifie la possibilité d'améliorer la valeur dde l'autoclic
     def peut_add_autoclic_val(self)-> bool :
-        return self.autocliqueur.valeur <= 10 and self.score >= self.PRIX_AMELIORATION[self.nb_ameliorations]
+        return (self.autocliqueur.quantite > 0
+                and self.autocliqueur.valeur <= 10
+                and self.score >= self.PRIX_AMELIORATION[self.nb_ameliorations])
 
     # Méthode gérant l'amélioration de la fréquence de l'autoclic
     def add_autoclic_cps(self, bonus: int = 1)-> None :
@@ -62,7 +64,9 @@ class Etat:
             self.nb_ameliorations += 1
     # Vérifie la possibilité d'améliorer la fréquence de l'autoclic
     def peut_add_autoclic_cps(self)-> bool :
-        return self.autocliqueur.cps <= 15 and self.score >= self.PRIX_AMELIORATION[self.nb_ameliorations]
+        return (self.autocliqueur.quantite > 0
+                and self.autocliqueur.cps <= 15
+                and self.score >= self.PRIX_AMELIORATION[self.nb_ameliorations])
 
     # Méthode gérant l'amélioration du nombre d'autocliqueurs
     def add_autocliqueur(self, t: int, bonus: int = 1)-> None :

@@ -99,12 +99,15 @@ def main():
                 ui.display_autoclicker_button_down()
             # Clic bouton fréquence autoclicliker
             elif ui.check_mouse_position_upgrade_frequency_button() and etat.peut_add_autoclic_cps():
+                etat.add_autoclic_cps()
                 ui.display_upgrade_frequency_button_down()
             # Clic bouton puissance autoclicliker
             elif ui.check_mouse_position_upgrade_power_button() and etat.peut_add_autoclic_val():
+                etat.add_autoclic_val()
                 ui.display_upgrade_power_button_down()
             # Clic bouton puissance clic
             elif ui.check_mouse_position_upgrade_clic_button() and etat.peut_add_valeur_clic():
+                etat.add_valeur_clic()
                 ui.display_upgrade_clic_button_down()
             button_clicking = True
         else:
