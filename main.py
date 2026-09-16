@@ -100,10 +100,10 @@ def main():
         ui.display_diodes(etat.autocliqueur.quantite)
 
         # Prix
-        ui.display_clic_price(etat.PRIX_AMELIORATION[etat.nb_ameliorations])
-        ui.display_autoclicker_price(etat.PRIX_AMELIORATION[etat.nb_ameliorations])
-        ui.display_power_price(etat.PRIX_AMELIORATION[etat.nb_ameliorations])
-        ui.display_frequency_price(etat.PRIX_AMELIORATION[etat.nb_ameliorations])
+        ui.display_clic_price(etat.PRIX_AMELIORATION[etat.valeur_clic])
+        ui.display_autoclicker_price(etat.PRIX_AMELIORATION[etat.autocliqueur.quantite])
+        ui.display_power_price(etat.PRIX_AMELIORATION[etat.autocliqueur.valeur])
+        ui.display_frequency_price(etat.PRIX_AMELIORATION[etat.autocliqueur.cps])
 
         # Valeur du clic screen
         ui.display_clic_power(etat.valeur_clic)
