@@ -42,12 +42,15 @@ def main():
 
         # Fin réservoir plein
         if etat.score >= 1000000000000000:
-            pygame.event.post(GAME_END)
+            pygame.event.post(pygame.event.Event(GAME_END))
 
         # Lune
         ui.display_window(moon_angle)
         if moon_angle < 0:
             moon_angle += 0.001
+        else:
+            # Fin timer
+            pygame.event.post(pygame.event.Event(GAME_END))
 
         # Affiche la progress bar
         ui.display_progress_bar(etat.score, 100)
@@ -64,7 +67,6 @@ def main():
             pygame.draw.rect(ui.screen, "blue", buttonFirstUp)
         elif (t - etat.autocliqueur.temps_premier) / 1000 >= etat.autocliqueur.nb_tot_clics:
             etat.clic_auto()
-            etat.autocliqueur.nb_tot_clics += 1
 
         if pygame.mouse.get_pressed()[0]:
             # Clic bouton fuëlle

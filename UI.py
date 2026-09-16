@@ -160,19 +160,19 @@ class UI:
         self.screen.blit(self.upgrade_frequency_button_image, (552, 252))
 
     def show_end_message(self, score):
-        message_end = Message(UI.screen, self.message_font)
-        message_credits = Message(UI.screen, self.message_font)
+        message_end = Message(self.screen, self.message_font)
+        message_credits = Message(self.screen, self.message_font)
         if score < 0:  # Casser la fenêtre met le score à une valeur négative et termine le jeu
             message_end.show("Patron : Mais que faites-vous?! Je ne vous paie pas pour cela !", "Suivant")
             message_end.show("Patron : Vous êtes renvoyé·e !", "Suivant")
             message_end.show("VOUS AVEZ ÉTÉ RENVOYÉ·E. TOUT LE MONDE EST MORT.", "Fin")
         elif score < 1:
             message_end.show("VOTRE FUSÉE N'A PAS DÉCOLLÉ.\
-                            L'ÉCLIPSE A EU LIEU. RIEN N'EST ARRIVÉ. LE MONDE EST SAUVÉ", "Fin")
+                            LA FACE CACHÉE DE LA LUNE S'EST RÉVELÉE. TOUT LE MONDE EST MORT.", "Fin")
         elif score < 410000000000000:
-            message_end.show("VOTRE FUSÉE A DÉCOLLÉ. ELLE S'EST MALHEUREUSEMENT ÉCRASÉE, PAR MANQUE DE CARBURANT.\
+            message_end.show("VOTRE FUSÉE A DÉCOLLÉ. ELLE S'EST MALHEUREUSEMENT ÉCRASÉE PAR MANQUE DE CARBURANT.\
                             L'IUT2 DE GRENOBLE A ÉTÉ RASÉ.\
-                            CÉDRIC GÉROT, S'ÉTANT RECONVERTI, EST ÉLU PRÉSIDENT DE LA RÉPUBLIQUE FRANÇAISE AVEC 69% DES VOIX.",
+                            CÉDRIC GÉROT, S'ÉTANT RECONVERTI, A ÉTÉ ÉLU PRÉSIDENT DE LA RÉPUBLIQUE FRANÇAISE AVEC 69% DES VOIX.",
                              "Fin")
         elif score < 430000000000000:
             message_end.show("VOTRE FUSÉE A DÉCOLLÉ. ELLE A DÉVIÉ DE SA TRAJECTOIRE, S'EST ARRÊTÉE, ET SE PERD DANS L'ESPACE.\
@@ -181,11 +181,11 @@ class UI:
             message_end.show("VOTRE FUSÉE A DÉCOLLÉ. ELLE A DÉVIÉ DE SA TRAJECTOIRE ET S'EST ARRÊTÉE EN ORBITE LUNAIRE.\
                             DES HABITANTS DE LA LUNE ONT FAIT REPARTIR LA FUSÉE VERS LA TERRE.\
                             LA POPULATION TERRESTRE EST RÉDUITE EN ESCLAVAGE.", "Fin")
-        elif score < 999999999999999:
+        elif score <= 999999999999999:
             message_end.show("VOTRE FUSÉE A DÉCOLLÉ. ELLE A LÉGÈREMENT DÉVIÉ DE SA TRAJECTOIRE ET SE DIRIGE VERS LE SOLEIL.\
                             LE SOLEIL EXPLOSE.\
                             8 MINUTES PLUS TARD, TOUT LE MONDE EST MORT.", "Fin")
-        elif score == 1000000000000000:
+        elif score >= 1000000000000000:
             message_end.show("VOTRE FUSÉE A DÉCOLLÉ. ELLE A ATTEINT SA CIBLE. LA LUNE EXPLOSE.\
                             LES DÉBRIS DE LA LUNE RETOMBENT SUR LA TERRE.\
                             TOUT LE MONDE EST MORT.", "Fin")
@@ -195,8 +195,8 @@ class UI:
                                                         Création : équipe des croustiflambs (le b est muet)\
                                                         Programmation : Célia MOULIN, Alenia LEFOYER, Yvan GIORDANO, Timothée DAGAND\
                                                         Assets graphiques : Emma DHOURY\
-                                                        Sons : \
+                                                        Sons : Emma DHOURY\
                                                         Remerciements :\
-                                                        Merci à Jean-Pierre CHEVALLET pour son cours sur le langage Python et ses conseils lors du développement,\
-                                                        Merci à l'équipe enseignante du BUT Informatique de l'université Grenoble-Alpes,\
+                                                        Merci à Jean-Pierre CHEVALLET pour son cours sur le langage Python et ses conseils lors du développement.\
+                                                        Merci à l'équipe enseignante du BUT Informatique de l'université Grenoble-Alpes.\
                                                         Enfin, merci à vous d'avoir joué !", "Quitter")
