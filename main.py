@@ -152,7 +152,7 @@ def main():
             etat.clic_auto()
             
         # Gestion de la souris
-        if pygame.mouse.get_pressed()[0]:
+        if pygame.mouse.get_pressed()[0] and not message.active:
             # Clic bouton fuëlle
             if ui.check_mouse_position_fuelle_button():
                 ui.display_fuelle_button_down()
