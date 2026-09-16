@@ -36,11 +36,13 @@ def main():
     button_clicking = False
 
     #Stagiaire
-    stagiaire_apparition = 0.2 * 60 * 1000  # 5 minutes en millisecondes
+    stagiaire_apparition = timer_end /2
     stagiaire_message = False
     stagiaire_message_ferme = False
     micro_animation = 0
     micro_animation_lance = False
+    micro_fermeture_lancee = False
+    micro_fermeture_debut = 0
     micro_frame_duration = 100 #ms par frame d'animation
     message_actif_precedent = False
 
@@ -135,7 +137,13 @@ def main():
         message_actif_precedent = message.active
 
         # Animation micro
-        if micro_animation_lance:
+        if micro_fermeture_lancee:
+            temps_ecoule = t - micro_fermeture_debut
+            frame_index = len(ui.micro_images) - 1 - (temps_ecoule // micro_frame_duration)
+            if frame_index >= 0:
+                ui.display_micro(frame_index)
+
+        elif micro_animation_lance:
             temps_ecoule = t - micro_animation
             frame_index = temps_ecoule // micro_frame_duration
 
