@@ -4,3 +4,4 @@ import pygame
 
 GAME_END = pygame.USEREVENT + 1
 WINDOW_BREAK = pygame.USEREVENT + 2
+CREDITS = pygame.USEREVENT + 3
