@@ -20,6 +20,8 @@ class UI:
     # Images progress bar
     progress_bar_background_image: Surface
     progress_bar_image: Surface
+    green_light: Surface
+    red_light: Surface
     # Image bouton upgrade clic
     upgrade_clic_button_image: Surface
     # Image bouton auto clicker
@@ -28,6 +30,8 @@ class UI:
     upgrade_power_button_image: Surface
     # Image bouton upgrade frequecy
     upgrade_frequency_button_image: Surface
+    # Image bouton upgrade clic droit
+    upgrade_right_clic_button_image: Surface
     # Image diode
     diode_image: Surface
     # Image LED
@@ -88,6 +92,8 @@ class UI:
         # Progress bar
         self.progress_bar_background_image = pygame.image.load("assets/Bar_Background.png")
         self.progress_bar_image = pygame.image.load("assets/Bar.png")
+        self.green_light = pygame.image.load("assets/Bar_Light_Green.png")
+        self.red_light = pygame.image.load("assets/Bar_Light_Red.png")
         # Bouton upgrade clic
         self.upgrade_clic_button_image = pygame.image.load("assets/Button_Upgrade_Down.png")
         # Bouton auto clicker
@@ -96,6 +102,8 @@ class UI:
         self.upgrade_power_button_image = pygame.image.load("assets/Button_UpgradePower_Down.png")
         # Bouton upgrade frequecy
         self.upgrade_frequency_button_image = pygame.image.load("assets/Button_UpgradeFreq_Down.png")
+        # Bouton clic droit
+        self.upgrade_right_clic_button_image = pygame.image.load("assets/Button_Rclick_Down.png")
         # Diode
         self.diode_image = pygame.image.load("assets/Diode_On.png")
         # LED
@@ -238,6 +246,15 @@ class UI:
         for i in range(min(nb_diodes, 10)):
             self.screen.blit(self.diode_image, (513 + (i * 9), 215))
 
+    def check_mouse_position_right_clic_button(self):
+        return 449 < pygame.mouse.get_pos()[0] < 482 and 276 < pygame.mouse.get_pos()[1] < 297
+
+    def display_right_clic_button(self):
+        self.screen.blit(self.upgrade_right_clic_button_image, (449, 276))
+
+    def display_led_right_clic(self):
+        self.screen.blit(self.led_image, (486, 278))
+
     def display_clic_price(self, price):
         if price >= 1000000000000:
             price_text = self.score_font.render(f"{price // 1000000000000}T", True, (255, 255, 255))
@@ -322,6 +339,12 @@ class UI:
     def display_micro(self, frame_index: int):
         frame_index = max(0, min(frame_index, len(self.micro_images) - 1))
         self.screen.blit(self.micro_images[frame_index], (40, 175))
+
+    def display_green_ligth(self):
+        self.screen.blit(self.green_light, (453, 333))
+
+    def display_red_ligth(self):
+        self.screen.blit(self.red_light, (453, 333))
 
     def show_end_message(self, score):
         message_end = Message(self.screen, self.message_font)
