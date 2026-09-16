@@ -257,60 +257,60 @@ class UI:
 
     def display_clic_price(self, price):
         if price >= 1000000000000:
-            price_text = self.score_font.render(f"{price // 1000000000000}T", True, (255, 255, 255))
+            price_text = self.price_font.render(f"{price // 1000000000000}T", True, (255, 255, 255))
         elif price >= 1000000000:
-            price_text = self.score_font.render(f"{price//1000000000}G", True, (255, 255, 255))
+            price_text = self.price_font.render(f"{price//1000000000}G", True, (255, 255, 255))
         elif price >= 1000000:
-            price_text = self.score_font.render(f"{price // 1000000}M", True, (255, 255, 255))
+            price_text = self.price_font.render(f"{price // 1000000}M", True, (255, 255, 255))
         elif price >= 1000:
-            price_text = self.score_font.render(f"{price//1000}K", True, (255, 255, 255))
+            price_text = self.price_font.render(f"{price//1000}K", True, (255, 255, 255))
         else:
-            price_text = self.score_font.render(f"{price}", True, (255, 255, 255))
+            price_text = self.price_font.render(f"{price}", True, (255, 255, 255))
         price_text_rect = price_text.get_rect()
         price_text_rect.center = (428, 201)
         self.screen.blit(price_text, price_text_rect)
 
     def display_autoclicker_price(self, price):
         if price >= 1000000000000:
-            price_text = self.score_font.render(f"{price // 1000000000000}T", True, (255, 255, 255))
+            price_text = self.price_font.render(f"{price // 1000000000000}T", True, (255, 255, 255))
         elif price >= 1000000000:
-            price_text = self.score_font.render(f"{price//1000000000}G", True, (255, 255, 255))
+            price_text = self.price_font.render(f"{price//1000000000}G", True, (255, 255, 255))
         elif price >= 1000000:
-            price_text = self.score_font.render(f"{price // 1000000}M", True, (255, 255, 255))
+            price_text = self.price_font.render(f"{price // 1000000}M", True, (255, 255, 255))
         elif price >= 1000:
-            price_text = self.score_font.render(f"{price//1000}K", True, (255, 255, 255))
+            price_text = self.price_font.render(f"{price//1000}K", True, (255, 255, 255))
         else:
-            price_text = self.score_font.render(f"{price}", True, (255, 255, 255))
+            price_text = self.price_font.render(f"{price}", True, (255, 255, 255))
         price_text_rect = price_text.get_rect()
         price_text_rect.center = (531, 201)
         self.screen.blit(price_text, price_text_rect)
 
     def display_power_price(self, price):
         if price >= 1000000000000:
-            price_text = self.score_font.render(f"{price // 1000000000000}T", True, (255, 255, 255))
+            price_text = self.price_font.render(f"{price // 1000000000000}T", True, (255, 255, 255))
         elif price >= 1000000000:
-            price_text = self.score_font.render(f"{price//1000000000}G", True, (255, 255, 255))
+            price_text = self.price_font.render(f"{price//1000000000}G", True, (255, 255, 255))
         elif price >= 1000000:
-            price_text = self.score_font.render(f"{price // 1000000}M", True, (255, 255, 255))
+            price_text = self.price_font.render(f"{price // 1000000}M", True, (255, 255, 255))
         elif price >= 1000:
-            price_text = self.score_font.render(f"{price//1000}K", True, (255, 255, 255))
+            price_text = self.price_font.render(f"{price//1000}K", True, (255, 255, 255))
         else:
-            price_text = self.score_font.render(f"{price}", True, (255, 255, 255))
+            price_text = self.price_font.render(f"{price}", True, (255, 255, 255))
         price_text_rect = price_text.get_rect()
         price_text_rect.center = (531, 240)
         self.screen.blit(price_text, price_text_rect)
 
     def display_frequency_price(self, price):
         if price >= 1000000000000:
-            price_text = self.score_font.render(f"{price // 1000000000000}T", True, (255, 255, 255))
+            price_text = self.price_font.render(f"{price // 1000000000000}T", True, (255, 255, 255))
         elif price >= 1000000000:
-            price_text = self.score_font.render(f"{price//1000000000}G", True, (255, 255, 255))
+            price_text = self.price_font.render(f"{price//1000000000}G", True, (255, 255, 255))
         elif price >= 1000000:
-            price_text = self.score_font.render(f"{price // 1000000}M", True, (255, 255, 255))
+            price_text = self.price_font.render(f"{price // 1000000}M", True, (255, 255, 255))
         elif price >= 1000:
-            price_text = self.score_font.render(f"{price//1000}K", True, (255, 255, 255))
+            price_text = self.price_font.render(f"{price//1000}K", True, (255, 255, 255))
         else:
-            price_text = self.score_font.render(f"{price}", True, (255, 255, 255))
+            price_text = self.price_font.render(f"{price}", True, (255, 255, 255))
         price_text_rect = price_text.get_rect()
         price_text_rect.center = (531, 263)
         self.screen.blit(price_text, price_text_rect)
@@ -345,10 +345,6 @@ class UI:
 
     def display_red_ligth(self):
         self.screen.blit(self.red_light, (453, 333))
-
-    def show_end_message(self, score):
-        message_end = Message(self.screen, self.message_font)
-        message_credits = Message(self.screen, self.message_font)
 
     def get_message_text(self, score):
         if score < 0:  # Casser la fenêtre met le score à une valeur négative et termine le jeu
