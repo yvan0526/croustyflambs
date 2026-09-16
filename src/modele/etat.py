@@ -97,3 +97,7 @@ class Etat:
     # Vérifie si la trappe est à fermer
     def stagiaire_epuise(self) -> bool:
         return self.stagiaire_appel >= self.STAGIAIRE_MAX_APPEL
+
+    # Nombre d'appels au stagiaire restants
+    def appels_stagiaire_restants(self) -> int:
+        return self.STAGIAIRE_MAX_APPEL - self.stagiaire_appel
