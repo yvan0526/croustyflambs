@@ -89,7 +89,7 @@ def main():
         # Fuëlle par seconde screen
         ui.display_fuelle_per_second(etat.autocliqueur.quantite, etat.autocliqueur.valeur, etat.autocliqueur.cps)
 
-        if etat.nb_ameliorations > 0 and (t - etat.autocliqueur.temps_premier) / 1000 >= etat.autocliqueur.nb_tot_clics:
+        if (t - etat.autocliqueur.temps_premier) * etat.autocliqueur.cps / 1000 >= etat.autocliqueur.nb_tot_clics:
             etat.clic_auto()
 
         # Gestion de la souris
@@ -100,19 +100,19 @@ def main():
                 if not button_clicking:
                     etat.clic()
             # Clic bouton auto clicker
-            elif ui.check_mouse_position_autoclicker_button() and etat.peut_add_autocliqueur():
+            elif ui.check_mouse_position_autoclicker_button():
                 etat.add_autocliqueur(t)
                 ui.display_autoclicker_button_down()
             # Clic bouton fréquence autoclicliker
-            elif ui.check_mouse_position_upgrade_frequency_button() and etat.peut_add_autoclic_cps():
+            elif ui.check_mouse_position_upgrade_frequency_button():
                 etat.add_autoclic_cps()
                 ui.display_upgrade_frequency_button_down()
             # Clic bouton puissance autoclicliker
-            elif ui.check_mouse_position_upgrade_power_button() and etat.peut_add_autoclic_val():
+            elif ui.check_mouse_position_upgrade_power_button():
                 etat.add_autoclic_val()
                 ui.display_upgrade_power_button_down()
             # Clic bouton puissance clic
-            elif ui.check_mouse_position_upgrade_clic_button() and etat.peut_add_valeur_clic():
+            elif ui.check_mouse_position_upgrade_clic_button():
                 etat.add_valeur_clic()
                 ui.display_upgrade_clic_button_down()
             button_clicking = True
