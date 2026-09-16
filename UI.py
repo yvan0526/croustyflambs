@@ -13,16 +13,8 @@ class UI:
     # Image du bureau
     background_image: Surface
     # Images fenêtre
-    sky_1_image: Surface
-    sky_2_image: Surface
-    sky_3_image: Surface
-    sky_4_image: Surface
-    sky_5_image: Surface
-    moon_1_image: Surface
-    moon_2_image: Surface
-    moon_3_image: Surface
-    moon_4_image: Surface
-    moon_5_image: Surface
+    sky_images: list
+    moon_images: list
     # Images bouton fuelle
     fuelle_button_image: Surface
     # Images progress bar
@@ -42,19 +34,20 @@ class UI:
     led_image: Surface
     # Image bouton téléphone (stagiaire)
     micro_button_image: Surface
-    # Image micro
-    micro_1_image = Surface
-    micro_2_image = Surface
-    micro_3_image = Surface
-    micro_4_image = Surface
-    micro_5_image = Surface
-    micro_6_image = Surface
-    micro_7_image = Surface
-    micro_8_image = Surface
-    micro_9_image = Surface
-    micro_10_image = Surface
-    micro_11_image = Surface
-    micro_12_image = Surface
+    # Images micro
+    micro_images: list
+    # Fin 100
+    end_100_images: list
+    # Fin joyeuse
+    end_happy_images: list
+    # Fin IUT
+    end_iut_images: list
+    # Fin luniens
+    end_luniens_images: list
+    # Fin soleil
+    end_sun_images: list
+    # Fin Blanchon
+    end_blanchon_images: list
 
     # Police d'écriture score
     score_font: Font
@@ -65,28 +58,19 @@ class UI:
     # Police d'écriture écran upgrade
     upgrade_screen_font: Font
 
-    # Position de la lune
-    sun_x: int
-    sun_y: int
-
     def __init__(self):
         self.screen = pygame.display.set_mode((640, 360), pygame.FULLSCREEN | pygame.SCALED)
 
         # Bureau
         self.background_image = pygame.image.load("assets/Background.png")
+
         # Fenêtre
-        self.sky_1_image = pygame.image.load("assets/Sky_1.png")
-        self.sky_2_image = pygame.image.load("assets/Sky_2.png")
-        self.sky_3_image = pygame.image.load("assets/Sky_3.png")
-        self.sky_4_image = pygame.image.load("assets/Sky_4.png")
-        self.sky_5_image = pygame.image.load("assets/Sky_5.png")
-        self.moon_1_image = pygame.image.load("assets/Moon_1.png")
-        self.moon_2_image = pygame.image.load("assets/Moon_2.png")
-        self.moon_3_image = pygame.image.load("assets/Moon_3.png")
-        self.moon_4_image = pygame.image.load("assets/Moon_4.png")
-        self.moon_5_image = pygame.image.load("assets/Moon_5.png")
-        self.sun_x = 364
-        self.sun_y = 84
+        self.sky_images = []
+        self.moon_images = []
+        for i in range(5):
+            self.sky_images.append(pygame.image.load(f"assets/Sky_{i + 1}.png"))
+            self.moon_images.append(pygame.image.load(f"assets/Moon_{i + 1}.png"))
+
         # Bouton fuelle
         self.fuelle_button_image = pygame.image.load("assets/Button_Down.png")
         # Police d'écriture score
@@ -114,27 +98,34 @@ class UI:
         self.led_image = pygame.image.load("assets/Led_On.png")
         # Bouton téléphone (stagiaire)
         self.micro_button_image = pygame.image.load("assets/Button_Stagiaire.png")
-        # Trappe micro
-        self.micro_1_image = pygame.image.load("assets/Micro/Micro_1.png")
-        self.micro_2_image = pygame.image.load("assets/Micro/Micro_2.png")
-        self.micro_3_image = pygame.image.load("assets/Micro/Micro_3.png")
-        self.micro_4_image = pygame.image.load("assets/Micro/Micro_4.png")
-        self.micro_5_image = pygame.image.load("assets/Micro/Micro_5.png")
-        self.micro_6_image = pygame.image.load("assets/Micro/Micro_6.png")
-        self.micro_7_image = pygame.image.load("assets/Micro/Micro_7.png")
-        self.micro_8_image = pygame.image.load("assets/Micro/Micro_8.png")
-        self.micro_9_image = pygame.image.load("assets/Micro/Micro_9.png")
-        self.micro_10_image = pygame.image.load("assets/Micro/Micro_10.png")
-        self.micro_11_image = pygame.image.load("assets/Micro/Micro_11.png")
-        self.micro_12_image = pygame.image.load("assets/Micro/Micro_12.png")
-
         # Liste micro
-        self.micro_images = [
-            self.micro_1_image, self.micro_2_image, self.micro_3_image,
-            self.micro_4_image, self.micro_5_image, self.micro_6_image,
-            self.micro_7_image, self.micro_8_image, self.micro_9_image,
-            self.micro_10_image, self.micro_11_image, self.micro_12_image,
-        ]
+        self.micro_images = []
+        for i in range(12):
+            self.micro_images.append(pygame.image.load(f"assets/Micro/Micro_{i + 1}.png"))
+        # Fin 100
+        self.end_100_images = []
+        for i in range(35):
+            self.end_100_images.append(pygame.image.load(f"assets/End_100/End_100_{i + 1}.png"))
+        # Fin joyeuse
+        self.end_happy_images = []
+        for i in range(22):
+            self.end_happy_images.append(pygame.image.load(f"assets/End_Happy/End_Happy_{i + 1}.png"))
+        # Fin IUT
+        self.end_iut_images = []
+        for i in range(38):
+            self.end_iut_images.append(pygame.image.load(f"assets/End_IUT/End_IUT_{i + 1}.png"))
+        # Fin luniens
+        self.end_luniens_images = []
+        for i in range(49):
+            self.end_luniens_images.append(pygame.image.load(f"assets/End_Luniens/End_Luniens_{i + 1}.png"))
+        # Fin soleil
+        self.end_sun_images = []
+        for i in range(18):
+            self.end_sun_images.append(pygame.image.load(f"assets/End_SunBoom/End_SunBoom_{i + 1}.png"))
+        # Fin Blanchon
+        self.end_blanchon_images = []
+        for i in range(14):
+            self.end_blanchon_images.append(pygame.image.load(f"assets/Blanchoon/Blanchoon_{i + 1}.png"))
 
     def display_background(self):
         self.screen.blit(self.background_image, (0, 0))
@@ -166,28 +157,27 @@ class UI:
         self.screen.blit(self.fuelle_button_image, (296, 220))
 
     def display_window(self, angle):
-        x1 = self.sun_x - 319
-        y1 = self.sun_y - 194
+        sun_x = 364
+        sun_y = 84
+        x1 = sun_x - 319
+        y1 = sun_y - 194
         x2 = x1 * math.cos(angle) - y1 * math.sin(angle)
         y2 = x1 * math.sin(angle) + y1 * math.cos(angle)
         x = x2 + 319
         y = y2 + 194
 
-        if self.sun_x - x > 32:
-            self.screen.blit(self.sky_1_image, (220, 20))
-            self.screen.blit(self.moon_1_image, (x, y))
-        elif self.sun_x - x > 23:
-            self.screen.blit(self.sky_2_image, (220, 20))
-            self.screen.blit(self.moon_2_image, (x, y))
-        elif self.sun_x - x > 14:
-            self.screen.blit(self.sky_3_image, (220, 20))
-            self.screen.blit(self.moon_3_image, (x, y))
-        elif self.sun_x - x > 7:
-            self.screen.blit(self.sky_4_image, (220, 20))
-            self.screen.blit(self.moon_4_image, (x, y))
+        i = 0
+        if 32 <= sun_x - x > 23:
+            i = 1
+        elif sun_x - x > 14:
+            i = 2
+        elif sun_x - x > 7:
+            i = 3
         else:
-            self.screen.blit(self.sky_5_image, (220, 20))
-            self.screen.blit(self.moon_5_image, (x, y))
+            i = 4
+
+        self.screen.blit(self.sky_images[i], (220, 20))
+        self.screen.blit(self.moon_images[i], (x, y))
 
     def messagestart(self):
         message = Message(self.screen, self.message_font)
@@ -245,25 +235,25 @@ class UI:
             self.screen.blit(self.diode_image, (513 + (i * 9), 215))
 
     def display_clic_price(self, price):
-        price_text = self.price_font.render(f"{price}", True, (255, 255, 255))
+        price_text = self.price_font.render(f"{price}F", True, (255, 255, 255))
         price_text_rect = price_text.get_rect()
         price_text_rect.center = (428, 201)
         self.screen.blit(price_text, price_text_rect)
 
     def display_autoclicker_price(self, price):
-        price_text = self.price_font.render(f"{price}", True, (255, 255, 255))
+        price_text = self.price_font.render(f"{price}F", True, (255, 255, 255))
         price_text_rect = price_text.get_rect()
         price_text_rect.center = (531, 201)
         self.screen.blit(price_text, price_text_rect)
 
     def display_power_price(self, price):
-        price_text = self.price_font.render(f"{price}", True, (255, 255, 255))
+        price_text = self.price_font.render(f"{price}F", True, (255, 255, 255))
         price_text_rect = price_text.get_rect()
         price_text_rect.center = (531, 240)
         self.screen.blit(price_text, price_text_rect)
 
     def display_frequency_price(self, price):
-        price_text = self.price_font.render(f"{price}", True, (255, 255, 255))
+        price_text = self.price_font.render(f"{price}F", True, (255, 255, 255))
         price_text_rect = price_text.get_rect()
         price_text_rect.center = (531, 263)
         self.screen.blit(price_text, price_text_rect)
