@@ -55,11 +55,6 @@ def main():
             stagiaire_message = True
             stagiaire_message_ferme = True
 
-        # Fin réservoir plein
-        if etat.score >= 1000000000000000:
-            etat.score = 1000000000000000
-            running = False
-
         for event in pygame.event.get():
             if message.active:
                 message.handle_event(event)
