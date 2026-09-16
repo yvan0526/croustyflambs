@@ -41,7 +41,7 @@ class Etat:
     # Méthode gérant la première amélioration, l'achat d'un autocliqueur. Vérifie la possibilité de l'acheter.
     def init_autocliqueur(self, t: int) -> None :
         if self.nb_ameliorations == 0 and self.score >= self.PRIX_AMELIORATION[0]:
-            self.autocliqueur.temps_premier = t
+
             self.autocliqueur.quantite = 1
             self.score -= self.PRIX_AMELIORATION[0]
             self.nb_ameliorations += 1
@@ -61,8 +61,10 @@ class Etat:
             self.nb_ameliorations += 1
 
     # Méthode gérant l'amélioration du nombre d'autocliqueurs en vérifiant la possibilité de l'acheter
-    def add_autocliqueur(self, bonus: int = 1)-> None :
+    def add_autocliqueur(self, t: int, bonus: int = 1)-> None :
         if self.autocliqueur.quantite <= 10 and self.score >= self.PRIX_AMELIORATION[self.nb_ameliorations]:
             self.autocliqueur.quantite += bonus
             self.score -= self.PRIX_AMELIORATION[self.nb_ameliorations]
             self.nb_ameliorations += 1
+            if self.nb_ameliorations == 0:
+                self.autocliqueur.temps_premier = t
