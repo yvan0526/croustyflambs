@@ -36,6 +36,10 @@ class UI:
     upgrade_power_button_image: Surface
     # Image bouton upgrade frequecy
     upgrade_frequency_button_image: Surface
+    # Image diode
+    diode_image: Surface
+    # Image LED
+    led_image: Surface
     # Image bouton téléphone (stagiaire)
     micro_button_image: Surface
     # Image micro
@@ -54,6 +58,12 @@ class UI:
 
     # Police d'écriture score
     score_font: Font
+    # Police d'écriture message
+    message_font: Font
+    # Police d'écriture prix
+    price_font: Font
+    # Police d'écriture écran upgrade
+    upgrade_screen_font: Font
 
     # Position de la lune
     sun_x: int
@@ -81,8 +91,12 @@ class UI:
         self.fuelle_button_image = pygame.image.load("assets/Button_Down.png")
         # Police d'écriture score
         self.score_font = pygame.font.Font("assets/PressStart2P.ttf", 16)
-        #Police d'écriture message
+        # Police d'écriture message
         self.message_font = pygame.font.Font("assets/PressStart2P.ttf", 8)
+        # Police d'écriture prix
+        self.price_font = pygame.font.Font("assets/QuinqueFive.ttf", 5)
+        # Police d'écriture écrans upgrades
+        self.upgrade_screen_font = pygame.font.Font("assets/QuinqueFive.ttf", 5)
         # Progress bar
         self.progress_bar_background_image = pygame.image.load("assets/Bar_Background.png")
         self.progress_bar_image = pygame.image.load("assets/Bar.png")
@@ -94,8 +108,12 @@ class UI:
         self.upgrade_power_button_image = pygame.image.load("assets/Button_UpgradePower_Down.png")
         # Bouton upgrade frequecy
         self.upgrade_frequency_button_image = pygame.image.load("assets/Button_UpgradeFreq_Down.png")
+        # Diode
+        self.diode_image = pygame.image.load("assets/Diode_On.png")
+        # LED
+        self.led_image = pygame.image.load("assets/Led_On.png")
         # Bouton téléphone (stagiaire)
-        self.micro_button_image = pygame.image.load("assets/Button_Stagiaire_Down.png")
+        self.micro_button_image = pygame.image.load("assets/Button_Stagiaire.png")
         # Trappe micro
         self.micro_1_image = pygame.image.load("assets/Micro/Micro_1.png")
         self.micro_2_image = pygame.image.load("assets/Micro/Micro_2.png")
@@ -171,23 +189,96 @@ class UI:
             self.screen.blit(self.sky_5_image, (220, 20))
             self.screen.blit(self.moon_5_image, (x, y))
 
+    def messagestart(self):
+        message = Message(self.screen, self.message_font)
+        # Message affiché au démarrage
+        message.show("MESSAGE D’URGENCE\n"
+                     "Vous êtes notre seul espoir.\n"
+                     "Une éclipse aura lieu dans 10 minutes. Si elle se produit, ce sera la fin du monde.\n"
+                     "Votre mission est simple : remplir entièrement le réservoir de la fusée afin de la lancer et de détruire la Lune avant le debut de l’éclipse.\n"
+                     "Chaque seconde compte. Chaque clic peut faire la différence.\n"
+                     "Ne nous décevez pas.\n", "Ok")
+
     def display_progress_bar(self, score, score_max):
         self.screen.blit(self.progress_bar_background_image, (200, 332))
         x = min(-40 + (score / score_max) * 240, 200)
         self.screen.blit(self.progress_bar_image, (x, 332))
 
+    def check_mouse_position_upgrade_clic_button(self):
+        return 449 < pygame.mouse.get_pos()[0] < 482 and 190 < pygame.mouse.get_pos()[1] < 211
+
     def display_upgrade_clic_button_down(self):
-        self.screen.blit(self.upgrade_clic_button_image, (448, 190))
+        self.screen.blit(self.upgrade_clic_button_image, (449, 190))
+
+    def display_led_upgrade_clic(self):
+        self.screen.blit(self.led_image, (486, 192))
+
+    def check_mouse_position_autoclicker_button(self):
+        return 552 < pygame.mouse.get_pos()[0] < 585 and 190 < pygame.mouse.get_pos()[1] < 211
 
     def display_autoclicker_button_down(self):
         self.screen.blit(self.autoclicker_button_image, (552, 190))
 
+    def display_led_upgrade_autoclicker(self):
+        self.screen.blit(self.led_image, (589, 192))
+
+    def check_mouse_position_upgrade_power_button(self):
+        return 552 < pygame.mouse.get_pos()[0] < 585 and 229 < pygame.mouse.get_pos()[1] < 250
+
     def display_upgrade_power_button_down(self):
         self.screen.blit(self.upgrade_power_button_image, (552, 229))
+
+    def display_led_upgrade_power(self):
+        self.screen.blit(self.led_image, (589, 231))
+
+    def check_mouse_position_upgrade_frequency_button(self):
+        return 552 < pygame.mouse.get_pos()[0] < 585 and 252 < pygame.mouse.get_pos()[1] < 273
 
     def display_upgrade_frequency_button_down(self):
         self.screen.blit(self.upgrade_frequency_button_image, (552, 252))
 
+    def display_led_upgrade_frequency(self):
+        self.screen.blit(self.led_image, (589, 254))
+
+    def display_diodes(self, nb_diodes):
+        for i in range(min(nb_diodes, 10)):
+            self.screen.blit(self.diode_image, (513 + (i * 9), 215))
+
+    def display_clic_price(self, price):
+        price_text = self.price_font.render(f"{price}", True, (255, 255, 255))
+        price_text_rect = price_text.get_rect()
+        price_text_rect.center = (428, 201)
+        self.screen.blit(price_text, price_text_rect)
+
+    def display_autoclicker_price(self, price):
+        price_text = self.price_font.render(f"{price}", True, (255, 255, 255))
+        price_text_rect = price_text.get_rect()
+        price_text_rect.center = (531, 201)
+        self.screen.blit(price_text, price_text_rect)
+
+    def display_power_price(self, price):
+        price_text = self.price_font.render(f"{price}", True, (255, 255, 255))
+        price_text_rect = price_text.get_rect()
+        price_text_rect.center = (531, 240)
+        self.screen.blit(price_text, price_text_rect)
+
+    def display_frequency_price(self, price):
+        price_text = self.price_font.render(f"{price}", True, (255, 255, 255))
+        price_text_rect = price_text.get_rect()
+        price_text_rect.center = (531, 263)
+        self.screen.blit(price_text, price_text_rect)
+
+    def display_clic_power(self, clic_power):
+        clic_power_text = self.upgrade_screen_font.render(f"{clic_power}f/c", True, (255, 255, 255))
+        clic_power_text_rect = clic_power_text.get_rect()
+        clic_power_text_rect.center = (454, 229)
+        self.screen.blit(clic_power_text, clic_power_text_rect)
+
+    def display_fuelle_per_second(self, nb_autoclicker, autoclicker_power, autoclicker_frequency):
+        clic_power_text = self.upgrade_screen_font.render(f"{nb_autoclicker * autoclicker_power * autoclicker_frequency}f/s", True, (255, 255, 255))
+        clic_power_text_rect = clic_power_text.get_rect()
+        clic_power_text_rect.center = (557, 291)
+        self.screen.blit(clic_power_text, clic_power_text_rect)
     def display_phone_button_down(self):
         self.screen.blit(self.micro_button_image, (74,254))
 
@@ -198,41 +289,24 @@ class UI:
     def show_end_message(self, score):
         message_end = Message(self.screen, self.message_font)
         message_credits = Message(self.screen, self.message_font)
+
+    def get_message_text(self, score):
         if score < 0:  # Casser la fenêtre met le score à une valeur négative et termine le jeu
-            message_end.show("Patron : Mais que faites-vous?! Je ne vous paie pas pour cela !", "Suivant")
-            message_end.show("Patron : Vous êtes renvoyé·e !", "Suivant")
-            message_end.show("VOUS AVEZ ÉTÉ RENVOYÉ·E. TOUT LE MONDE EST MORT.", "Fin")
+            return "Patron : Mais que faites-vous?! Je ne vous paie pas pour cela !\nPatron : Vous êtes renvoyé·e !\n\nVOUS AVEZ ÉTÉ RENVOYÉ·E. TOUT LE MONDE EST MORT."
         elif score < 1:
-            message_end.show("VOTRE FUSÉE N'A PAS DÉCOLLÉ.\
-                            LA FACE CACHÉE DE LA LUNE S'EST RÉVELÉE. TOUT LE MONDE EST MORT.", "Fin")
+            return "VOTRE FUSÉE N'A PAS DÉCOLLÉ.\nLA FACE CACHÉE DE LA LUNE S'EST RÉVÉLÉE. TOUT LE MONDE EST MORT."
         elif score < 410000000000000:
-            message_end.show("VOTRE FUSÉE A DÉCOLLÉ. ELLE S'EST MALHEUREUSEMENT ÉCRASÉE PAR MANQUE DE CARBURANT.\
-                            L'IUT2 DE GRENOBLE A ÉTÉ RASÉ.\
-                            CÉDRIC GÉROT, S'ÉTANT RECONVERTI, A ÉTÉ ÉLU PRÉSIDENT DE LA RÉPUBLIQUE FRANÇAISE AVEC 69% DES VOIX.",
-                             "Fin")
+            return "VOTRE FUSÉE A DÉCOLLÉ. ELLE S'EST MALHEUREUSEMENT ÉCRASÉE PAR MANQUE DE CARBURANT.\nL'IUT2 DE GRENOBLE A ÉTÉ RASÉ.\nCÉDRIC GÉROT, S'ÉTANT RECONVERTI, A ÉTÉ ÉLU PRÉSIDENT DE LA RÉPUBLIQUE FRANÇAISE AVEC 69% DES VOIX."
         elif score < 430000000000000:
-            message_end.show("VOTRE FUSÉE A DÉCOLLÉ. ELLE A DÉVIÉ DE SA TRAJECTOIRE, S'EST ARRÊTÉE, ET SE PERD DANS L'ESPACE.\
-                            L'ÉCLIPSE A EU LIEU. RIEN N'EST ARRIVÉ. LE MONDE EST SAUVÉ.", "Fin")
+            return "VOTRE FUSÉE A DÉCOLLÉ. ELLE A DÉVIÉ DE SA TRAJECTOIRE, S'EST ARRÊTÉE, ET SE PERD DANS L'ESPACE.\nL'ÉCLIPSE A EU LIEU. RIEN N'EST ARRIVÉ. LE MONDE EST SAUVÉ."
         elif score < 750000000000000:
-            message_end.show("VOTRE FUSÉE A DÉCOLLÉ. ELLE A DÉVIÉ DE SA TRAJECTOIRE ET S'EST ARRÊTÉE EN ORBITE LUNAIRE.\
-                            DES HABITANTS DE LA LUNE ONT FAIT REPARTIR LA FUSÉE VERS LA TERRE.\
-                            LA POPULATION TERRESTRE EST RÉDUITE EN ESCLAVAGE.", "Fin")
+            return "VOTRE FUSÉE A DÉCOLLÉ. ELLE A DÉVIÉ DE SA TRAJECTOIRE ET S'EST ARRÊTÉE EN ORBITE LUNAIRE.\nDES HABITANTS DE LA LUNE ONT FAIT REPARTIR LA FUSÉE VERS LA TERRE.\nLA POPULATION TERRESTRE EST RÉDUITE EN ESCLAVAGE."
         elif score <= 999999999999999:
-            message_end.show("VOTRE FUSÉE A DÉCOLLÉ. ELLE A LÉGÈREMENT DÉVIÉ DE SA TRAJECTOIRE ET SE DIRIGE VERS LE SOLEIL.\
-                            LE SOLEIL EXPLOSE.\
-                            8 MINUTES PLUS TARD, TOUT LE MONDE EST MORT.", "Fin")
+            return "VOTRE FUSÉE A DÉCOLLÉ. ELLE A LÉGÈREMENT DÉVIÉ DE SA TRAJECTOIRE ET SE DIRIGE VERS LE SOLEIL.\nUNE SEMAINE PLUS TARD, LE SOLEIL EXPLOSE.\n8 MINUTES PLUS TARD, TOUT LE MONDE EST MORT."
         elif score >= 1000000000000000:
-            message_end.show("VOTRE FUSÉE A DÉCOLLÉ. ELLE A ATTEINT SA CIBLE. LA LUNE EXPLOSE.\
-                            LES DÉBRIS DE LA LUNE RETOMBENT SUR LA TERRE.\
-                            TOUT LE MONDE EST MORT.", "Fin")
+            return "VOTRE FUSÉE A DÉCOLLÉ. ELLE A ATTEINT SA CIBLE. LA LUNE EXPLOSE.\nLES DÉBRIS DE LA LUNE RETOMBENT SUR LA TERRE.\nTOUT LE MONDE EST MORT."
         else:
-            message_end.show("undefined Fin", "Undefined")
-        message_credits.show("Jeu réalisé dans le cadre de la SAE5.01: GameJam, du BUT Informatique, à l'université Grenoble-Alpes.\
-                                                        Création : équipe des croustiflambs (le b est muet)\
-                                                        Programmation : Célia MOULIN, Alenia LEFOYER, Yvan GIORDANO, Timothée DAGAND\
-                                                        Assets graphiques : Emma DHOURY\
-                                                        Sons : Emma DHOURY\
-                                                        Remerciements :\
-                                                        Merci à Jean-Pierre CHEVALLET pour son cours sur le langage Python et ses conseils lors du développement.\
-                                                        Merci à l'équipe enseignante du BUT Informatique de l'université Grenoble-Alpes.\
-                                                        Enfin, merci à vous d'avoir joué !", "Quitter")
+            return "undefined Fin"
+
+    def get_credits_text(self):
+        return "Jeu réalisé dans le cadre de la SAE5.01: GameJam, du BUT Informatique, à l'université Grenoble-Alpes.\nCréation : équipe des croustiflambs (le b est muet)\nProgrammation : Célia MOULIN, Alenia LEFOYER, Yvan GIORDANO, Timothée DAGAND\nSons : Emma DHOURY\nAssets graphiques : Emma DHOURY\nDessin original de la fusée : Hergé, Bob DE MOOR (Objectif Lune, 1953, éditions Casterman)\nRemerciements :\nMerci à Jean-Pierre CHEVALLET pour son cours sur le langage Python et ses conseils lors du développement.\nMerci à l'équipe enseignante du BUT Informatique de l'université Grenoble-Alpes.\nEnfin, merci à vous d'avoir joué !"

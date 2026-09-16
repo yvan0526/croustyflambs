@@ -1,9 +1,9 @@
 import math
-import pygame
+
 from UI import UI
 from message import Message
-from events import GAME_END
-from events import WINDOW_BREAK
+from events import *
+
 from src.modele.etat import Etat
 
 def main():
@@ -26,11 +26,13 @@ def main():
     clock = pygame.time.Clock()
     dt: int = 0
     t: int = 0
+    # millisecondes * secondes * minutes
+    timer_end = 1000 * 60 * 1
 
-    hasFirstUp: bool = False
     etat: Etat = Etat()
 
-    moon_angle = -math.pi / 2
+    moon_start_angle = -math.pi / 2
+    moon_angle = moon_start_angle
     button_clicking = False
 
     #Stagiaire
@@ -55,15 +57,40 @@ def main():
 
         # Fin réservoir plein
         if etat.score >= 1000000000000000:
-            pygame.event.post(pygame.event.Event(GAME_END))
+            etat.score = 1000000000000000
+            running = False
+
+        for event in pygame.event.get():
+            if message.active:
+                message.handle_event(event)
+
+            elif event.type == pygame.QUIT:
+                pygame.quit()
+                quit()
+
+            elif event.type == WINDOW_BREAK:
+                etat.score = -1
+                pygame.event.post(pygame.event.Event(GAME_END))
+
+            elif event.type == GAME_END:
+                message.show(ui.get_message_text(etat.score), 'Fin')
+                pygame.event.post(pygame.event.Event(CREDITS))
+
+            elif event.type == CREDITS:
+                message.show(ui.get_credits_text(), 'Quitter')
+                pygame.event.post(pygame.event.Event(pygame.QUIT))
+
 
         # Lune
         ui.display_window(moon_angle)
         if moon_angle < 0:
-            moon_angle += 0.001
-        #else:
+            angle = abs(moon_start_angle) / timer_end * dt
+            moon_angle += angle
+        else:
             # Fin timer
-            #pygame.event.post(pygame.event.Event(GAME_END))
+            print("fin timer")
+            running = False
+            pygame.event.post(pygame.event.Event(GAME_END))
 
         # Affiche la progress bar
         ui.display_progress_bar(etat.score, 100)
@@ -74,6 +101,31 @@ def main():
         # Texte score
         ui.display_score(etat.score)
 
+        # LEDs
+        if etat.peut_add_valeur_clic():
+            ui.display_led_upgrade_clic()
+        if etat.peut_add_autocliqueur():
+            ui.display_led_upgrade_autoclicker()
+        if etat.peut_add_autoclic_val():
+            ui.display_led_upgrade_power()
+        if etat.peut_add_autoclic_cps():
+            ui.display_led_upgrade_frequency()
+
+        # Diodes
+        ui.display_diodes(etat.autocliqueur.quantite)
+
+        # Prix
+        ui.display_clic_price(etat.PRIX_AMELIORATION[etat.valeur_clic])
+        ui.display_autoclicker_price(etat.PRIX_AMELIORATION[etat.autocliqueur.quantite])
+        ui.display_power_price(etat.PRIX_AMELIORATION[etat.autocliqueur.valeur])
+        ui.display_frequency_price(etat.PRIX_AMELIORATION[etat.autocliqueur.cps])
+
+        # Valeur du clic screen
+        ui.display_clic_power(etat.valeur_clic)
+
+        # Fuëlle par seconde screen
+        ui.display_fuelle_per_second(etat.autocliqueur.quantite, etat.autocliqueur.valeur, etat.autocliqueur.cps)
+            
         # Détecte la fermeture du message stagiaire pour lancer l'animation
         if stagiaire_message_ferme and message_actif_precedent and not message.active:
             micro_animation = t
@@ -97,16 +149,10 @@ def main():
                 if pygame.mouse.get_pressed()[0] and ui.check_mouse_position_phone_button():
                     ui.display_phone_button_down()
 
-
-
-        # TODO: Refaire ça proprement
-        if not (hasFirstUp):
-            buttonFirstUp = pygame.Rect(ui.screen.get_width() / 4 - 10, ui.screen.get_height() / 2 - 10, 20, 20)
-            pygame.draw.rect(ui.screen, "blue", buttonFirstUp)
-        elif (t - etat.autocliqueur.temps_premier) / 1000 >= etat.autocliqueur.nb_tot_clics:
+        if (t - etat.autocliqueur.temps_premier) * etat.autocliqueur.cps / 1000 >= etat.autocliqueur.nb_tot_clics:
             etat.clic_auto()
-            etat.autocliqueur.nb_tot_clics += 1
-
+            
+        # Gestion de la souris
         if pygame.mouse.get_pressed()[0]:
             # Clic bouton fuëlle
             if ui.check_mouse_position_fuelle_button():
@@ -114,31 +160,28 @@ def main():
                 if not button_clicking:
                     etat.clic()
             # Clic bouton auto clicker
-            elif (not (hasFirstUp) and etat.score >= 20
-                  and ui.screen.get_width() / 4 - 10 < pygame.mouse.get_pos()[0] < ui.screen.get_width() / 4 + 10
-                  and ui.screen.get_height() / 2 - 10 < pygame.mouse.get_pos()[1] < ui.screen.get_height() / 2 + 10):
-                hasFirstUp = True
-                etat.score -= 20
-                etat.init_autocliqueur(t)
+            elif ui.check_mouse_position_autoclicker_button():
+                if not button_clicking:
+                    etat.add_autocliqueur(t)
+                ui.display_autoclicker_button_down()
+            # Clic bouton fréquence autoclicliker
+            elif ui.check_mouse_position_upgrade_frequency_button():
+                if not button_clicking:
+                    etat.add_autoclic_cps()
+                ui.display_upgrade_frequency_button_down()
+            # Clic bouton puissance autoclicliker
+            elif ui.check_mouse_position_upgrade_power_button():
+                if not button_clicking:
+                    etat.add_autoclic_val()
+                ui.display_upgrade_power_button_down()
+            # Clic bouton puissance clic
+            elif ui.check_mouse_position_upgrade_clic_button():
+                if not button_clicking:
+                    etat.add_valeur_clic()
+                ui.display_upgrade_clic_button_down()
             button_clicking = True
         else:
             button_clicking = False
-
-        for event in pygame.event.get():
-            if event.type == pygame.QUIT:
-                pygame.quit()
-                quit()
-
-            if event.type == WINDOW_BREAK:
-                etat.score = -1
-                pygame.event.post(GAME_END)
-
-            if event.type == GAME_END:
-                ui.show_end_message(etat.score)
-                running = False
-
-            if message.active:
-                message.handle_event(event)
 
         # Quitter le jeu
         keys = pygame.key.get_pressed()
@@ -148,6 +191,27 @@ def main():
         # Mise à jour de l'affichage
         message.draw()
         pygame.display.update()
+
+    game_quit = False
+    while not game_quit:
+        keys = pygame.key.get_pressed()
+        if keys[pygame.K_ESCAPE]:
+            game_quit = True
+        else:
+            message.show(ui.get_message_text(etat.score), 'Fin')
+            while message.active:
+                message.draw()
+                pygame.display.update()
+                for event in pygame.event.get():
+                    if message.active:
+                        message.handle_event(event)
+            message.show(ui.get_credits_text(), 'Quitter')
+            while message.active:
+                message.draw()
+                pygame.display.update()
+                for event in pygame.event.get():
+                    message.handle_event(event)
+            game_quit = True
 
 if __name__ == '__main__':
     main()
