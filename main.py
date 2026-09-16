@@ -91,10 +91,18 @@ def main():
             pygame.event.post(pygame.event.Event(GAME_END))
 
         # Affiche la progress bar
+        # TODO: Mettre le bon score max
         ui.display_progress_bar(etat.score, 100)
 
         # Affiche le bureau
         ui.display_background()
+
+        # Affiche la lumière de la barre de progression
+        # TODO: Mettre le bon score max
+        if 100 <= etat.score < 105:
+            ui.display_green_ligth()
+        elif etat.score >= 105:
+            ui.display_red_ligth()
 
         # Texte score
         ui.display_score(etat.score)

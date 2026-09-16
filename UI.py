@@ -20,6 +20,8 @@ class UI:
     # Images progress bar
     progress_bar_background_image: Surface
     progress_bar_image: Surface
+    green_light: Surface
+    red_light: Surface
     # Image bouton upgrade clic
     upgrade_clic_button_image: Surface
     # Image bouton auto clicker
@@ -84,6 +86,8 @@ class UI:
         # Progress bar
         self.progress_bar_background_image = pygame.image.load("assets/Bar_Background.png")
         self.progress_bar_image = pygame.image.load("assets/Bar.png")
+        self.green_light = pygame.image.load("assets/Bar_Light_Green.png")
+        self.red_light = pygame.image.load("assets/Bar_Light_Red.png")
         # Bouton upgrade clic
         self.upgrade_clic_button_image = pygame.image.load("assets/Button_Upgrade_Down.png")
         # Bouton auto clicker
@@ -269,12 +273,19 @@ class UI:
         clic_power_text_rect = clic_power_text.get_rect()
         clic_power_text_rect.center = (557, 291)
         self.screen.blit(clic_power_text, clic_power_text_rect)
+
     def display_phone_button_down(self):
         self.screen.blit(self.micro_button_image, (74,254))
 
     def display_micro(self, frame_index: int):
         frame_index = max(0, min(frame_index, len(self.micro_images) - 1))
         self.screen.blit(self.micro_images[frame_index], (40, 175))
+
+    def display_green_ligth(self):
+        self.screen.blit(self.green_light, (453, 333))
+
+    def display_red_ligth(self):
+        self.screen.blit(self.red_light, (453, 333))
 
     def show_end_message(self, score):
         message_end = Message(self.screen, self.message_font)
