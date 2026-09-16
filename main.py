@@ -59,11 +59,6 @@ def main():
             stagiaire_message = True
             stagiaire_message_ferme = True
 
-        # Fin réservoir plein
-        if etat.score >= 1000000000000000:
-            etat.score = 1000000000000000
-            running = False
-
         for event in pygame.event.get():
             if message.active:
                 message.handle_event(event)
@@ -157,7 +152,7 @@ def main():
             etat.clic_auto()
             
         # Gestion de la souris
-        if pygame.mouse.get_pressed()[0]:
+        if pygame.mouse.get_pressed()[0] and not message.active:
             # Clic bouton fuëlle
             if ui.check_mouse_position_fuelle_button():
                 ui.display_fuelle_button_down()
