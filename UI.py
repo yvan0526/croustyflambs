@@ -13,16 +13,8 @@ class UI:
     # Image du bureau
     background_image: Surface
     # Images fenêtre
-    sky_1_image: Surface
-    sky_2_image: Surface
-    sky_3_image: Surface
-    sky_4_image: Surface
-    sky_5_image: Surface
-    moon_1_image: Surface
-    moon_2_image: Surface
-    moon_3_image: Surface
-    moon_4_image: Surface
-    moon_5_image: Surface
+    sky_images: list
+    moon_images: list
     # Images bouton fuelle
     fuelle_button_image: Surface
     # Images progress bar
@@ -42,19 +34,8 @@ class UI:
     led_image: Surface
     # Image bouton téléphone (stagiaire)
     micro_button_image: Surface
-    # Image micro
-    micro_1_image = Surface
-    micro_2_image = Surface
-    micro_3_image = Surface
-    micro_4_image = Surface
-    micro_5_image = Surface
-    micro_6_image = Surface
-    micro_7_image = Surface
-    micro_8_image = Surface
-    micro_9_image = Surface
-    micro_10_image = Surface
-    micro_11_image = Surface
-    micro_12_image = Surface
+    # Images micro
+    micro_images: list
 
     # Police d'écriture score
     score_font: Font
@@ -75,16 +56,22 @@ class UI:
         # Bureau
         self.background_image = pygame.image.load("assets/Background.png")
         # Fenêtre
-        self.sky_1_image = pygame.image.load("assets/Sky_1.png")
-        self.sky_2_image = pygame.image.load("assets/Sky_2.png")
-        self.sky_3_image = pygame.image.load("assets/Sky_3.png")
-        self.sky_4_image = pygame.image.load("assets/Sky_4.png")
-        self.sky_5_image = pygame.image.load("assets/Sky_5.png")
-        self.moon_1_image = pygame.image.load("assets/Moon_1.png")
-        self.moon_2_image = pygame.image.load("assets/Moon_2.png")
-        self.moon_3_image = pygame.image.load("assets/Moon_3.png")
-        self.moon_4_image = pygame.image.load("assets/Moon_4.png")
-        self.moon_5_image = pygame.image.load("assets/Moon_5.png")
+        self.sky_images = [
+            pygame.image.load("assets/Sky_1.png"),
+            pygame.image.load("assets/Sky_2.png"),
+            pygame.image.load("assets/Sky_3.png"),
+            pygame.image.load("assets/Sky_4.png"),
+            pygame.image.load("assets/Sky_5.png"),
+        ]
+
+        self.moon_images = [
+            pygame.image.load("assets/Moon_1.png"),
+            pygame.image.load("assets/Moon_2.png"),
+            pygame.image.load("assets/Moon_3.png"),
+            pygame.image.load("assets/Moon_4.png"),
+            pygame.image.load("assets/Moon_5.png"),
+        ]
+
         self.sun_x = 364
         self.sun_y = 84
         # Bouton fuelle
@@ -114,27 +101,25 @@ class UI:
         self.led_image = pygame.image.load("assets/Led_On.png")
         # Bouton téléphone (stagiaire)
         self.micro_button_image = pygame.image.load("assets/Button_Stagiaire.png")
-        # Trappe micro
-        self.micro_1_image = pygame.image.load("assets/Micro/Micro_1.png")
-        self.micro_2_image = pygame.image.load("assets/Micro/Micro_2.png")
-        self.micro_3_image = pygame.image.load("assets/Micro/Micro_3.png")
-        self.micro_4_image = pygame.image.load("assets/Micro/Micro_4.png")
-        self.micro_5_image = pygame.image.load("assets/Micro/Micro_5.png")
-        self.micro_6_image = pygame.image.load("assets/Micro/Micro_6.png")
-        self.micro_7_image = pygame.image.load("assets/Micro/Micro_7.png")
-        self.micro_8_image = pygame.image.load("assets/Micro/Micro_8.png")
-        self.micro_9_image = pygame.image.load("assets/Micro/Micro_9.png")
-        self.micro_10_image = pygame.image.load("assets/Micro/Micro_10.png")
-        self.micro_11_image = pygame.image.load("assets/Micro/Micro_11.png")
-        self.micro_12_image = pygame.image.load("assets/Micro/Micro_12.png")
 
         # Liste micro
         self.micro_images = [
-            self.micro_1_image, self.micro_2_image, self.micro_3_image,
-            self.micro_4_image, self.micro_5_image, self.micro_6_image,
-            self.micro_7_image, self.micro_8_image, self.micro_9_image,
-            self.micro_10_image, self.micro_11_image, self.micro_12_image,
+            pygame.image.load("assets/Micro/Micro_1.png"),
+            pygame.image.load("assets/Micro/Micro_2.png"),
+            pygame.image.load("assets/Micro/Micro_3.png"),
+            pygame.image.load("assets/Micro/Micro_4.png"),
+            pygame.image.load("assets/Micro/Micro_5.png"),
+            pygame.image.load("assets/Micro/Micro_6.png"),
+            pygame.image.load("assets/Micro/Micro_7.png"),
+            pygame.image.load("assets/Micro/Micro_8.png"),
+            pygame.image.load("assets/Micro/Micro_9.png"),
+            pygame.image.load("assets/Micro/Micro_10.png"),
+            pygame.image.load("assets/Micro/Micro_11.png"),
+            pygame.image.load("assets/Micro/Micro_12.png"),
         ]
+
+        # Fin 100
+
 
     def display_background(self):
         self.screen.blit(self.background_image, (0, 0))
@@ -173,21 +158,18 @@ class UI:
         x = x2 + 319
         y = y2 + 194
 
-        if self.sun_x - x > 32:
-            self.screen.blit(self.sky_1_image, (220, 20))
-            self.screen.blit(self.moon_1_image, (x, y))
-        elif self.sun_x - x > 23:
-            self.screen.blit(self.sky_2_image, (220, 20))
-            self.screen.blit(self.moon_2_image, (x, y))
+        i = 0
+        if 32 <= self.sun_x - x > 23:
+            i = 1
         elif self.sun_x - x > 14:
-            self.screen.blit(self.sky_3_image, (220, 20))
-            self.screen.blit(self.moon_3_image, (x, y))
+            i = 2
         elif self.sun_x - x > 7:
-            self.screen.blit(self.sky_4_image, (220, 20))
-            self.screen.blit(self.moon_4_image, (x, y))
+            i = 3
         else:
-            self.screen.blit(self.sky_5_image, (220, 20))
-            self.screen.blit(self.moon_5_image, (x, y))
+            i = 4
+
+        self.screen.blit(self.sky_images[i], (220, 20))
+        self.screen.blit(self.moon_images[i], (x, y))
 
     def messagestart(self):
         message = Message(self.screen, self.message_font)
