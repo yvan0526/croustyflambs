@@ -38,6 +38,19 @@ class UI:
     upgrade_frequency_button_image: Surface
     # Image bouton téléphone (stagiaire)
     phone_button_image: Surface
+    # Image micro
+    micro_1_image = Surface
+    micro_2_image = Surface
+    micro_3_image = Surface
+    micro_4_image = Surface
+    micro_5_image = Surface
+    micro_6_image = Surface
+    micro_7_image = Surface
+    micro_8_image = Surface
+    micro_9_image = Surface
+    micro_10_image = Surface
+    micro_11_image = Surface
+    micro_12_image = Surface
 
     # Police d'écriture score
     score_font: Font
@@ -83,6 +96,27 @@ class UI:
         self.upgrade_frequency_button_image = pygame.image.load("assets/Button_UpgradeFreq_Down.png")
         # Bouton téléphone (stagiaire)
         self.phone_button_image = pygame.image.load("assets/Button_Stagiaire_Down.png")
+        # Trappe micro
+        self.micro_1_image = pygame.image.load("assets/Micro/Micro_1.png")
+        self.micro_2_image = pygame.image.load("assets/Micro/Micro_2.png")
+        self.micro_3_image = pygame.image.load("assets/Micro/Micro_3.png")
+        self.micro_4_image = pygame.image.load("assets/Micro/Micro_4.png")
+        self.micro_5_image = pygame.image.load("assets/Micro/Micro_5.png")
+        self.micro_6_image = pygame.image.load("assets/Micro/Micro_6.png")
+        self.micro_7_image = pygame.image.load("assets/Micro/Micro_7.png")
+        self.micro_8_image = pygame.image.load("assets/Micro/Micro_8.png")
+        self.micro_9_image = pygame.image.load("assets/Micro/Micro_9.png")
+        self.micro_10_image = pygame.image.load("assets/Micro/Micro_10.png")
+        self.micro_11_image = pygame.image.load("assets/Micro/Micro_11.png")
+        self.micro_12_image = pygame.image.load("assets/Micro/Micro_12.png")
+
+        # Liste micro
+        self.micro_images = [
+            self.micro_1_image, self.micro_2_image, self.micro_3_image,
+            self.micro_4_image, self.micro_5_image, self.micro_6_image,
+            self.micro_7_image, self.micro_8_image, self.micro_9_image,
+            self.micro_10_image, self.micro_11_image, self.micro_12_image,
+        ]
 
     def display_background(self):
         self.screen.blit(self.background_image, (0, 0))
@@ -156,6 +190,10 @@ class UI:
 
     def display_phone_button_down(self):
         self.screen.blit(self.phone_button_image, (74,254))
+
+    def display_micro(self, frame_index: int):
+        frame_index = max(0, min(frame_index, len(self.micro_images) - 1))
+        self.screen.blit(self.micro_images[frame_index], (40, 175))
 
     def show_end_message(self, score):
         message_end = Message(self.screen, self.message_font)
