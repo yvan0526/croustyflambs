@@ -40,11 +40,14 @@ def main():
     button_clicking = False
 
     #Stagiaire
-    stagiaire_apparition = 0.2 * 60 * 1000  # 5 minutes en millisecondes
+    stagiaire_apparition = timer_end /2
     stagiaire_message = False
     stagiaire_message_ferme = False
     micro_animation = 0
     micro_animation_lance = False
+    micro_ouverture_terminee = False
+    micro_fermeture_lancee = False
+    micro_fermeture_debut = 0
     micro_frame_duration = 100 #ms par frame d'animation
     message_actif_precedent = False
 
@@ -79,6 +82,15 @@ def main():
                 message.show(ui.get_credits_text(), 'Quitter')
                 pygame.event.post(pygame.event.Event(pygame.QUIT))
 
+            # Clic sur le bouton téléphone
+            elif (event.type == pygame.MOUSEBUTTONDOWN and event.button == 1
+                    and micro_animation_lance and not micro_fermeture_lancee
+                    and ui.check_mouse_position_phone_button()):
+                if etat.peut_appeler_stagiaire():
+                    etat.appeler_stagiaire(t)
+                    if etat.stagiaire_epuise():
+                        micro_fermeture_lancee = True
+                        micro_fermeture_debut = t
 
         # Lune
         ui.display_window(moon_angle)
@@ -133,7 +145,13 @@ def main():
         message_actif_precedent = message.active
 
         # Animation micro
-        if micro_animation_lance:
+        if micro_fermeture_lancee:
+            temps_ecoule = t - micro_fermeture_debut
+            frame_index = len(ui.micro_images) - 1 - (temps_ecoule // micro_frame_duration)
+            if frame_index >= 0:
+                ui.display_micro(frame_index)
+
+        elif micro_animation_lance:
             temps_ecoule = t - micro_animation
             frame_index = temps_ecoule // micro_frame_duration
 
@@ -142,20 +160,27 @@ def main():
                 ui.display_micro(frame_index)
             else:
                 # Animation terminée : le micro reste affiché (image 12 = bouton au repos)
+                micro_ouverture_terminee = True
                 ui.display_micro(len(ui.micro_images) - 1)
                 # Clic sur le bouton
                 if pygame.mouse.get_pressed()[0] and ui.check_mouse_position_phone_button():
                     ui.display_phone_button_down()
 
+        if micro_ouverture_terminee and not micro_fermeture_lancee:
+            ui.display_frequency_stagiaire(etat.appels_stagiaire_restants())
+
+
         if (t - etat.autocliqueur.temps_premier) * etat.autocliqueur.cps / 1000 >= etat.autocliqueur.nb_tot_clics:
             etat.clic_auto()
             
         # Gestion de la souris
+        coffee_actif = etat.coffee_actif(t)
+
         if pygame.mouse.get_pressed()[0] and not message.active:
             # Clic bouton fuëlle
             if ui.check_mouse_position_fuelle_button():
                 ui.display_fuelle_button_down()
-                if not button_clicking:
+                if not button_clicking or coffee_actif:
                     etat.clic()
             # Clic bouton auto clicker
             elif ui.check_mouse_position_autoclicker_button():

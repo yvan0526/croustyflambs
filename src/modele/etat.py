@@ -6,12 +6,17 @@ class Etat:
     clic_droit_debloque: bool
     valeur_clic: int
     autocliqueur: Autocliqueur
+    STAGIAIRE_MAX_APPEL = 5
+    COFFEE_BOOST_DURATION = 5000
+
 
     def __init__(self):
         self.score = 0
         self.clic_droit_debloque = False
         self.valeur_clic = 1
         self.autocliqueur = Autocliqueur()
+        self.stagiaire_appel = 0
+        self.coffee_boost_end = 0
 
     # Méthode gérant un clic sur le bouton principal
     def clic(self)-> None :
@@ -46,7 +51,7 @@ class Etat:
         if self.peut_add_autoclic_val():
             self.score -= self.calc_prix(self.autocliqueur.valeur, "faible")
             self.autocliqueur.valeur += bonus
-    # Vérifie la possibilité d'améliorer la valeur dde l'autoclic
+    # Vérifie la possibilité d'améliorer la valeur de l'autoclic
     def peut_add_autoclic_val(self)-> bool :
         return (self.autocliqueur.quantite > 0
                 and self.score >= self.calc_prix(self.autocliqueur.valeur, "faible"))
@@ -83,3 +88,26 @@ class Etat:
                 return 10 * 5 ** nb_up
 
         return -1
+        return self.autocliqueur.quantite < 10 and self.score >= self.PRIX_AMELIORATION[self.autocliqueur.quantite]
+
+    # Méthode gérant l'appel au stagiaire
+    def appeler_stagiaire(self, t: int) -> None:
+        if self.peut_appeler_stagiaire():
+            self.stagiaire_appel += 1
+            self.coffee_boost_end = t + self.COFFEE_BOOST_DURATION
+
+    # Vérifie la possibilité d'appeler le stagiaire
+    def peut_appeler_stagiaire(self) -> bool:
+        return self.stagiaire_appel < self.STAGIAIRE_MAX_APPEL
+
+    # Vérifie si le café est en train de booster le clic
+    def coffee_actif(self, t: int) -> bool:
+        return t < self.coffee_boost_end
+
+    # Vérifie si la trappe est à fermer
+    def stagiaire_epuise(self) -> bool:
+        return self.stagiaire_appel >= self.STAGIAIRE_MAX_APPEL
+
+    # Nombre d'appels au stagiaire restants
+    def appels_stagiaire_restants(self) -> int:
+        return self.STAGIAIRE_MAX_APPEL - self.stagiaire_appel

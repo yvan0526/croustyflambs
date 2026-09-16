@@ -57,6 +57,8 @@ class UI:
     price_font: Font
     # Police d'écriture écran upgrade
     upgrade_screen_font: Font
+    # Police d'écriture fréquence stagiaire
+    stagiaire_font: Font
 
     def __init__(self):
         self.screen = pygame.display.set_mode((640, 360), pygame.FULLSCREEN | pygame.SCALED)
@@ -81,6 +83,8 @@ class UI:
         self.price_font = pygame.font.Font("assets/QuinqueFive.ttf", 5)
         # Police d'écriture écrans upgrades
         self.upgrade_screen_font = pygame.font.Font("assets/QuinqueFive.ttf", 5)
+        # Police d'écriture fréquence stagiaire
+        self.stagiaire_font = pygame.font.Font("assets/QuinqueFive.ttf", 5)
         # Progress bar
         self.progress_bar_background_image = pygame.image.load("assets/Bar_Background.png")
         self.progress_bar_image = pygame.image.load("assets/Bar.png")
@@ -258,6 +262,12 @@ class UI:
         price_text_rect.center = (531, 263)
         self.screen.blit(price_text, price_text_rect)
 
+    def display_frequency_stagiaire(self, stagiaire):
+        stagiaire_text = self.price_font.render(f"{stagiaire}", True, (255, 255, 255))
+        stagiaire_text_rect = stagiaire_text.get_rect()
+        stagiaire_text_rect.center = (105, 261)
+        self.screen.blit(stagiaire_text, stagiaire_text_rect)
+
     def display_clic_power(self, clic_power):
         clic_power_text = self.upgrade_screen_font.render(f"{clic_power}f/c", True, (255, 255, 255))
         clic_power_text_rect = clic_power_text.get_rect()
@@ -269,6 +279,7 @@ class UI:
         clic_power_text_rect = clic_power_text.get_rect()
         clic_power_text_rect.center = (557, 291)
         self.screen.blit(clic_power_text, clic_power_text_rect)
+
     def display_phone_button_down(self):
         self.screen.blit(self.micro_button_image, (74,254))
 
