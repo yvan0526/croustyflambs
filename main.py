@@ -73,12 +73,20 @@ def main():
                 if not button_clicking:
                     etat.clic()
             # Clic bouton auto clicker
-            elif (not (hasFirstUp) and etat.score >= 20
-                  and ui.screen.get_width() / 4 - 10 < pygame.mouse.get_pos()[0] < ui.screen.get_width() / 4 + 10
-                  and ui.screen.get_height() / 2 - 10 < pygame.mouse.get_pos()[1] < ui.screen.get_height() / 2 + 10):
+            elif not (hasFirstUp) and etat.score >= 20 and ui.check_mouse_position_autoclicker_button():
                 hasFirstUp = True
                 etat.score -= 20
                 etat.init_autocliqueur(t)
+                ui.display_autoclicker_button_down()
+            # Clic bouton fréquence autoclicliker
+            elif ui.check_mouse_position_upgrade_frequency_button():
+                ui.display_upgrade_frequency_button_down()
+            # Clic bouton puissance autoclicliker
+            elif ui.check_mouse_position_upgrade_power_button():
+                ui.display_upgrade_power_button_down()
+            # Clic bouton puissance clic
+            elif ui.check_mouse_position_upgrade_clic_button():
+                ui.display_upgrade_clic_button_down()
             button_clicking = True
         else:
             button_clicking = False
