@@ -140,9 +140,7 @@ class UI:
         self.screen.blit(self.background_image, (0, 0))
 
     def display_score(self, score: int):
-        if score >= 1000000000000000:
-            score_text = self.score_font.render(f"{score // 1000000000000000}P", True, (255, 255, 255))
-        elif score >= 1000000000000:
+        if score >= 1000000000000:
             score_text = self.score_font.render(f"{score // 1000000000000}T", True, (255, 255, 255))
         elif score >= 1000000000:
             score_text = self.score_font.render(f"{score//1000000000}G", True, (255, 255, 255))
@@ -295,15 +293,15 @@ class UI:
             return "Patron : Mais que faites-vous?! Je ne vous paie pas pour cela !\nPatron : Vous êtes renvoyé·e !\n\nVous avez été renvoyé·e. Tout le monde est mort."
         elif score < 1:
             return "Votre fusée n'a pas décollé.\nLa face cachée de la Lune s'est révélée. Tout le monde est mort."
-        elif score < 410000000000000:
+        elif score < 410000000000:
             return "Votre fuse a décollé. Elle s'est malheureusement écrasée par manque de carburant.\nL'IUT2 de Grenoble a été rasé.\nCédric Gérot, s'étant reconverti, a été élu président de la République Française avec 69% des voix."
-        elif score < 430000000000000:
+        elif score < 430000000000:
             return "Votre fusée a décollé. Elle a dévié de sa trajectoire, s'est arrêtée, et se perd dans l'espace.\nL'éclipse a eu lieu. Rien n'est arrivé. Le monde est sauvé."
-        elif score < 750000000000000:
+        elif score < 750000000000:
             return "Votre fusée a décollé. Elle a dévié de sa trajectoire et s'est arrêtée en orbite lunaire.\nDes habitants de la Lune ont fait repartir la fusée vers la Terre.\nLa population terrestre est réduit en esclavage."
-        elif score <= 999999999999999:
+        elif score <= 999999999999:
             return "Votre fusée a décollé. Elle a légèrement dévié de sa trajectoire et se dirige vers le Soleil.\nUne semaine plus tard, le Soleil explose.\n8 minutes plus tard, tout le monde est mort."
-        elif score >= 1000000000000000:
+        elif score >= 1000000000000:
             return "Votre fusée a décollé. Elle a atteint sa cible. La Lune explose.\nLes débris de la Lune retombent sur la Terre.\nTout le monde est mort."
         else:
             return "undefined Fin"

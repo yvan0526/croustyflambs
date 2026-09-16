@@ -43,6 +43,7 @@ def main():
     micro_animation_lance = False
     micro_frame_duration = 100 #ms par frame d'animation
     message_actif_precedent = False
+    # Démarrer musique jeu
 
     # Boucle de l'animation
     while running:
@@ -52,11 +53,13 @@ def main():
         # Message stagiaire
         if t >= stagiaire_apparition and not stagiaire_message:
             message.show("On a envoyé un stagiaire pour vous aider !", "Ok")
+            # Jouer son unlock
             stagiaire_message = True
             stagiaire_message_ferme = True
 
         # Fin réservoir plein
         if etat.score >= 1000000000000000:
+            # Jouer son fin
             etat.score = 1000000000000000
             running = False
 
@@ -157,6 +160,7 @@ def main():
             # Clic bouton fuëlle
             if ui.check_mouse_position_fuelle_button():
                 ui.display_fuelle_button_down()
+                # Jouer son clic gros bouton
                 if not button_clicking:
                     etat.clic()
             # Clic bouton auto clicker
@@ -164,21 +168,25 @@ def main():
                 if not button_clicking:
                     etat.add_autocliqueur(t)
                 ui.display_autoclicker_button_down()
+                # Jouer son clic bouton amélioration
             # Clic bouton fréquence autoclicliker
             elif ui.check_mouse_position_upgrade_frequency_button():
                 if not button_clicking:
                     etat.add_autoclic_cps()
                 ui.display_upgrade_frequency_button_down()
+                # Jouer son clic bouton amélioration
             # Clic bouton puissance autoclicliker
             elif ui.check_mouse_position_upgrade_power_button():
                 if not button_clicking:
                     etat.add_autoclic_val()
                 ui.display_upgrade_power_button_down()
+                # Jouer son clic bouton amélioration
             # Clic bouton puissance clic
             elif ui.check_mouse_position_upgrade_clic_button():
                 if not button_clicking:
                     etat.add_valeur_clic()
                 ui.display_upgrade_clic_button_down()
+                # Jouer son clic bouton amélioration
             button_clicking = True
         else:
             button_clicking = False

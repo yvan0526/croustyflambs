@@ -8,7 +8,7 @@ class Message:
         self.text = ""
         self.button_text = ""
         self.active = False
-        self.button_rect = pygame.Rect(0, 50, 80, 30)
+        self.button_rect = pygame.Rect(0, 0, 80, 30)
 
     def show(self, text, button_text):
         """Active l'affichage d'un nouveau message"""
@@ -56,6 +56,8 @@ class Message:
         overlay = pygame.Surface(self.screen.get_size(), pygame.SRCALPHA)
         overlay.fill((0, 0, 0, 220))
         self.screen.blit(overlay, (0, 0))
+
+        # Jouer son message
 
         # Texte, avec retour à la ligne automatique
         margin = 20
