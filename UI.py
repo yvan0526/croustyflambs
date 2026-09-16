@@ -36,6 +36,8 @@ class UI:
     upgrade_power_button_image: Surface
     # Image bouton upgrade frequecy
     upgrade_frequency_button_image: Surface
+    # Image bouton téléphone (stagiaire)
+    phone_button_image: Surface
 
     # Police d'écriture score
     score_font: Font
@@ -79,6 +81,8 @@ class UI:
         self.upgrade_power_button_image = pygame.image.load("assets/Button_UpgradePower_Down.png")
         # Bouton upgrade frequecy
         self.upgrade_frequency_button_image = pygame.image.load("assets/Button_UpgradeFreq_Down.png")
+        # Bouton téléphone (stagiaire)
+        self.phone_button_image = pygame.image.load("assets/Button_Stagiaire_Down.png")
 
     def display_background(self):
         self.screen.blit(self.background_image, (0, 0))
@@ -101,7 +105,10 @@ class UI:
         self.screen.blit(score_text, score_text_rect)
 
     def check_mouse_position_fuelle_button(self):
-        return 296 < pygame.mouse.get_pos()[0] < 336 and 220 < pygame.mouse.get_pos()[1] < 260
+        return 296 < pygame.mouse.get_pos()[0] < 344 and 220 < pygame.mouse.get_pos()[1] < 268
+
+    def check_mouse_position_phone_button(self):
+        return 74 < pygame.mouse.get_pos()[0] < 87 and 254 < pygame.mouse.get_pos()[1] < 267
 
     def display_fuelle_button_down(self):
         self.screen.blit(self.fuelle_button_image, (296, 220))
@@ -146,6 +153,9 @@ class UI:
 
     def display_upgrade_frequency_button_down(self):
         self.screen.blit(self.upgrade_frequency_button_image, (552, 252))
+
+    def display_phone_button_down(self):
+        self.screen.blit(self.phone_button_image, (74,254))
 
     def show_end_message(self, score):
         message_end = Message(self.screen, self.message_font)
