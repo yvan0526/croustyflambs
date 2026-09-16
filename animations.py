@@ -10,9 +10,9 @@ def get_end_animation(ui, score):
         return Animation(ui.screen, ui.end_happy_images, 220, 20)
     elif score < 750000000000000:
         return Animation(ui.screen, ui.end_luniens_images, 220, 20)
-    elif score <= 999999999999999 or score > 1050000000000000:
-        return Animation(ui.screen, ui.end_sun_images, 220, 20)
-    elif 1000000000000000 <= score <= 1050000000000000:
+    elif score <= 1050000000000000:
         return Animation(ui.screen, ui.end_100_images, 220, 20)
+    elif score > 1050000000000000:
+        return Animation(ui.screen, ui.end_sun_images, 220, 20)
     else:
         return Animation(ui.screen, ui.end_iut_images, 220, 20)
