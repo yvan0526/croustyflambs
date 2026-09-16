@@ -36,9 +36,17 @@ class UI:
     upgrade_power_button_image: Surface
     # Image bouton upgrade frequecy
     upgrade_frequency_button_image: Surface
+    # Image diode
+    diode_image: Surface
+    # Image LED
+    led_image: Surface
 
     # Police d'écriture score
     score_font: Font
+    # Police d'écriture message
+    message_font: Font
+    # Police d'écriture prix
+    price_font: Font
 
     # Position de la lune
     sun_x: int
@@ -66,8 +74,10 @@ class UI:
         self.fuelle_button_image = pygame.image.load("assets/Button_Down.png")
         # Police d'écriture score
         self.score_font = pygame.font.Font("assets/PressStart2P.ttf", 16)
-        #Police d'écriture message
+        # Police d'écriture message
         self.message_font = pygame.font.Font("assets/PressStart2P.ttf", 8)
+        # Police d'écriture prix
+        self.price_font = pygame.font.Font("assets/QuinqueFive.ttf", 5)
         # Progress bar
         self.progress_bar_background_image = pygame.image.load("assets/Bar_Background.png")
         self.progress_bar_image = pygame.image.load("assets/Bar.png")
@@ -79,6 +89,10 @@ class UI:
         self.upgrade_power_button_image = pygame.image.load("assets/Button_UpgradePower_Down.png")
         # Bouton upgrade frequecy
         self.upgrade_frequency_button_image = pygame.image.load("assets/Button_UpgradeFreq_Down.png")
+        # Diode
+        self.diode_image = pygame.image.load("assets/Diode_On.png")
+        # LED
+        self.led_image = pygame.image.load("assets/Led_On.png")
 
     def display_background(self):
         self.screen.blit(self.background_image, (0, 0))
@@ -141,11 +155,17 @@ class UI:
     def display_upgrade_clic_button_down(self):
         self.screen.blit(self.upgrade_clic_button_image, (449, 190))
 
+    def display_led_upgrade_clic(self):
+        self.screen.blit(self.led_image, (486, 192))
+
     def check_mouse_position_autoclicker_button(self):
         return 552 < pygame.mouse.get_pos()[0] < 585 and 190 < pygame.mouse.get_pos()[1] < 211
 
     def display_autoclicker_button_down(self):
         self.screen.blit(self.autoclicker_button_image, (552, 190))
+
+    def display_led_upgrade_autoclicker(self):
+        self.screen.blit(self.led_image, (589, 192))
 
     def check_mouse_position_upgrade_power_button(self):
         return 552 < pygame.mouse.get_pos()[0] < 585 and 229 < pygame.mouse.get_pos()[1] < 250
@@ -153,11 +173,45 @@ class UI:
     def display_upgrade_power_button_down(self):
         self.screen.blit(self.upgrade_power_button_image, (552, 229))
 
+    def display_led_upgrade_power(self):
+        self.screen.blit(self.led_image, (589, 231))
+
     def check_mouse_position_upgrade_frequency_button(self):
         return 552 < pygame.mouse.get_pos()[0] < 585 and 252 < pygame.mouse.get_pos()[1] < 273
 
     def display_upgrade_frequency_button_down(self):
         self.screen.blit(self.upgrade_frequency_button_image, (552, 252))
+
+    def display_led_upgrade_frequency(self):
+        self.screen.blit(self.led_image, (589, 254))
+
+    def display_diodes(self, nb_diodes):
+        for i in range(min(nb_diodes, 10)):
+            self.screen.blit(self.diode_image, (513 + (i * 9), 215))
+
+    def display_clic_price(self, price):
+        price_text = self.price_font.render(f"{price}", True, (255, 255, 255))
+        price_text_rect = price_text.get_rect()
+        price_text_rect.center = (428, 201)
+        self.screen.blit(price_text, price_text_rect)
+
+    def display_autoclicker_price(self, price):
+        price_text = self.price_font.render(f"{price}", True, (255, 255, 255))
+        price_text_rect = price_text.get_rect()
+        price_text_rect.center = (531, 201)
+        self.screen.blit(price_text, price_text_rect)
+
+    def display_power_price(self, price):
+        price_text = self.price_font.render(f"{price}", True, (255, 255, 255))
+        price_text_rect = price_text.get_rect()
+        price_text_rect.center = (531, 240)
+        self.screen.blit(price_text, price_text_rect)
+
+    def display_frequency_price(self, price):
+        price_text = self.price_font.render(f"{price}", True, (255, 255, 255))
+        price_text_rect = price_text.get_rect()
+        price_text_rect.center = (531, 263)
+        self.screen.blit(price_text, price_text_rect)
 
     def show_end_message(self, score):
         message_end = Message(self.screen, self.message_font)

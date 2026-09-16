@@ -28,10 +28,13 @@ def main():
     clock = pygame.time.Clock()
     dt: int = 0
     t: int = 0
+    # millisecondes * secondes * minutes
+    timer_end = 1000 * 60 * 1
 
     etat: Etat = Etat()
 
-    moon_angle = -math.pi / 2
+    moon_start_angle = -math.pi / 2
+    moon_angle = moon_start_angle
     button_clicking = False
 
     # Boucle de l'animation
@@ -46,10 +49,11 @@ def main():
         # Lune
         ui.display_window(moon_angle)
         if moon_angle < 0:
-            moon_angle += 0.001
-        else:
+            angle = abs(moon_start_angle) / timer_end * dt
+            moon_angle += angle
+        #else:
             # Fin timer
-            pygame.event.post(pygame.event.Event(GAME_END))
+        #    pygame.event.post(pygame.event.Event(GAME_END))
 
         # Affiche la progress bar
         ui.display_progress_bar(etat.score, 100)
@@ -60,9 +64,29 @@ def main():
         # Texte score
         ui.display_score(etat.score)
 
+        # LEDs
+        if etat.peut_add_valeur_clic():
+            ui.display_led_upgrade_clic()
+        if etat.peut_add_autocliqueur():
+            ui.display_led_upgrade_autoclicker()
+        if etat.peut_add_autoclic_val():
+            ui.display_led_upgrade_power()
+        if etat.peut_add_autoclic_cps():
+            ui.display_led_upgrade_frequency()
+
+        # Diodes
+        ui.display_diodes(etat.autocliqueur.quantite)
+
+        # Prix
+        ui.display_clic_price(etat.PRIX_AMELIORATION[etat.nb_ameliorations])
+        ui.display_autoclicker_price(etat.PRIX_AMELIORATION[etat.nb_ameliorations])
+        ui.display_power_price(etat.PRIX_AMELIORATION[etat.nb_ameliorations])
+        ui.display_frequency_price(etat.PRIX_AMELIORATION[etat.nb_ameliorations])
+
         if etat.nb_ameliorations > 0 and (t - etat.autocliqueur.temps_premier) / 1000 >= etat.autocliqueur.nb_tot_clics:
             etat.clic_auto()
 
+        # Gestion de la souris
         if pygame.mouse.get_pressed()[0]:
             # Clic bouton fuëlle
             if ui.check_mouse_position_fuelle_button():
@@ -70,19 +94,19 @@ def main():
                 if not button_clicking:
                     etat.clic()
             # Clic bouton auto clicker
-            elif ui.check_mouse_position_autoclicker_button():
+            elif ui.check_mouse_position_autoclicker_button() and etat.peut_add_autocliqueur():
                 etat.add_autocliqueur(t)
                 ui.display_autoclicker_button_down()
             # Clic bouton fréquence autoclicliker
-            elif ui.check_mouse_position_upgrade_frequency_button():
+            elif ui.check_mouse_position_upgrade_frequency_button() and etat.peut_add_autoclic_cps():
                 etat.add_autoclic_cps()
                 ui.display_upgrade_frequency_button_down()
             # Clic bouton puissance autoclicliker
-            elif ui.check_mouse_position_upgrade_power_button():
+            elif ui.check_mouse_position_upgrade_power_button() and etat.peut_add_autoclic_val():
                 etat.add_autoclic_val()
                 ui.display_upgrade_power_button_down()
             # Clic bouton puissance clic
-            elif ui.check_mouse_position_upgrade_clic_button():
+            elif ui.check_mouse_position_upgrade_clic_button() and etat.peut_add_valeur_clic():
                 etat.add_valeur_clic()
                 ui.display_upgrade_clic_button_down()
             button_clicking = True
