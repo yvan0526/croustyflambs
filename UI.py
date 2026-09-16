@@ -148,8 +148,8 @@ class UI:
         self.screen.blit(self.upgrade_frequency_button_image, (552, 252))
 
     def show_end_message(self, score):
-        message_end = Message(UI.screen, self.message_font)
-        message_credits = Message(UI.screen, self.message_font)
+        message_end = Message(self.screen, self.message_font)
+        message_credits = Message(self.screen, self.message_font)
         if score < 0:  # Casser la fenêtre met le score à une valeur négative et termine le jeu
             message_end.show("Patron : Mais que faites-vous?! Je ne vous paie pas pour cela !", "Suivant")
             message_end.show("Patron : Vous êtes renvoyé·e !", "Suivant")
@@ -160,7 +160,7 @@ class UI:
         elif score < 410000000000000:
             message_end.show("VOTRE FUSÉE A DÉCOLLÉ. ELLE S'EST MALHEUREUSEMENT ÉCRASÉE PAR MANQUE DE CARBURANT.\
                             L'IUT2 DE GRENOBLE A ÉTÉ RASÉ.\
-                            CÉDRIC GÉROT, S'ÉTANT RECONVERTI, IL A ÉTÉ ÉLU PRÉSIDENT DE LA RÉPUBLIQUE FRANÇAISE AVEC 69% DES VOIX.",
+                            CÉDRIC GÉROT, S'ÉTANT RECONVERTI, A ÉTÉ ÉLU PRÉSIDENT DE LA RÉPUBLIQUE FRANÇAISE AVEC 69% DES VOIX.",
                              "Fin")
         elif score < 430000000000000:
             message_end.show("VOTRE FUSÉE A DÉCOLLÉ. ELLE A DÉVIÉ DE SA TRAJECTOIRE, S'EST ARRÊTÉE, ET SE PERD DANS L'ESPACE.\
