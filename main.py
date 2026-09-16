@@ -104,10 +104,18 @@ def main():
             pygame.event.post(pygame.event.Event(GAME_END))
 
         # Affiche la progress bar
+        # TODO: Mettre le bon score max
         ui.display_progress_bar(etat.score, 100)
 
         # Affiche le bureau
         ui.display_background()
+
+        # Affiche la lumière de la barre de progression
+        # TODO: Mettre le bon score max
+        if 100 <= etat.score < 105:
+            ui.display_green_ligth()
+        elif etat.score >= 105:
+            ui.display_red_ligth()
 
         # Texte score
         ui.display_score(etat.score)
@@ -121,9 +129,15 @@ def main():
             ui.display_led_upgrade_power()
         if etat.peut_add_autoclic_cps():
             ui.display_led_upgrade_frequency()
+        if etat.peut_debloquer_clic_droit():
+            ui.display_led_right_clic()
 
         # Diodes
         ui.display_diodes(etat.autocliqueur.quantite)
+
+        # Bouton clic droit
+        if etat.clic_droit_debloque:
+            ui.display_right_clic_button()
 
         # Prix
         ui.display_clic_price(etat.calc_prix(etat.valeur_clic, "faible"))
@@ -177,7 +191,7 @@ def main():
         # Gestion de la souris
         coffee_actif = etat.coffee_actif(t)
 
-        if pygame.mouse.get_pressed()[0] and not message.active:
+        if (pygame.mouse.get_pressed()[0] or pygame.mouse.get_pressed()[2] and etat.clic_droit_debloque) and not message.active:
             # Clic bouton fuëlle
             if ui.check_mouse_position_fuelle_button():
                 ui.display_fuelle_button_down()
@@ -203,6 +217,10 @@ def main():
                 if not button_clicking:
                     etat.add_valeur_clic()
                 ui.display_upgrade_clic_button_down()
+            # Clic bouton clic droit
+            elif ui.check_mouse_position_right_clic_button():
+                if not button_clicking:
+                    etat.debloque_clic_droit()
             button_clicking = True
         else:
             button_clicking = False
