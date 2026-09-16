@@ -37,7 +37,7 @@ class UI:
     # Image bouton upgrade frequecy
     upgrade_frequency_button_image: Surface
     # Image bouton téléphone (stagiaire)
-    phone_button_image: Surface
+    micro_button_image: Surface
     # Image micro
     micro_1_image = Surface
     micro_2_image = Surface
@@ -95,7 +95,7 @@ class UI:
         # Bouton upgrade frequecy
         self.upgrade_frequency_button_image = pygame.image.load("assets/Button_UpgradeFreq_Down.png")
         # Bouton téléphone (stagiaire)
-        self.phone_button_image = pygame.image.load("assets/Button_Stagiaire_Down.png")
+        self.micro_button_image = pygame.image.load("assets/Micro/Micro_Button_Down.png")
         # Trappe micro
         self.micro_1_image = pygame.image.load("assets/Micro/Micro_1.png")
         self.micro_2_image = pygame.image.load("assets/Micro/Micro_2.png")
