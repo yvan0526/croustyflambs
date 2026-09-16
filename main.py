@@ -64,6 +64,19 @@ def main():
         # Texte score
         ui.display_score(etat.score)
 
+        # LEDs
+        if etat.peut_add_valeur_clic():
+            ui.display_led_upgrade_clic()
+        if etat.peut_add_autocliqueur():
+            ui.display_led_upgrade_autoclicker()
+        if etat.peut_add_autoclic_val():
+            ui.display_led_upgrade_power()
+        if etat.peut_add_autoclic_cps():
+            ui.display_led_upgrade_frequency()
+
+        # Diodes
+        ui.display_diodes(etat.autocliqueur.quantite)
+
         if etat.nb_ameliorations > 0 and (t - etat.autocliqueur.temps_premier) / 1000 >= etat.autocliqueur.nb_tot_clics:
             etat.clic_auto()
 
@@ -74,17 +87,17 @@ def main():
                 if not button_clicking:
                     etat.clic()
             # Clic bouton auto clicker
-            elif ui.check_mouse_position_autoclicker_button():
+            elif ui.check_mouse_position_autoclicker_button() and etat.peut_add_autocliqueur():
                 etat.add_autocliqueur(t)
                 ui.display_autoclicker_button_down()
             # Clic bouton fréquence autoclicliker
-            elif ui.check_mouse_position_upgrade_frequency_button():
+            elif ui.check_mouse_position_upgrade_frequency_button() and etat.peut_add_autoclic_cps():
                 ui.display_upgrade_frequency_button_down()
             # Clic bouton puissance autoclicliker
-            elif ui.check_mouse_position_upgrade_power_button():
+            elif ui.check_mouse_position_upgrade_power_button() and etat.peut_add_autoclic_val():
                 ui.display_upgrade_power_button_down()
             # Clic bouton puissance clic
-            elif ui.check_mouse_position_upgrade_clic_button():
+            elif ui.check_mouse_position_upgrade_clic_button() and etat.peut_add_valeur_clic():
                 ui.display_upgrade_clic_button_down()
             button_clicking = True
         else:
