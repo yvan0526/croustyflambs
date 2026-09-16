@@ -178,9 +178,9 @@ def main():
         # Gestion de la souris
         coffee_actif = etat.coffee_actif(t)
 
-        if pygame.mouse.get_pressed()[0] or coffee_actif:
+        if pygame.mouse.get_pressed()[0]:
             # Clic bouton fuëlle
-            if coffee_actif or ui.check_mouse_position_fuelle_button():
+            if ui.check_mouse_position_fuelle_button():
                 ui.display_fuelle_button_down()
                 if not button_clicking or coffee_actif:
                     etat.clic()
