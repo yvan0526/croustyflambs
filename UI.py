@@ -346,10 +346,6 @@ class UI:
     def display_red_ligth(self):
         self.screen.blit(self.red_light, (453, 333))
 
-    def show_end_message(self, score):
-        message_end = Message(self.screen, self.message_font)
-        message_credits = Message(self.screen, self.message_font)
-
     def get_message_text(self, score):
         if score < 0:  # Casser la fenêtre met le score à une valeur négative et termine le jeu
             return "Patron : Mais que faites-vous?! Je ne vous paie pas pour cela !\nPatron : Vous êtes renvoyé·e !\n\nVous avez été renvoyé·e. Tout le monde est mort."
