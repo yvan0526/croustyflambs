@@ -35,10 +35,25 @@ def main():
     moon_angle = moon_start_angle
     button_clicking = False
 
+    #Stagiaire
+    stagiaire_apparition = 0.2 * 60 * 1000  # 5 minutes en millisecondes
+    stagiaire_message = False
+    stagiaire_message_ferme = False
+    micro_animation = 0
+    micro_animation_lance = False
+    micro_frame_duration = 100 #ms par frame d'animation
+    message_actif_precedent = False
+
     # Boucle de l'animation
     while running:
         dt = clock.tick(60)
         t += dt
+
+        # Message stagiaire
+        if t >= stagiaire_apparition and not stagiaire_message:
+            message.show("On a envoyé un stagiaire pour vous aider !", "Ok")
+            stagiaire_message = True
+            stagiaire_message_ferme = True
 
         # Fin réservoir plein
         if etat.score >= 1000000000000000:
@@ -110,10 +125,33 @@ def main():
 
         # Fuëlle par seconde screen
         ui.display_fuelle_per_second(etat.autocliqueur.quantite, etat.autocliqueur.valeur, etat.autocliqueur.cps)
+            
+        # Détecte la fermeture du message stagiaire pour lancer l'animation
+        if stagiaire_message_ferme and message_actif_precedent and not message.active:
+            micro_animation = t
+            micro_animation_lance = True
+            stagiaire_message_ferme = False
+
+        message_actif_precedent = message.active
+
+        # Animation micro
+        if micro_animation_lance:
+            temps_ecoule = t - micro_animation
+            frame_index = temps_ecoule // micro_frame_duration
+
+            if frame_index < len(ui.micro_images):
+                # Animation d'ouverture en cours
+                ui.display_micro(frame_index)
+            else:
+                # Animation terminée : le micro reste affiché (image 12 = bouton au repos)
+                ui.display_micro(len(ui.micro_images) - 1)
+                # Clic sur le bouton
+                if pygame.mouse.get_pressed()[0] and ui.check_mouse_position_phone_button():
+                    ui.display_phone_button_down()
 
         if (t - etat.autocliqueur.temps_premier) * etat.autocliqueur.cps / 1000 >= etat.autocliqueur.nb_tot_clics:
             etat.clic_auto()
-
+            
         # Gestion de la souris
         if pygame.mouse.get_pressed()[0]:
             # Clic bouton fuëlle
