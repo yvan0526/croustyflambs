@@ -183,8 +183,8 @@ class UI:
                                                         Création : équipe des croustiflambs (le b est muet)\
                                                         Programmation : Célia MOULIN, Alenia LEFOYER, Yvan GIORDANO, Timothée DAGAND\
                                                         Assets graphiques : Emma DHOURY\
-                                                        Sons : \
+                                                        Sons : Emma DHOURY\
                                                         Remerciements :\
-                                                        Merci à Jean-Pierre CHEVALLET pour son cours sur le langage Python et ses conseils lors du développement,\
-                                                        Merci à l'équipe enseignante du BUT Informatique de l'université Grenoble-Alpes,\
+                                                        Merci à Jean-Pierre CHEVALLET pour son cours sur le langage Python et ses conseils lors du développement.\
+                                                        Merci à l'équipe enseignante du BUT Informatique de l'université Grenoble-Alpes.\
                                                         Enfin, merci à vous d'avoir joué !", "Quitter")
