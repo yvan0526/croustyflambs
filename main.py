@@ -34,13 +34,13 @@ def main():
     button_clicking = False
 
     #Stagiaire
-    stagiaire_cost = [1000000 * (2 ** i) for i in range(10)]  # 10 paliers, jusqu'à 512M
-    stagiaire_apparition = 1 * 60 * 1000  # 5 minutes en millisecondes
-    stagiaire_dispo = False
+    stagiaire_apparition = 0.2 * 60 * 1000  # 5 minutes en millisecondes
     stagiaire_message = False
-    coffee_duration = 10000  # 10 secondes en millisecondes
+    stagiaire_message_ferme = False
     micro_animation = 0
-    micro_frame_duration = 40 #ms par frame d'animation
+    micro_animation_lance = False
+    micro_frame_duration = 100 #ms par frame d'animation
+    message_actif_precedent = False
 
     # Boucle de l'animation
     while running:
@@ -50,9 +50,8 @@ def main():
         # Message stagiaire
         if t >= stagiaire_apparition and not stagiaire_message:
             message.show("On a envoyé un stagiaire pour vous aider !", "Ok")
-            micro_animation = t
             stagiaire_message = True
-
+            stagiaire_message_ferme = True
 
         # Fin réservoir plein
         if etat.score >= 1000000000000000:
@@ -75,8 +74,16 @@ def main():
         # Texte score
         ui.display_score(etat.score)
 
+        # Détecte la fermeture du message stagiaire pour lancer l'animation
+        if stagiaire_message_ferme and message_actif_precedent and not message.active:
+            micro_animation = t
+            micro_animation_lance = True
+            stagiaire_message_ferme = False
+
+        message_actif_precedent = message.active
+
         # Animation micro
-        if stagiaire_message:
+        if micro_animation_lance:
             temps_ecoule = t - micro_animation
             frame_index = temps_ecoule // micro_frame_duration
 
@@ -85,12 +92,11 @@ def main():
                 ui.display_micro(frame_index)
             else:
                 # Animation terminée : le micro reste affiché (image 12 = bouton au repos)
-                stagiaire_dispo = True
+                ui.display_micro(len(ui.micro_images) - 1)
                 # Clic sur le bouton
                 if pygame.mouse.get_pressed()[0] and ui.check_mouse_position_phone_button():
                     ui.display_phone_button_down()
-                else:
-                    ui.display_micro(len(ui.micro_images) - 1)
+
 
 
         # TODO: Refaire ça proprement

@@ -95,7 +95,7 @@ class UI:
         # Bouton upgrade frequecy
         self.upgrade_frequency_button_image = pygame.image.load("assets/Button_UpgradeFreq_Down.png")
         # Bouton téléphone (stagiaire)
-        self.micro_button_image = pygame.image.load("assets/Micro/Micro_Button_Down.png")
+        self.micro_button_image = pygame.image.load("assets/Button_Stagiaire_Down.png")
         # Trappe micro
         self.micro_1_image = pygame.image.load("assets/Micro/Micro_1.png")
         self.micro_2_image = pygame.image.load("assets/Micro/Micro_2.png")
@@ -189,7 +189,7 @@ class UI:
         self.screen.blit(self.upgrade_frequency_button_image, (552, 252))
 
     def display_phone_button_down(self):
-        self.screen.blit(self.phone_button_image, (74,254))
+        self.screen.blit(self.micro_button_image, (74,254))
 
     def display_micro(self, frame_index: int):
         frame_index = max(0, min(frame_index, len(self.micro_images) - 1))
