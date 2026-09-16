@@ -11,7 +11,7 @@ class Etat:
     def __init__(self):
         self.score = 0
         self.clic_droit_debloque = False
-        self.valeur_clic = 9
+        self.valeur_clic = 1
         self.autocliqueur = Autocliqueur()
 
     # Méthode gérant un clic sur le bouton principal

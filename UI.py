@@ -113,7 +113,7 @@ class UI:
         # LED
         self.led_image = pygame.image.load("assets/Led_On.png")
         # Bouton téléphone (stagiaire)
-        self.micro_button_image = pygame.image.load("assets/Button_Stagiaire_Down.png")
+        self.micro_button_image = pygame.image.load("assets/Button_Stagiaire.png")
         # Trappe micro
         self.micro_1_image = pygame.image.load("assets/Micro/Micro_1.png")
         self.micro_2_image = pygame.image.load("assets/Micro/Micro_2.png")
