@@ -42,7 +42,7 @@ class Etat:
     def init_autocliqueur(self, t: int) -> None :
         if self.nb_ameliorations == 0 and self.score >= self.PRIX_AMELIORATION[0]:
             self.autocliqueur.temps_premier = t
-            self.autocliqueur.cps = 1
+            self.autocliqueur.quantite = 1
             self.score -= self.PRIX_AMELIORATION[0]
             self.nb_ameliorations += 1
 
