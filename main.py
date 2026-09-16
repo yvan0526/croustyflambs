@@ -99,6 +99,7 @@ def main():
             moon_angle += angle
         else:
             # Fin timer
+            print("fin timer")
             running = False
             pygame.event.post(pygame.event.Event(GAME_END))
 
@@ -170,9 +171,9 @@ def main():
             ui.display_frequency_stagiaire(etat.appels_stagiaire_restants())
 
 
-        if (t - etat.autocliqueur.temps_premier) * etat.autocliqueur.cps / 1000 >= etat.autocliqueur.nb_tot_clics:
+        if (t - etat.autocliqueur.temps_ref) * etat.autocliqueur.cps / 1000 >= etat.autocliqueur.nb_tot_clics:
             etat.clic_auto()
-            
+
         # Gestion de la souris
         coffee_actif = etat.coffee_actif(t)
 
@@ -190,7 +191,7 @@ def main():
             # Clic bouton fréquence autoclicliker
             elif ui.check_mouse_position_upgrade_frequency_button():
                 if not button_clicking:
-                    etat.add_autoclic_cps()
+                    etat.add_autoclic_cps(t)
                 ui.display_upgrade_frequency_button_down()
             # Clic bouton puissance autoclicliker
             elif ui.check_mouse_position_upgrade_power_button():

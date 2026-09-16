@@ -57,10 +57,11 @@ class Etat:
                 and self.score >= self.calc_prix(self.autocliqueur.valeur, "faible"))
 
     # Méthode gérant l'amélioration de la fréquence de l'autoclic
-    def add_autoclic_cps(self, bonus: int = 1)-> None :
+    def add_autoclic_cps(self, t: int, bonus: int = 1)-> None :
         if self.peut_add_autoclic_cps():
             self.score -= self.calc_prix(self.autocliqueur.cps, "faible")
             self.autocliqueur.cps += bonus
+            self.autocliqueur.temps_ref += int((t - self.autocliqueur.temps_ref) / self.autocliqueur.cps)
     # Vérifie la possibilité d'améliorer la fréquence de l'autoclic
     def peut_add_autoclic_cps(self)-> bool :
         return (self.autocliqueur.quantite > 0
@@ -70,7 +71,7 @@ class Etat:
     def add_autocliqueur(self, t: int, bonus: int = 1)-> None :
         if self.peut_add_autocliqueur():
             if self.autocliqueur.quantite == 0:
-                self.autocliqueur.temps_premier = t
+                self.autocliqueur.temps_ref = t
             self.score -= self.calc_prix(self.autocliqueur.quantite, "moyen")
             self.autocliqueur.quantite += bonus
     # Vérifie la possibilité d'améliorer le nombre d'autocliqueurs
