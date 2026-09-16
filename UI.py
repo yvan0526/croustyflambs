@@ -36,6 +36,8 @@ class UI:
     micro_button_image: Surface
     # Images micro
     micro_images: list
+    # Fin 100
+    fin_100_images: list
 
     # Police d'écriture score
     score_font: Font
@@ -55,25 +57,16 @@ class UI:
 
         # Bureau
         self.background_image = pygame.image.load("assets/Background.png")
+
         # Fenêtre
-        self.sky_images = [
-            pygame.image.load("assets/Sky_1.png"),
-            pygame.image.load("assets/Sky_2.png"),
-            pygame.image.load("assets/Sky_3.png"),
-            pygame.image.load("assets/Sky_4.png"),
-            pygame.image.load("assets/Sky_5.png"),
-        ]
-
-        self.moon_images = [
-            pygame.image.load("assets/Moon_1.png"),
-            pygame.image.load("assets/Moon_2.png"),
-            pygame.image.load("assets/Moon_3.png"),
-            pygame.image.load("assets/Moon_4.png"),
-            pygame.image.load("assets/Moon_5.png"),
-        ]
-
+        self.sky_images = []
+        self.moon_images = []
+        for i in range(5):
+            self.sky_images.append(pygame.image.load(f"assets/Sky_{i + 1}.png"))
+            self.moon_images.append(pygame.image.load(f"assets/Moon_{i + 1}.png"))
         self.sun_x = 364
         self.sun_y = 84
+
         # Bouton fuelle
         self.fuelle_button_image = pygame.image.load("assets/Button_Down.png")
         # Police d'écriture score
@@ -103,20 +96,9 @@ class UI:
         self.micro_button_image = pygame.image.load("assets/Button_Stagiaire.png")
 
         # Liste micro
-        self.micro_images = [
-            pygame.image.load("assets/Micro/Micro_1.png"),
-            pygame.image.load("assets/Micro/Micro_2.png"),
-            pygame.image.load("assets/Micro/Micro_3.png"),
-            pygame.image.load("assets/Micro/Micro_4.png"),
-            pygame.image.load("assets/Micro/Micro_5.png"),
-            pygame.image.load("assets/Micro/Micro_6.png"),
-            pygame.image.load("assets/Micro/Micro_7.png"),
-            pygame.image.load("assets/Micro/Micro_8.png"),
-            pygame.image.load("assets/Micro/Micro_9.png"),
-            pygame.image.load("assets/Micro/Micro_10.png"),
-            pygame.image.load("assets/Micro/Micro_11.png"),
-            pygame.image.load("assets/Micro/Micro_12.png"),
-        ]
+        self.micro_images = []
+        for i in range(12):
+            self.micro_images.append(pygame.image.load(f"assets/Micro/Micro_{i + 1}.png"))
 
         # Fin 100
 
