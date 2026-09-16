@@ -192,6 +192,7 @@ def main():
         message.draw()
         pygame.display.update()
 
+    # Ending handler
     game_quit = False
     while not game_quit:
         keys = pygame.key.get_pressed()
