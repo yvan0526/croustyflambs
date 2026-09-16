@@ -30,6 +30,8 @@ class UI:
     upgrade_power_button_image: Surface
     # Image bouton upgrade frequecy
     upgrade_frequency_button_image: Surface
+    # Image bouton upgrade clic droit
+    upgrade_right_clic_button_image: Surface
     # Image diode
     diode_image: Surface
     # Image LED
@@ -96,6 +98,8 @@ class UI:
         self.upgrade_power_button_image = pygame.image.load("assets/Button_UpgradePower_Down.png")
         # Bouton upgrade frequecy
         self.upgrade_frequency_button_image = pygame.image.load("assets/Button_UpgradeFreq_Down.png")
+        # Bouton clic droit
+        self.upgrade_right_clic_button_image = pygame.image.load("assets/Button_Rclick_Down.png")
         # Diode
         self.diode_image = pygame.image.load("assets/Diode_On.png")
         # LED
@@ -237,6 +241,15 @@ class UI:
     def display_diodes(self, nb_diodes):
         for i in range(min(nb_diodes, 10)):
             self.screen.blit(self.diode_image, (513 + (i * 9), 215))
+
+    def check_mouse_position_right_clic_button(self):
+        return 449 < pygame.mouse.get_pos()[0] < 482 and 276 < pygame.mouse.get_pos()[1] < 297
+
+    def display_right_clic_button(self):
+        self.screen.blit(self.upgrade_right_clic_button_image, (449, 276))
+
+    def display_led_right_clic(self):
+        self.screen.blit(self.led_image, (486, 278))
 
     def display_clic_price(self, price):
         price_text = self.price_font.render(f"{price}F", True, (255, 255, 255))
