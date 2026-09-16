@@ -83,6 +83,12 @@ def main():
         ui.display_power_price(etat.PRIX_AMELIORATION[etat.nb_ameliorations])
         ui.display_frequency_price(etat.PRIX_AMELIORATION[etat.nb_ameliorations])
 
+        # Valeur du clic screen
+        ui.display_clic_power(etat.valeur_clic)
+
+        # Fuëlle par seconde screen
+        ui.display_fuelle_per_second(etat.autocliqueur.quantite, etat.autocliqueur.valeur, etat.autocliqueur.cps)
+
         if (t - etat.autocliqueur.temps_premier) * etat.autocliqueur.cps / 1000 >= etat.autocliqueur.nb_tot_clics:
             etat.clic_auto()
 
