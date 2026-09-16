@@ -245,19 +245,19 @@ class UI:
 
     def get_message_text(self, score):
         if score < 0:  # Casser la fenêtre met le score à une valeur négative et termine le jeu
-            return "Patron : Mais que faites-vous?! Je ne vous paie pas pour cela !\nPatron : Vous êtes renvoyé·e !\n\nVOUS AVEZ ÉTÉ RENVOYÉ·E. TOUT LE MONDE EST MORT."
+            return "Patron : Mais que faites-vous?! Je ne vous paie pas pour cela !\nPatron : Vous êtes renvoyé·e !\n\nVous avez été renvoyé·e. Tout le monde est mort."
         elif score < 1:
-            return "VOTRE FUSÉE N'A PAS DÉCOLLÉ.\nLA FACE CACHÉE DE LA LUNE S'EST RÉVÉLÉE. TOUT LE MONDE EST MORT."
+            return "Votre fusée n'a pas décollé.\nLa face cachée de la Lune s'est révélée. Tout le monde est mort."
         elif score < 410000000000000:
-            return "VOTRE FUSÉE A DÉCOLLÉ. ELLE S'EST MALHEUREUSEMENT ÉCRASÉE PAR MANQUE DE CARBURANT.\nL'IUT2 DE GRENOBLE A ÉTÉ RASÉ.\nCÉDRIC GÉROT, S'ÉTANT RECONVERTI, A ÉTÉ ÉLU PRÉSIDENT DE LA RÉPUBLIQUE FRANÇAISE AVEC 69% DES VOIX."
+            return "Votre fuse a décollé. Elle s'est malheureusement écrasée par manque de carburant.\nL'IUT2 de Grenoble a été rasé.\nCédric Gérot, s'étant reconverti, a été élu président de la République Française avec 69% des voix."
         elif score < 430000000000000:
-            return "VOTRE FUSÉE A DÉCOLLÉ. ELLE A DÉVIÉ DE SA TRAJECTOIRE, S'EST ARRÊTÉE, ET SE PERD DANS L'ESPACE.\nL'ÉCLIPSE A EU LIEU. RIEN N'EST ARRIVÉ. LE MONDE EST SAUVÉ."
+            return "Votre fusée a décollé. Elle a dévié de sa trajectoire, s'est arrêtée, et se perd dans l'espace.\nL'éclipse a eu lieu. Rien n'est arrivé. Le monde est sauvé."
         elif score < 750000000000000:
-            return "VOTRE FUSÉE A DÉCOLLÉ. ELLE A DÉVIÉ DE SA TRAJECTOIRE ET S'EST ARRÊTÉE EN ORBITE LUNAIRE.\nDES HABITANTS DE LA LUNE ONT FAIT REPARTIR LA FUSÉE VERS LA TERRE.\nLA POPULATION TERRESTRE EST RÉDUITE EN ESCLAVAGE."
+            return "Votre fusée a décollé. Elle a dévié de sa trajectoire et s'est arrêtée en orbite lunaire.\nDes habitants de la Lune ont fait repartir la fusée vers la Terre.\nLa population terrestre est réduit en esclavage."
         elif score <= 999999999999999:
-            return "VOTRE FUSÉE A DÉCOLLÉ. ELLE A LÉGÈREMENT DÉVIÉ DE SA TRAJECTOIRE ET SE DIRIGE VERS LE SOLEIL.\nUNE SEMAINE PLUS TARD, LE SOLEIL EXPLOSE.\n8 MINUTES PLUS TARD, TOUT LE MONDE EST MORT."
+            return "Votre fusée a décollé. Elle a légèrement dévié de sa trajectoire et se dirige vers le Soleil.\nUne semaine plus tard, le Soleil explose.\n8 minutes plus tard, tout le monde est mort."
         elif score >= 1000000000000000:
-            return "VOTRE FUSÉE A DÉCOLLÉ. ELLE A ATTEINT SA CIBLE. LA LUNE EXPLOSE.\nLES DÉBRIS DE LA LUNE RETOMBENT SUR LA TERRE.\nTOUT LE MONDE EST MORT."
+            return "Votre fusée a décollé. Elle a atteint sa cible. La Lune explose.\nLes débris de la Lune retombent sur la Terre.\nTout le monde est mort."
         else:
             return "undefined Fin"
 
