@@ -1,10 +1,11 @@
 import math
-
+import time
 import pygame
+from anyio import sleep_until
+
 from UI import UI
 from message import Message
-from events import GAME_END
-from events import WINDOW_BREAK
+from events import *
 
 from src.modele.etat import Etat
 
@@ -25,6 +26,8 @@ def main():
 
     running = True
 
+    game_started = True
+
     clock = pygame.time.Clock()
     dt: int = 0
     t: int = 0
@@ -42,14 +45,39 @@ def main():
 
         # Fin réservoir plein
         if etat.score >= 1000000000000000:
-            pygame.event.post(pygame.event.Event(GAME_END))
+            etat.score = 1000000000000000
+            running = False
+
+        for event in pygame.event.get():
+            if message.active:
+                message.handle_event(event)
+
+            elif event.type == pygame.QUIT:
+                pygame.quit()
+                quit()
+
+            elif event.type == WINDOW_BREAK:
+                etat.score = -1
+                pygame.event.post(pygame.event.Event(GAME_END))
+
+            elif event.type == GAME_END:
+                message.show(ui.get_message_text(etat.score), 'Fin')
+                pygame.event.post(pygame.event.Event(CREDITS))
+
+            elif event.type == CREDITS:
+                message.show(ui.get_credits_text(), 'Quitter')
+                pygame.event.post(pygame.event.Event(pygame.QUIT))
+
 
         # Lune
         ui.display_window(moon_angle)
         if moon_angle < 0:
             moon_angle += 0.001
+            print(moon_angle)
         else:
             # Fin timer
+            print("fin timer")
+            running = False
             pygame.event.post(pygame.event.Event(GAME_END))
 
         # Affiche la progress bar
@@ -86,22 +114,6 @@ def main():
         else:
             button_clicking = False
 
-        for event in pygame.event.get():
-            if event.type == pygame.QUIT:
-                pygame.quit()
-                quit()
-
-            if event.type == WINDOW_BREAK:
-                etat.score = -1
-                pygame.event.post(GAME_END)
-
-            if event.type == GAME_END:
-                ui.show_end_message(etat.score)
-                running = False
-
-            if message.active:
-                message.handle_event(event)
-
         # Quitter le jeu
         keys = pygame.key.get_pressed()
         if keys[pygame.K_ESCAPE]:
@@ -110,6 +122,27 @@ def main():
         # Mise à jour de l'affichage
         message.draw()
         pygame.display.update()
+
+    game_quit = False
+    while not game_quit:
+        keys = pygame.key.get_pressed()
+        if keys[pygame.K_ESCAPE]:
+            game_quit = True
+        else:
+            message.show(ui.get_message_text(etat.score), 'Fin')
+            while message.active:
+                message.draw()
+                pygame.display.update()
+                for event in pygame.event.get():
+                    if message.active:
+                        message.handle_event(event)
+            message.show(ui.get_credits_text(), 'Quitter')
+            while message.active:
+                message.draw()
+                pygame.display.update()
+                for event in pygame.event.get():
+                    message.handle_event(event)
+            game_quit = True
 
 if __name__ == '__main__':
     main()

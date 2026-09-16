@@ -130,6 +130,16 @@ class UI:
             self.screen.blit(self.sky_5_image, (220, 20))
             self.screen.blit(self.moon_5_image, (x, y))
 
+    def messagestart(self):
+        message = Message(self.screen, self.message_font)
+        # Message affiché au démarrage
+        message.show("MESSAGE D’URGENCE\n"
+                     "Vous êtes notre seul espoir.\n"
+                     "Une éclipse aura lieu dans 10 minutes. Si elle se produit, ce sera la fin du monde.\n"
+                     "Votre mission est simple : remplir entièrement le réservoir de la fusée afin de la lancer et de détruire la Lune avant le debut de l’éclipse.\n"
+                     "Chaque seconde compte. Chaque clic peut faire la différence.\n"
+                     "Ne nous décevez pas.\n", "Ok")
+
     def display_progress_bar(self, score, score_max):
         self.screen.blit(self.progress_bar_background_image, (200, 332))
         x = min(-40 + (score / score_max) * 240, 200)
@@ -147,44 +157,23 @@ class UI:
     def display_upgrade_frequency_button_down(self):
         self.screen.blit(self.upgrade_frequency_button_image, (552, 252))
 
-    def show_end_message(self, score):
-        message_end = Message(self.screen, self.message_font)
-        message_credits = Message(self.screen, self.message_font)
+    def get_message_text(self, score):
         if score < 0:  # Casser la fenêtre met le score à une valeur négative et termine le jeu
-            message_end.show("Patron : Mais que faites-vous?! Je ne vous paie pas pour cela !", "Suivant")
-            message_end.show("Patron : Vous êtes renvoyé·e !", "Suivant")
-            message_end.show("VOUS AVEZ ÉTÉ RENVOYÉ·E. TOUT LE MONDE EST MORT.", "Fin")
+            return "Patron : Mais que faites-vous?! Je ne vous paie pas pour cela !\nPatron : Vous êtes renvoyé·e !\n\nVOUS AVEZ ÉTÉ RENVOYÉ·E. TOUT LE MONDE EST MORT."
         elif score < 1:
-            message_end.show("VOTRE FUSÉE N'A PAS DÉCOLLÉ.\
-                            LA FACE CACHÉE DE LA LUNE S'EST RÉVELÉE. TOUT LE MONDE EST MORT.", "Fin")
+            return "VOTRE FUSÉE N'A PAS DÉCOLLÉ.\nLA FACE CACHÉE DE LA LUNE S'EST RÉVÉLÉE. TOUT LE MONDE EST MORT."
         elif score < 410000000000000:
-            message_end.show("VOTRE FUSÉE A DÉCOLLÉ. ELLE S'EST MALHEUREUSEMENT ÉCRASÉE PAR MANQUE DE CARBURANT.\
-                            L'IUT2 DE GRENOBLE A ÉTÉ RASÉ.\
-                            CÉDRIC GÉROT, S'ÉTANT RECONVERTI, A ÉTÉ ÉLU PRÉSIDENT DE LA RÉPUBLIQUE FRANÇAISE AVEC 69% DES VOIX.",
-                             "Fin")
+            return "VOTRE FUSÉE A DÉCOLLÉ. ELLE S'EST MALHEUREUSEMENT ÉCRASÉE PAR MANQUE DE CARBURANT.\nL'IUT2 DE GRENOBLE A ÉTÉ RASÉ.\nCÉDRIC GÉROT, S'ÉTANT RECONVERTI, A ÉTÉ ÉLU PRÉSIDENT DE LA RÉPUBLIQUE FRANÇAISE AVEC 69% DES VOIX."
         elif score < 430000000000000:
-            message_end.show("VOTRE FUSÉE A DÉCOLLÉ. ELLE A DÉVIÉ DE SA TRAJECTOIRE, S'EST ARRÊTÉE, ET SE PERD DANS L'ESPACE.\
-                            L'ÉCLIPSE A EU LIEU. RIEN N'EST ARRIVÉ. LE MONDE EST SAUVÉ.", "Fin")
+            return "VOTRE FUSÉE A DÉCOLLÉ. ELLE A DÉVIÉ DE SA TRAJECTOIRE, S'EST ARRÊTÉE, ET SE PERD DANS L'ESPACE.\nL'ÉCLIPSE A EU LIEU. RIEN N'EST ARRIVÉ. LE MONDE EST SAUVÉ."
         elif score < 750000000000000:
-            message_end.show("VOTRE FUSÉE A DÉCOLLÉ. ELLE A DÉVIÉ DE SA TRAJECTOIRE ET S'EST ARRÊTÉE EN ORBITE LUNAIRE.\
-                            DES HABITANTS DE LA LUNE ONT FAIT REPARTIR LA FUSÉE VERS LA TERRE.\
-                            LA POPULATION TERRESTRE EST RÉDUITE EN ESCLAVAGE.", "Fin")
+            return "VOTRE FUSÉE A DÉCOLLÉ. ELLE A DÉVIÉ DE SA TRAJECTOIRE ET S'EST ARRÊTÉE EN ORBITE LUNAIRE.\nDES HABITANTS DE LA LUNE ONT FAIT REPARTIR LA FUSÉE VERS LA TERRE.\nLA POPULATION TERRESTRE EST RÉDUITE EN ESCLAVAGE."
         elif score <= 999999999999999:
-            message_end.show("VOTRE FUSÉE A DÉCOLLÉ. ELLE A LÉGÈREMENT DÉVIÉ DE SA TRAJECTOIRE ET SE DIRIGE VERS LE SOLEIL.\
-                            LE SOLEIL EXPLOSE.\
-                            8 MINUTES PLUS TARD, TOUT LE MONDE EST MORT.", "Fin")
+            return "VOTRE FUSÉE A DÉCOLLÉ. ELLE A LÉGÈREMENT DÉVIÉ DE SA TRAJECTOIRE ET SE DIRIGE VERS LE SOLEIL.\nUNE SEMAINE PLUS TARD, LE SOLEIL EXPLOSE.\n8 MINUTES PLUS TARD, TOUT LE MONDE EST MORT."
         elif score >= 1000000000000000:
-            message_end.show("VOTRE FUSÉE A DÉCOLLÉ. ELLE A ATTEINT SA CIBLE. LA LUNE EXPLOSE.\
-                            LES DÉBRIS DE LA LUNE RETOMBENT SUR LA TERRE.\
-                            TOUT LE MONDE EST MORT.", "Fin")
+            return "VOTRE FUSÉE A DÉCOLLÉ. ELLE A ATTEINT SA CIBLE. LA LUNE EXPLOSE.\nLES DÉBRIS DE LA LUNE RETOMBENT SUR LA TERRE.\nTOUT LE MONDE EST MORT."
         else:
-            message_end.show("undefined Fin", "Undefined")
-        message_credits.show("Jeu réalisé dans le cadre de la SAE5.01: GameJam, du BUT Informatique, à l'université Grenoble-Alpes.\
-                                                        Création : équipe des croustiflambs (le b est muet)\
-                                                        Programmation : Célia MOULIN, Alenia LEFOYER, Yvan GIORDANO, Timothée DAGAND\
-                                                        Assets graphiques : Emma DHOURY\
-                                                        Sons : Emma DHOURY\
-                                                        Remerciements :\
-                                                        Merci à Jean-Pierre CHEVALLET pour son cours sur le langage Python et ses conseils lors du développement.\
-                                                        Merci à l'équipe enseignante du BUT Informatique de l'université Grenoble-Alpes.\
-                                                        Enfin, merci à vous d'avoir joué !", "Quitter")
+            return "undefined Fin"
+
+    def get_credits_text(self):
+        return "Jeu réalisé dans le cadre de la SAE5.01: GameJam, du BUT Informatique, à l'université Grenoble-Alpes.\nCréation : équipe des croustiflambs (le b est muet)\nProgrammation : Célia MOULIN, Alenia LEFOYER, Yvan GIORDANO, Timothée DAGAND\nSons : Emma DHOURY\nAssets graphiques : Emma DHOURY\nDessin original de la fusée : Hergé, Bob DE MOOR (Objectif Lune, 1953, éditions Casterman)\nRemerciements :\nMerci à Jean-Pierre CHEVALLET pour son cours sur le langage Python et ses conseils lors du développement.\nMerci à l'équipe enseignante du BUT Informatique de l'université Grenoble-Alpes.\nEnfin, merci à vous d'avoir joué !"
