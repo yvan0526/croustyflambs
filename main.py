@@ -1,7 +1,4 @@
 import math
-import time
-import pygame
-from anyio import sleep_until
 
 from UI import UI
 from message import Message
@@ -25,8 +22,6 @@ def main():
                  "Ne nous décevez pas.\n", "Ok")
 
     running = True
-
-    game_started = True
 
     clock = pygame.time.Clock()
     dt: int = 0
@@ -76,11 +71,6 @@ def main():
         if moon_angle < 0:
             angle = abs(moon_start_angle) / timer_end * dt
             moon_angle += angle
-        #else:
-            # Fin timer
-        #    pygame.event.post(pygame.event.Event(GAME_END))
-            moon_angle += 0.001
-            print(moon_angle)
         else:
             # Fin timer
             print("fin timer")
