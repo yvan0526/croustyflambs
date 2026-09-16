@@ -67,7 +67,6 @@ def main():
             pygame.draw.rect(ui.screen, "blue", buttonFirstUp)
         elif (t - etat.autocliqueur.temps_premier) / 1000 >= etat.autocliqueur.nb_tot_clics:
             etat.clic_auto()
-            etat.autocliqueur.nb_tot_clics += 1
 
         if pygame.mouse.get_pressed()[0]:
             # Clic bouton fuëlle
