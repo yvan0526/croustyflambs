@@ -31,7 +31,7 @@ def main():
     dt: int = 0
     t: int = 0
     # millisecondes * secondes * minutes
-    timer_end = 1000 * 5
+    timer_end = 1000 * 60 * 10
 
     etat: Etat = Etat()
 
