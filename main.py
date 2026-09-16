@@ -61,11 +61,7 @@ def main():
         # Texte score
         ui.display_score(etat.score)
 
-        # TODO: Refaire ça proprement
-        if not (hasFirstUp):
-            buttonFirstUp = pygame.Rect(ui.screen.get_width() / 4 - 10, ui.screen.get_height() / 2 - 10, 20, 20)
-            pygame.draw.rect(ui.screen, "blue", buttonFirstUp)
-        elif (t - etat.autocliqueur.temps_premier) / 1000 >= etat.autocliqueur.nb_tot_clics:
+        if hasFirstUp and (t - etat.autocliqueur.temps_premier) / 1000 >= etat.autocliqueur.nb_tot_clics:
             etat.clic_auto()
 
         if pygame.mouse.get_pressed()[0]:
