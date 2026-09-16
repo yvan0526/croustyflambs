@@ -22,7 +22,7 @@ class Etat:
 
     # Méthode gérant un clic automatique
     def clic_auto(self)-> None :
-        self.score += self.autocliqueur.valeur
+        self.score += self.autocliqueur.valeur * self.autocliqueur.quantite
         self.autocliqueur.nb_tot_clics += 1
 
     # Méthode gérant l'amélioration du clic droit
