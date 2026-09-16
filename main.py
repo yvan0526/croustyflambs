@@ -35,10 +35,24 @@ def main():
     moon_angle = -math.pi / 2
     button_clicking = False
 
+
+    #Stagiaire
+    stagiaire_cost = [1000000 * (2 ** i) for i in range(10)]  # 10 paliers, jusqu'à 512M
+    stagiaire_apparition = 5 * 60 * 1000  # 5 minutes en millisecondes
+    stagiaire_disponible = False
+    stagiaire_message = False
+    coffee_duration = 10000  # 10 secondes en millisecondes
+
     # Boucle de l'animation
     while running:
         dt = clock.tick(60)
         t += dt
+
+        # Message stagiaire
+        if t >= stagiaire_apparition and not stagiaire_message:
+            message.show("On a envoyé un stagiaire pour vous aider !", "Ok")
+            stagiaire_disponible = True
+            stagiaire_message = True
 
         # Fin réservoir plein
         if etat.score >= 1000000000000000:
