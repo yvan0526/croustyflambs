@@ -37,7 +37,17 @@ class UI:
     # Images micro
     micro_images: list
     # Fin 100
-    fin_100_images: list
+    end_100_images: list
+    # Fin joyeuse
+    end_happy_images: list
+    # Fin IUT
+    end_iut_images: list
+    # Fin luniens
+    end_luniens_images: list
+    # Fin soleil
+    end_sun_images: list
+    # Fin Blanchon
+    end_blanchon_images: list
 
     # Police d'écriture score
     score_font: Font
@@ -47,10 +57,6 @@ class UI:
     price_font: Font
     # Police d'écriture écran upgrade
     upgrade_screen_font: Font
-
-    # Position de la lune
-    sun_x: int
-    sun_y: int
 
     def __init__(self):
         self.screen = pygame.display.set_mode((640, 360), pygame.FULLSCREEN | pygame.SCALED)
@@ -64,8 +70,6 @@ class UI:
         for i in range(5):
             self.sky_images.append(pygame.image.load(f"assets/Sky_{i + 1}.png"))
             self.moon_images.append(pygame.image.load(f"assets/Moon_{i + 1}.png"))
-        self.sun_x = 364
-        self.sun_y = 84
 
         # Bouton fuelle
         self.fuelle_button_image = pygame.image.load("assets/Button_Down.png")
@@ -94,14 +98,34 @@ class UI:
         self.led_image = pygame.image.load("assets/Led_On.png")
         # Bouton téléphone (stagiaire)
         self.micro_button_image = pygame.image.load("assets/Button_Stagiaire.png")
-
         # Liste micro
         self.micro_images = []
         for i in range(12):
             self.micro_images.append(pygame.image.load(f"assets/Micro/Micro_{i + 1}.png"))
-
         # Fin 100
-
+        self.end_100_images = []
+        for i in range(35):
+            self.end_100_images.append(pygame.image.load(f"assets/End_100/End_100_{i + 1}.png"))
+        # Fin joyeuse
+        self.end_happy_images = []
+        for i in range(22):
+            self.end_happy_images.append(pygame.image.load(f"assets/End_Happy/End_Happy_{i + 1}.png"))
+        # Fin IUT
+        self.end_iut_images = []
+        for i in range(38):
+            self.end_iut_images.append(pygame.image.load(f"assets/End_IUT/End_IUT_{i + 1}.png"))
+        # Fin luniens
+        self.end_luniens_images = []
+        for i in range(49):
+            self.end_luniens_images.append(pygame.image.load(f"assets/End_Luniens/End_Luniens_{i + 1}.png"))
+        # Fin soleil
+        self.end_sun_images = []
+        for i in range(18):
+            self.end_sun_images.append(pygame.image.load(f"assets/End_SunBoom/End_SunBoom_{i + 1}.png"))
+        # Fin Blanchon
+        self.end_blanchon_images = []
+        for i in range(14):
+            self.end_blanchon_images.append(pygame.image.load(f"assets/Blanchoon/Blanchoon_{i + 1}.png"))
 
     def display_background(self):
         self.screen.blit(self.background_image, (0, 0))
@@ -133,19 +157,21 @@ class UI:
         self.screen.blit(self.fuelle_button_image, (296, 220))
 
     def display_window(self, angle):
-        x1 = self.sun_x - 319
-        y1 = self.sun_y - 194
+        sun_x = 364
+        sun_y = 84
+        x1 = sun_x - 319
+        y1 = sun_y - 194
         x2 = x1 * math.cos(angle) - y1 * math.sin(angle)
         y2 = x1 * math.sin(angle) + y1 * math.cos(angle)
         x = x2 + 319
         y = y2 + 194
 
         i = 0
-        if 32 <= self.sun_x - x > 23:
+        if 32 <= sun_x - x > 23:
             i = 1
-        elif self.sun_x - x > 14:
+        elif sun_x - x > 14:
             i = 2
-        elif self.sun_x - x > 7:
+        elif sun_x - x > 7:
             i = 3
         else:
             i = 4
