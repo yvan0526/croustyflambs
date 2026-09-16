@@ -135,14 +135,26 @@ class UI:
         x = min(-40 + (score / score_max) * 240, 200)
         self.screen.blit(self.progress_bar_image, (x, 332))
 
+    def check_mouse_position_upgrade_clic_button(self):
+        return 449 < pygame.mouse.get_pos()[0] < 482 and 190 < pygame.mouse.get_pos()[1] < 211
+
     def display_upgrade_clic_button_down(self):
-        self.screen.blit(self.upgrade_clic_button_image, (448, 190))
+        self.screen.blit(self.upgrade_clic_button_image, (449, 190))
+
+    def check_mouse_position_autoclicker_button(self):
+        return 552 < pygame.mouse.get_pos()[0] < 585 and 190 < pygame.mouse.get_pos()[1] < 211
 
     def display_autoclicker_button_down(self):
         self.screen.blit(self.autoclicker_button_image, (552, 190))
 
+    def check_mouse_position_upgrade_power_button(self):
+        return 552 < pygame.mouse.get_pos()[0] < 585 and 229 < pygame.mouse.get_pos()[1] < 250
+
     def display_upgrade_power_button_down(self):
         self.screen.blit(self.upgrade_power_button_image, (552, 229))
+
+    def check_mouse_position_upgrade_frequency_button(self):
+        return 552 < pygame.mouse.get_pos()[0] < 585 and 252 < pygame.mouse.get_pos()[1] < 273
 
     def display_upgrade_frequency_button_down(self):
         self.screen.blit(self.upgrade_frequency_button_image, (552, 252))
