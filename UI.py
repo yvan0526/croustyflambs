@@ -47,6 +47,8 @@ class UI:
     message_font: Font
     # Police d'écriture prix
     price_font: Font
+    # Police d'écriture écran upgrade
+    upgrade_screen_font: Font
 
     # Position de la lune
     sun_x: int
@@ -78,6 +80,8 @@ class UI:
         self.message_font = pygame.font.Font("assets/PressStart2P.ttf", 8)
         # Police d'écriture prix
         self.price_font = pygame.font.Font("assets/QuinqueFive.ttf", 5)
+        # Police d'écriture écrans upgrades
+        self.upgrade_screen_font = pygame.font.Font("assets/QuinqueFive.ttf", 5)
         # Progress bar
         self.progress_bar_background_image = pygame.image.load("assets/Bar_Background.png")
         self.progress_bar_image = pygame.image.load("assets/Bar.png")
@@ -212,6 +216,18 @@ class UI:
         price_text_rect = price_text.get_rect()
         price_text_rect.center = (531, 263)
         self.screen.blit(price_text, price_text_rect)
+
+    def display_clic_power(self, clic_power):
+        clic_power_text = self.upgrade_screen_font.render(f"{clic_power}f/c", True, (255, 255, 255))
+        clic_power_text_rect = clic_power_text.get_rect()
+        clic_power_text_rect.center = (454, 229)
+        self.screen.blit(clic_power_text, clic_power_text_rect)
+
+    def display_fuelle_per_second(self, nb_autoclicker, autoclicker_power, autoclicker_frequency):
+        clic_power_text = self.upgrade_screen_font.render(f"{nb_autoclicker * autoclicker_power * autoclicker_frequency}f/s", True, (255, 255, 255))
+        clic_power_text_rect = clic_power_text.get_rect()
+        clic_power_text_rect.center = (557, 291)
+        self.screen.blit(clic_power_text, clic_power_text_rect)
 
     def show_end_message(self, score):
         message_end = Message(self.screen, self.message_font)
