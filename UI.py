@@ -156,11 +156,11 @@ class UI:
             message_end.show("VOUS AVEZ ÉTÉ RENVOYÉ·E. TOUT LE MONDE EST MORT.", "Fin")
         elif score < 1:
             message_end.show("VOTRE FUSÉE N'A PAS DÉCOLLÉ.\
-                            L'ÉCLIPSE A EU LIEU. RIEN N'EST ARRIVÉ. LE MONDE EST SAUVÉ", "Fin")
+                            LA FACE CACHÉE DE LA LUNE S'EST RÉVELÉE. TOUT LE MONDE EST MORT.", "Fin")
         elif score < 410000000000000:
-            message_end.show("VOTRE FUSÉE A DÉCOLLÉ. ELLE S'EST MALHEUREUSEMENT ÉCRASÉE, PAR MANQUE DE CARBURANT.\
+            message_end.show("VOTRE FUSÉE A DÉCOLLÉ. ELLE S'EST MALHEUREUSEMENT ÉCRASÉE PAR MANQUE DE CARBURANT.\
                             L'IUT2 DE GRENOBLE A ÉTÉ RASÉ.\
-                            CÉDRIC GÉROT, S'ÉTANT RECONVERTI, EST ÉLU PRÉSIDENT DE LA RÉPUBLIQUE FRANÇAISE AVEC 69% DES VOIX.",
+                            CÉDRIC GÉROT, S'ÉTANT RECONVERTI, A ÉTÉ ÉLU PRÉSIDENT DE LA RÉPUBLIQUE FRANÇAISE AVEC 69% DES VOIX.",
                              "Fin")
         elif score < 430000000000000:
             message_end.show("VOTRE FUSÉE A DÉCOLLÉ. ELLE A DÉVIÉ DE SA TRAJECTOIRE, S'EST ARRÊTÉE, ET SE PERD DANS L'ESPACE.\
