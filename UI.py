@@ -194,25 +194,25 @@ class UI:
             self.screen.blit(self.diode_image, (513 + (i * 9), 215))
 
     def display_clic_price(self, price):
-        price_text = self.price_font.render(f"{price}", True, (255, 255, 255))
+        price_text = self.price_font.render(f"{price}F", True, (255, 255, 255))
         price_text_rect = price_text.get_rect()
         price_text_rect.center = (428, 201)
         self.screen.blit(price_text, price_text_rect)
 
     def display_autoclicker_price(self, price):
-        price_text = self.price_font.render(f"{price}", True, (255, 255, 255))
+        price_text = self.price_font.render(f"{price}F", True, (255, 255, 255))
         price_text_rect = price_text.get_rect()
         price_text_rect.center = (531, 201)
         self.screen.blit(price_text, price_text_rect)
 
     def display_power_price(self, price):
-        price_text = self.price_font.render(f"{price}", True, (255, 255, 255))
+        price_text = self.price_font.render(f"{price}F", True, (255, 255, 255))
         price_text_rect = price_text.get_rect()
         price_text_rect.center = (531, 240)
         self.screen.blit(price_text, price_text_rect)
 
     def display_frequency_price(self, price):
-        price_text = self.price_font.render(f"{price}", True, (255, 255, 255))
+        price_text = self.price_font.render(f"{price}F", True, (255, 255, 255))
         price_text_rect = price_text.get_rect()
         price_text_rect.center = (531, 263)
         self.screen.blit(price_text, price_text_rect)
