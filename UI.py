@@ -397,13 +397,13 @@ class UI:
 
     def get_message_text(self, score):
         if score < 1:
-            return "Votre fusée n'a pas décollé.\nLa face cachée de la Lune s'est révélée. Tout le monde meurt.\n\nVoulez-vous essayer de provoquer un meilleur futur pour la Terre? (il faut relancer le jeu pour cela)"
+            return "Votre fusée n'a pas décollé.\nLa face cachée de la Lune s'est révélée. Tout le monde meurt."
         elif score < 400000000000000:
             return "Votre fusée a décollé. Elle s'est malheureusement écrasée par manque de carburant.\nL'IUT2 de Grenoble a été rasé.\nCédric Gérot, s'étant reconverti, a été élu président de la République Française avec 69% des voix."
         elif score < 440000000000000:
             return "Votre fusée a décollé. Elle a dévié de sa trajectoire, s'est arrêtée, et se perd dans l'espace.\nL'éclipse a eu lieu. Rien n'est arrivé. Le monde est sauvé."
         elif score < 950000000000000:
-            return "Votre fusée a décollé. Elle a légèrement dévié de sa trajectoire et s'est arrêtée en orbite lunaire.\nDes habitants de la Lune ont fait repartir la fusée et envahissent la Terre.\nTout le monde meurt."
+            return "Votre fusée a décollé. Elle a légèrement dévié de sa trajectoire et s'est arrêtée en orbite lunaire.\nDes habitants de la Lune prennent le contrôle de la fusée et envahissent la Terre.\nTout le monde meurt."
         elif score <= 1050000000000000:
             return "Votre fusée a décollé. Elle a atteint sa cible. La Lune explose.\nLes débris de la Lune retombent sur la Terre.\nTout le monde meurt."
         elif score > 1050000000000000:
@@ -412,13 +412,19 @@ class UI:
             return "undefined Fin"
 
     def get_credits_text(self):
-        return ("Jeu réalisé dans le cadre de la SAE5.01: GameJam, du BUT Informatique, à l'université "
-                "Grenoble-Alpes.\nCréation : équipe des croustiflambs (le b est muet)\nProgrammation : Célia MOULIN, "
-                "Alenia LEFOYER, Yvan GIORDANO, Timothée DAGAND\nSons : Emma DHOURY\nAssets graphiques : Emma "
-                "DHOURY\nDessin original de la fusée : Hergé, Bob DE MOOR (Objectif Lune, 1953, "
-                "éditions Casterman)\nRemerciements :\nMerci à Jean-Pierre CHEVALLET pour son cours sur le langage "
-                "Python et ses conseils lors du développement.\nMerci à l'équipe enseignante du BUT Informatique de "
-                "l'université Grenoble-Alpes.\nEnfin, merci à vous d'avoir joué !")
+        return ("Jeu réalisé dans le cadre de la GameJam, du BUT Informatique, à l'IUT2 Grenoble."
+                "\nCréation : équipe des Croustyflambs (le b est muet)"
+                "\nChef de projet : Yvan GIORDANO"
+                "\nConception : Emma DHOURY, Alenia LEFOYER"
+                "\nProgrammation : Célia MOULIN, Alenia LEFOYER, Yvan GIORDANO, Timothée DAGAND"
+                "\nSound-designer : Emma DHOURY"
+                "\nDesigner : Emma DHOURY"
+                "\n"
+                "\nTous les graphismes et la musique sont originaux.Les effets sonores proviennent de Pixabay, une bibliothèque de sons libres de droits."
+                "\n"
+                "\nRemerciements :"
+                "\nMerci à l'équipe enseignante du BUT Informatique de l'université Grenoble-Alpes."
+                "\nEnfin, merci à vous d'avoir joué !")
 
     def get_retry_text(self):
-        return "Souhaitez-vous réessayer, pour obtenir un autre futur pour la Terre? (il faut relancer le jeu pour cela.)"
+        return ("Souhaitez-vous réessayer, pour obtenir un autre futur pour la Terre ?\n Il faut relancer le jeu pour cela.")

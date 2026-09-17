@@ -1,4 +1,7 @@
 import math
+
+import pygame.mixer
+
 import animations
 from UI import UI
 from message import Message
@@ -26,13 +29,19 @@ def main():
     dt: int = 0
     t: int = 0
     # millisecondes * secondes * minutes
-    timer_end = 1000 * 60 * 10
+    timer_end = 100 * 60 * 10
 
     etat: Etat = Etat()
 
     moon_start_angle = -math.pi / 2
     moon_angle = moon_start_angle
     button_clicking = False
+
+    # Music
+    pygame.mixer.init()
+    pygame.mixer.music.load("assets/Music/SpamClick.mp3")
+    pygame.mixer.music.play()
+    music_progression: int = 0
 
     #Stagiaire
     stagiaire_apparition = 1000 * 5
@@ -92,9 +101,19 @@ def main():
                     and ui.check_mouse_position_phone_button()):
                 if etat.peut_appeler_stagiaire():
                     etat.appeler_stagiaire(t)
+                    music_progression = pygame.mixer.music.get_pos()
+                    pygame.mixer.music.stop()
+                    pygame.mixer.music.load("assets/Music/StagiairePower.mp3")
+                    pygame.mixer.music.play()
                     if etat.stagiaire_epuise():
                         micro_fermeture_lancee = True
                         micro_fermeture_debut = t
+
+        #Quand il n'y a plus de musique
+        if not pygame.mixer.music.get_busy():
+            pygame.mixer.music.load("assets/Music/SpamClick.mp3")
+            pygame.mixer.music.play(1, music_progression / 1000)
+            music_progression = 0
 
         # Affichage de la Lune
         ui.display_window(moon_angle)
