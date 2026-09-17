@@ -409,15 +409,13 @@ class UI:
         self.screen.blit(self.red_light, (454, 333))
 
     def get_message_text(self, score):
-        if score < 0:  # Casser la fenêtre met le score à une valeur négative et termine le jeu (concept de fin secrète)
-            return "Patron : Mais que faites-vous?! Je ne vous paie pas pour cela !\nPatron : Vous êtes renvoyé·e !\n\nVous avez été renvoyé·e. Tout le monde est mort."
-        elif score < 1:
+        if score < 1:
             return "Votre fusée n'a pas décollé.\nLa face cachée de la Lune s'est révélée. Tout le monde meurt.\n\nVoulez-vous essayer de provoquer un meilleur futur pour la Terre? (il faut relancer le jeu pour cela)"
-        elif score < 410000000000000:
+        elif score < 400000000000000:
             return "Votre fusée a décollé. Elle s'est malheureusement écrasée par manque de carburant.\nL'IUT2 de Grenoble a été rasé.\nCédric Gérot, s'étant reconverti, a été élu président de la République Française avec 69% des voix."
-        elif score < 430000000000000:
+        elif score < 440000000000000:
             return "Votre fusée a décollé. Elle a dévié de sa trajectoire, s'est arrêtée, et se perd dans l'espace.\nL'éclipse a eu lieu. Rien n'est arrivé. Le monde est sauvé."
-        elif score < 750000000000000:
+        elif score < 950000000000000:
             return "Votre fusée a décollé. Elle a légèrement dévié de sa trajectoire et s'est arrêtée en orbite lunaire.\nDes habitants de la Lune ont fait repartir la fusée et envahissent la Terre.\nTout le monde meurt."
         elif score <= 1050000000000000:
             return "Votre fusée a décollé. Elle a atteint sa cible. La Lune explose.\nLes débris de la Lune retombent sur la Terre.\nTout le monde meurt."
