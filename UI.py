@@ -63,6 +63,8 @@ class UI:
     upgrade_screen_font: Font
     # Police d'écriture fréquence stagiaire
     stagiaire_font: Font
+    # Police d'écriture pourcentage progression
+    percent_font: Font
 
     def __init__(self):
         self.screen = pygame.display.set_mode((640, 360), pygame.FULLSCREEN | pygame.SCALED)
@@ -89,6 +91,8 @@ class UI:
         self.upgrade_screen_font = pygame.font.Font("assets/QuinqueFive.ttf", 5)
         # Police d'écriture fréquence stagiaire
         self.stagiaire_font = pygame.font.Font("assets/QuinqueFive.ttf", 5)
+        # Police d'écriture pourcentage progression
+        self.percent_font = pygame.font.Font("assets/QuinqueFive.ttf", 5)
         # Progress bar
         self.progress_bar_background_image = pygame.image.load("assets/Bar_Background.png")
         self.progress_bar_image = pygame.image.load("assets/Bar.png")
@@ -208,6 +212,13 @@ class UI:
         self.screen.blit(self.progress_bar_background_image, (200, 332))
         x = -40 + 240 * math.log10(min(score / score_max, 1) * 240 + 1) / math.log10(241)
         self.screen.blit(self.progress_bar_image, (x, 332))
+
+    def display_percent(self, score, score_max):
+        percent = math.log10(min(score / score_max, 1) * 240 + 1) / math.log10(241) * 100
+        percent_text = self.percent_font.render(f"{round(percent, 2)}%", True, (255, 255, 255))
+        percent_text_rect = percent_text.get_rect()
+        percent_text_rect.center = (320, 340)
+        self.screen.blit(percent_text, percent_text_rect)
 
     def check_mouse_position_upgrade_clic_button(self):
         return 449 < pygame.mouse.get_pos()[0] < 482 and 190 < pygame.mouse.get_pos()[1] < 211
@@ -351,17 +362,17 @@ class UI:
 
     def display_clic_power(self, clic_power):
         if clic_power >= 1000000000000000:
-            clic_power_text = self.price_font.render(f"{clic_power // 1000000000000000}P", True, (255, 255, 255))
+            clic_power_text = self.price_font.render(f"{clic_power // 1000000000000000}P f/c", True, (255, 255, 255))
         elif clic_power >= 1000000000000:
-            clic_power_text = self.price_font.render(f"{clic_power // 1000000000000}T", True, (255, 255, 255))
+            clic_power_text = self.price_font.render(f"{clic_power // 1000000000000}T f/c", True, (255, 255, 255))
         elif clic_power >= 1000000000:
-            clic_power_text = self.price_font.render(f"{clic_power//1000000000}G", True, (255, 255, 255))
+            clic_power_text = self.price_font.render(f"{clic_power//1000000000}G f/c", True, (255, 255, 255))
         elif clic_power >= 1000000:
-            clic_power_text = self.price_font.render(f"{clic_power // 1000000}M", True, (255, 255, 255))
+            clic_power_text = self.price_font.render(f"{clic_power // 1000000}M f/c", True, (255, 255, 255))
         elif clic_power >= 1000:
-            clic_power_text = self.price_font.render(f"{clic_power//1000}K", True, (255, 255, 255))
+            clic_power_text = self.price_font.render(f"{clic_power//1000}K f/c", True, (255, 255, 255))
         else:
-            clic_power_text = self.upgrade_screen_font.render(f"{clic_power}f/c", True, (255, 255, 255))
+            clic_power_text = self.upgrade_screen_font.render(f"{clic_power} f/c", True, (255, 255, 255))
         clic_power_text_rect = clic_power_text.get_rect()
         clic_power_text_rect.center = (454, 229)
         self.screen.blit(clic_power_text, clic_power_text_rect)
@@ -398,15 +409,13 @@ class UI:
         self.screen.blit(self.red_light, (454, 333))
 
     def get_message_text(self, score):
-        if score < 0:  # Casser la fenêtre met le score à une valeur négative et termine le jeu (concept de fin secrète)
-            return "Patron : Mais que faites-vous?! Je ne vous paie pas pour cela !\nPatron : Vous êtes renvoyé·e !\n\nVous avez été renvoyé·e. Tout le monde est mort."
-        elif score < 1:
+        if score < 1:
             return "Votre fusée n'a pas décollé.\nLa face cachée de la Lune s'est révélée. Tout le monde meurt.\n\nVoulez-vous essayer de provoquer un meilleur futur pour la Terre? (il faut relancer le jeu pour cela)"
-        elif score < 410000000000000:
+        elif score < 400000000000000:
             return "Votre fusée a décollé. Elle s'est malheureusement écrasée par manque de carburant.\nL'IUT2 de Grenoble a été rasé.\nCédric Gérot, s'étant reconverti, a été élu président de la République Française avec 69% des voix."
-        elif score < 430000000000000:
+        elif score < 440000000000000:
             return "Votre fusée a décollé. Elle a dévié de sa trajectoire, s'est arrêtée, et se perd dans l'espace.\nL'éclipse a eu lieu. Rien n'est arrivé. Le monde est sauvé."
-        elif score < 750000000000000:
+        elif score < 950000000000000:
             return "Votre fusée a décollé. Elle a légèrement dévié de sa trajectoire et s'est arrêtée en orbite lunaire.\nDes habitants de la Lune ont fait repartir la fusée et envahissent la Terre.\nTout le monde meurt."
         elif score <= 1050000000000000:
             return "Votre fusée a décollé. Elle a atteint sa cible. La Lune explose.\nLes débris de la Lune retombent sur la Terre.\nTout le monde meurt."

@@ -10,7 +10,7 @@ class Etat:
     autocliqueur: Autocliqueur
     STAGIAIRE_MAX_APPEL = 5
     COFFEE_BOOST_DURATION = 5000
-
+    SCORE_GOAL = 1000000000000000
 
     def __init__(self):
         self.score = 0
@@ -65,7 +65,7 @@ class Etat:
 
 
     # Méthode gérant l'amélioration de la fréquence de l'autoclic
-    def add_autoclic_cps(self, t: int, bonus: int = 1.18) -> None:
+    def add_autoclic_cps(self, t: int, bonus: float = 1.18) -> None:
         if self.peut_add_autoclic_cps():
             self.score -= self.calc_prix(self.nb_upgrade_autoclic_cps, "faible")
             self.autocliqueur.cps = math.ceil(self.autocliqueur.cps * bonus)
