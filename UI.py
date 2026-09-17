@@ -179,7 +179,9 @@ class UI:
         y = y2 + 194
 
         i = 0
-        if 32 <= sun_x - x > 23:
+        if sun_x - x > 32:
+            i = 0
+        elif sun_x - x > 23:
             i = 1
         elif sun_x - x > 14:
             i = 2
