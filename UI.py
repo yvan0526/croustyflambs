@@ -412,19 +412,28 @@ class UI:
         if score < 0:  # Casser la fenêtre met le score à une valeur négative et termine le jeu (concept de fin secrète)
             return "Patron : Mais que faites-vous?! Je ne vous paie pas pour cela !\nPatron : Vous êtes renvoyé·e !\n\nVous avez été renvoyé·e. Tout le monde est mort."
         elif score < 1:
-            return "Votre fusée n'a pas décollé.\nLa face cachée de la Lune s'est révélée. Tout le monde est mort."
+            return "Votre fusée n'a pas décollé.\nLa face cachée de la Lune s'est révélée. Tout le monde meurt.\n\nVoulez-vous essayer de provoquer un meilleur futur pour la Terre? (il faut relancer le jeu pour cela)"
         elif score < 410000000000000:
-            return "Votre fuse a décollé. Elle s'est malheureusement écrasée par manque de carburant.\nL'IUT2 de Grenoble a été rasé.\nCédric Gérot, s'étant reconverti, a été élu président de la République Française avec 69% des voix."
+            return "Votre fusée a décollé. Elle s'est malheureusement écrasée par manque de carburant.\nL'IUT2 de Grenoble a été rasé.\nCédric Gérot, s'étant reconverti, a été élu président de la République Française avec 69% des voix."
         elif score < 430000000000000:
             return "Votre fusée a décollé. Elle a dévié de sa trajectoire, s'est arrêtée, et se perd dans l'espace.\nL'éclipse a eu lieu. Rien n'est arrivé. Le monde est sauvé."
         elif score < 750000000000000:
-            return "Votre fusée a décollé. Elle a dévié de sa trajectoire et s'est arrêtée en orbite lunaire.\nDes habitants de la Lune ont fait repartir la fusée vers la Terre.\nLa population terrestre est réduit en esclavage."
+            return "Votre fusée a décollé. Elle a légèrement dévié de sa trajectoire et s'est arrêtée en orbite lunaire.\nDes habitants de la Lune ont fait repartir la fusée et envahissent la Terre.\nTout le monde meurt."
         elif score <= 1050000000000000:
-            return "Votre fusée a décollé. Elle a atteint sa cible. La Lune explose.\nLes débris de la Lune retombent sur la Terre.\nTout le monde est mort."
+            return "Votre fusée a décollé. Elle a atteint sa cible. La Lune explose.\nLes débris de la Lune retombent sur la Terre.\nTout le monde meurt."
         elif score > 1050000000000000:
-            return "Votre fusée a décollé. Elle a légèrement dévié de sa trajectoire et se dirige vers le Soleil.\nUne semaine plus tard, le Soleil explose.\n8 minutes plus tard, tout le monde est mort."
+            return "Votre fusée a décollé. Elle a légèrement dévié de sa trajectoire et se dirige vers le Soleil.\nUne semaine plus tard, le Soleil explose.\n8 minutes plus tard, tout le monde meurt."
         else:
             return "undefined Fin"
 
     def get_credits_text(self):
-        return "Jeu réalisé dans le cadre de la SAE5.01: GameJam, du BUT Informatique, à l'université Grenoble-Alpes.\nCréation : équipe des croustiflambs (le b est muet)\nProgrammation : Célia MOULIN, Alenia LEFOYER, Yvan GIORDANO, Timothée DAGAND\nSons : Emma DHOURY\nAssets graphiques : Emma DHOURY\nDessin original de la fusée : Hergé, Bob DE MOOR (Objectif Lune, 1953, éditions Casterman)\nRemerciements :\nMerci à Jean-Pierre CHEVALLET pour son cours sur le langage Python et ses conseils lors du développement.\nMerci à l'équipe enseignante du BUT Informatique de l'université Grenoble-Alpes.\nEnfin, merci à vous d'avoir joué !"
+        return ("Jeu réalisé dans le cadre de la SAE5.01: GameJam, du BUT Informatique, à l'université "
+                "Grenoble-Alpes.\nCréation : équipe des croustiflambs (le b est muet)\nProgrammation : Célia MOULIN, "
+                "Alenia LEFOYER, Yvan GIORDANO, Timothée DAGAND\nSons : Emma DHOURY\nAssets graphiques : Emma "
+                "DHOURY\nDessin original de la fusée : Hergé, Bob DE MOOR (Objectif Lune, 1953, "
+                "éditions Casterman)\nRemerciements :\nMerci à Jean-Pierre CHEVALLET pour son cours sur le langage "
+                "Python et ses conseils lors du développement.\nMerci à l'équipe enseignante du BUT Informatique de "
+                "l'université Grenoble-Alpes.\nEnfin, merci à vous d'avoir joué !")
+
+    def get_retry_text(self):
+        return "Souhaitez-vous réessayer, pour obtenir un autre futur pour la Terre? (il faut relancer le jeu pour cela.)"
