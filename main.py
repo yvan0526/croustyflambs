@@ -279,6 +279,7 @@ def main():
         elif keys[pygame.K_1]:
             # stagiaire
             t = timer_end // 2
+            moon_angle = -math.pi / 4
         elif keys[pygame.K_2]:
             # 100%
             etat.score = Etat.SCORE_GOAL
