@@ -1,6 +1,9 @@
 import math
 
 import pygame.mixer
+from pygame.mixer import Sound
+from pygame.key import ScancodeWrapper
+from pygame.time import Clock
 
 import animations
 from UI import UI
@@ -12,9 +15,9 @@ def main():
     # Démarre le module
     pygame.init()
 
-    ui = UI()
+    ui: UI = UI()
 
-    message = Message(ui.screen, ui.message_font)
+    message: Message = Message(ui.screen, ui.message_font)
     # Message affiché au démarrage
     message.show("MESSAGE D’URGENCE\n"
                  "Vous êtes notre seul espoir.\n"
@@ -23,19 +26,19 @@ def main():
                  "Chaque seconde compte. Chaque clic peut faire la différence.\n"
                  "Ne nous décevez pas.\n", "Ok")
 
-    running = True
+    running: bool = True
 
-    clock = pygame.time.Clock()
+    clock: Clock = pygame.time.Clock()
     dt: int = 0
     t: int = 0
     # millisecondes * secondes * minutes
-    timer_end = 1000 * 60 * 10
+    timer_end: int = 1000 * 60 * 10
 
     etat: Etat = Etat()
 
-    moon_start_angle = -math.pi / 2
-    moon_angle = moon_start_angle
-    button_clicking = False
+    moon_start_angle: float = -math.pi / 2
+    moon_angle: float = moon_start_angle
+    button_clicking: bool = False
 
     # Music
     pygame.mixer.init()
@@ -44,22 +47,22 @@ def main():
     music_progression: int = 0
 
     # Sound
-    button_play = pygame.mixer.Sound("assets/SoundEffect/Button.ogg")
+    button_play: Sound = pygame.mixer.Sound("assets/SoundEffect/Button.ogg")
     button_play.set_volume(0.5)
-    slurp_play = pygame.mixer.Sound("assets/SoundEffect/Slurp.ogg")
+    slurp_play: Sound = pygame.mixer.Sound("assets/SoundEffect/Slurp.ogg")
     cash_play = pygame.mixer.Sound("assets/SoundEffect/Cash.ogg")
 
     #Stagiaire
-    stagiaire_apparition = timer_end / 2
-    stagiaire_message = False
-    stagiaire_message_ferme = False
-    micro_animation = 0
-    micro_animation_lance = False
-    micro_ouverture_terminee = False
-    micro_fermeture_lancee = False
-    micro_fermeture_debut = 0
-    micro_frame_duration = 100 #ms par frame d'animation
-    message_actif_precedent = False
+    stagiaire_apparition: int = int(timer_end / 2)
+    stagiaire_message: bool = False
+    stagiaire_message_ferme: bool = False
+    micro_animation: int = 0
+    micro_animation_lance: bool = False
+    micro_ouverture_terminee: bool = False
+    micro_fermeture_lancee: bool = False
+    micro_fermeture_debut: int = 0
+    micro_frame_duration: int = 100 #ms par frame d'animation
+    message_actif_precedent: bool = False
 
     # Boucle de l'animation
     while running:
@@ -273,7 +276,7 @@ def main():
             button_clicking = False
 
         # Quitter le jeu
-        keys = pygame.key.get_pressed()
+        keys: ScancodeWrapper = pygame.key.get_pressed()
         if keys[pygame.K_ESCAPE]:
             running = False
         elif keys[pygame.K_1]:
@@ -308,7 +311,7 @@ def main():
         pygame.display.update()
 
     # Ending handler
-    game_quit = False
+    game_quit: bool = False
     while not game_quit:
         keys = pygame.key.get_pressed()
         if keys[pygame.K_ESCAPE]:

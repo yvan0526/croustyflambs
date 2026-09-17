@@ -12,9 +12,14 @@ class Etat:
     clic_droit_debloque: bool
     valeur_clic: int
     autocliqueur: Autocliqueur
-    STAGIAIRE_MAX_APPEL = 5
-    COFFEE_BOOST_DURATION = 5000
-    SCORE_GOAL = 1000000000000000
+    stagiaire_appelv: int
+    coffee_boost_end: int
+    nb_upgrade_clic: int
+    nb_upgrade_autoclic_val: int
+    nb_upgrade_autoclic_cps: int
+    STAGIAIRE_MAX_APPEL: int = 5
+    COFFEE_BOOST_DURATION: int = 5000
+    SCORE_GOAL: int = 1000000000000000
 
     def __init__(self):
         self.score = 0
