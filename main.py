@@ -103,17 +103,16 @@ def main():
             pygame.event.post(pygame.event.Event(GAME_END))
 
         # Affiche la progress bar
-        # TODO: Mettre le bon score max
-        ui.display_progress_bar(etat.score, 100)
+        ui.display_progress_bar(etat.score, Etat.SCORE_GOAL)
+        ui.display_percent(etat.score, Etat.SCORE_GOAL)
 
         # Affiche le bureau
         ui.display_background()
 
         # Affiche la lumière de la barre de progression
-        # TODO: Mettre le bon score max
-        if 100 <= etat.score < 105:
+        if Etat.SCORE_GOAL <= etat.score < (Etat.SCORE_GOAL + Etat.SCORE_GOAL * 0.05):
             ui.display_green_ligth()
-        elif etat.score >= 105:
+        elif etat.score >= (Etat.SCORE_GOAL + Etat.SCORE_GOAL * 0.05):
             ui.display_red_ligth()
 
         # Texte score
