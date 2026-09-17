@@ -196,7 +196,8 @@ class UI:
         # Message affiché au démarrage
         message.show("MESSAGE D’URGENCE\n"
                      "Vous êtes notre seul espoir.\n"
-                     "Une éclipse aura lieu dans 10 minutes. Si elle se produit, ce sera la fin du monde.\n"
+                     "Une éclipse aura lieu dans 10 minutes.\n"
+                     "Si elle se produit, ce sera la fin du monde.\n"
                      "Votre mission est simple : remplir entièrement le réservoir de la fusée afin de la lancer et de détruire la Lune avant le debut de l’éclipse.\n"
                      "Chaque seconde compte. Chaque clic peut faire la différence.\n"
                      "Ne nous décevez pas.\n", "Ok")
@@ -256,7 +257,9 @@ class UI:
         self.screen.blit(self.led_image, (486, 278))
 
     def display_clic_price(self, price):
-        if price >= 1000000000000:
+        if price >= 1000000000000000:
+            price_text = self.price_font.render(f"{price//1000000000000000}P", True, (255, 255, 255))
+        elif price >= 1000000000000:
             price_text = self.price_font.render(f"{price // 1000000000000}T", True, (255, 255, 255))
         elif price >= 1000000000:
             price_text = self.price_font.render(f"{price//1000000000}G", True, (255, 255, 255))
@@ -271,7 +274,9 @@ class UI:
         self.screen.blit(price_text, price_text_rect)
 
     def display_autoclicker_price(self, price):
-        if price >= 1000000000000:
+        if price >= 1000000000000000:
+            price_text = self.price_font.render(f"{price // 1000000000000000}P", True, (255, 255, 255))
+        elif price >= 1000000000000:
             price_text = self.price_font.render(f"{price // 1000000000000}T", True, (255, 255, 255))
         elif price >= 1000000000:
             price_text = self.price_font.render(f"{price//1000000000}G", True, (255, 255, 255))
@@ -286,7 +291,9 @@ class UI:
         self.screen.blit(price_text, price_text_rect)
 
     def display_power_price(self, price):
-        if price >= 1000000000000:
+        if price >= 1000000000000000:
+            price_text = self.price_font.render(f"{price // 1000000000000000}P", True, (255, 255, 255))
+        elif price >= 1000000000000:
             price_text = self.price_font.render(f"{price // 1000000000000}T", True, (255, 255, 255))
         elif price >= 1000000000:
             price_text = self.price_font.render(f"{price//1000000000}G", True, (255, 255, 255))
@@ -301,7 +308,9 @@ class UI:
         self.screen.blit(price_text, price_text_rect)
 
     def display_frequency_price(self, price):
-        if price >= 1000000000000:
+        if price >= 1000000000000000:
+            price_text = self.price_font.render(f"{price // 1000000000000000}P", True, (255, 255, 255))
+        elif price >= 1000000000000:
             price_text = self.price_font.render(f"{price // 1000000000000}T", True, (255, 255, 255))
         elif price >= 1000000000:
             price_text = self.price_font.render(f"{price//1000000000}G", True, (255, 255, 255))
@@ -316,7 +325,9 @@ class UI:
         self.screen.blit(price_text, price_text_rect)
 
     def display_right_clic_price(self, price):
-        if price >= 1000000000000:
+        if price >= 1000000000000000:
+            price_text = self.price_font.render(f"{price // 1000000000000000}P", True, (255, 255, 255))
+        elif price >= 1000000000000:
             price_text = self.price_font.render(f"{price // 1000000000000}T", True, (255, 255, 255))
         elif price >= 1000000000:
             price_text = self.price_font.render(f"{price//1000000000}G", True, (255, 255, 255))
@@ -337,13 +348,36 @@ class UI:
         self.screen.blit(stagiaire_text, stagiaire_text_rect)
 
     def display_clic_power(self, clic_power):
-        clic_power_text = self.upgrade_screen_font.render(f"{clic_power}f/c", True, (255, 255, 255))
+        if clic_power >= 1000000000000000:
+            clic_power_text = self.price_font.render(f"{clic_power // 1000000000000000}P", True, (255, 255, 255))
+        elif clic_power >= 1000000000000:
+            clic_power_text = self.price_font.render(f"{clic_power // 1000000000000}T", True, (255, 255, 255))
+        elif clic_power >= 1000000000:
+            clic_power_text = self.price_font.render(f"{clic_power//1000000000}G", True, (255, 255, 255))
+        elif clic_power >= 1000000:
+            clic_power_text = self.price_font.render(f"{clic_power // 1000000}M", True, (255, 255, 255))
+        elif clic_power >= 1000:
+            clic_power_text = self.price_font.render(f"{clic_power//1000}K", True, (255, 255, 255))
+        else:
+            clic_power_text = self.upgrade_screen_font.render(f"{clic_power}f/c", True, (255, 255, 255))
         clic_power_text_rect = clic_power_text.get_rect()
         clic_power_text_rect.center = (454, 229)
         self.screen.blit(clic_power_text, clic_power_text_rect)
 
     def display_fuelle_per_second(self, nb_autoclicker, autoclicker_power, autoclicker_frequency):
-        clic_power_text = self.upgrade_screen_font.render(f"{nb_autoclicker * autoclicker_power * autoclicker_frequency}f/s", True, (255, 255, 255))
+        fps=nb_autoclicker * autoclicker_power * autoclicker_frequency
+        if fps >= 1000000000000000:
+            clic_power_text = self.price_font.render(f"{fps // 1000000000000000}P f/s", True, (255, 255, 255))
+        elif fps >= 1000000000000:
+            clic_power_text = self.price_font.render(f"{fps // 1000000000000}T f/s", True, (255, 255, 255))
+        elif fps >= 1000000000:
+            clic_power_text = self.price_font.render(f"{fps // 1000000000}G f/s", True, (255, 255, 255))
+        elif fps >= 1000000:
+            clic_power_text = self.price_font.render(f"{fps // 1000000}M f/s", True, (255, 255, 255))
+        elif fps >= 1000:
+            clic_power_text = self.price_font.render(f"{fps // 1000}K f/s", True, (255, 255, 255))
+        else:
+            clic_power_text = self.upgrade_screen_font.render(f"{fps} f/s", True, (255, 255, 255))
         clic_power_text_rect = clic_power_text.get_rect()
         clic_power_text_rect.center = (557, 291)
         self.screen.blit(clic_power_text, clic_power_text_rect)
@@ -362,7 +396,7 @@ class UI:
         self.screen.blit(self.red_light, (453, 333))
 
     def get_message_text(self, score):
-        if score < 0:  # Casser la fenêtre met le score à une valeur négative et termine le jeu
+        if score < 0:  # Casser la fenêtre met le score à une valeur négative et termine le jeu (concept de fin secrète)
             return "Patron : Mais que faites-vous?! Je ne vous paie pas pour cela !\nPatron : Vous êtes renvoyé·e !\n\nVous avez été renvoyé·e. Tout le monde est mort."
         elif score < 1:
             return "Votre fusée n'a pas décollé.\nLa face cachée de la Lune s'est révélée. Tout le monde est mort."
