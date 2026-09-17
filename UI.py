@@ -427,4 +427,5 @@ class UI:
                 "\nEnfin, merci à vous d'avoir joué !")
 
     def get_retry_text(self):
-        return ("Souhaitez-vous réessayer, pour obtenir un autre futur pour la Terre ?\n Il faut relancer le jeu pour cela.")
+        return ("Souhaitez-vous réessayer, pour obtenir un autre futur pour la Terre ?"
+                "\n Il faut relancer le jeu pour cela.")
