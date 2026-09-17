@@ -362,17 +362,17 @@ class UI:
 
     def display_clic_power(self, clic_power):
         if clic_power >= 1000000000000000:
-            clic_power_text = self.price_font.render(f"{clic_power // 1000000000000000}P", True, (255, 255, 255))
+            clic_power_text = self.price_font.render(f"{clic_power // 1000000000000000}P f/c", True, (255, 255, 255))
         elif clic_power >= 1000000000000:
-            clic_power_text = self.price_font.render(f"{clic_power // 1000000000000}T", True, (255, 255, 255))
+            clic_power_text = self.price_font.render(f"{clic_power // 1000000000000}T f/c", True, (255, 255, 255))
         elif clic_power >= 1000000000:
-            clic_power_text = self.price_font.render(f"{clic_power//1000000000}G", True, (255, 255, 255))
+            clic_power_text = self.price_font.render(f"{clic_power//1000000000}G f/c", True, (255, 255, 255))
         elif clic_power >= 1000000:
-            clic_power_text = self.price_font.render(f"{clic_power // 1000000}M", True, (255, 255, 255))
+            clic_power_text = self.price_font.render(f"{clic_power // 1000000}M f/c", True, (255, 255, 255))
         elif clic_power >= 1000:
-            clic_power_text = self.price_font.render(f"{clic_power//1000}K", True, (255, 255, 255))
+            clic_power_text = self.price_font.render(f"{clic_power//1000}K f/c", True, (255, 255, 255))
         else:
-            clic_power_text = self.upgrade_screen_font.render(f"{clic_power}f/c", True, (255, 255, 255))
+            clic_power_text = self.upgrade_screen_font.render(f"{clic_power} f/c", True, (255, 255, 255))
         clic_power_text_rect = clic_power_text.get_rect()
         clic_power_text_rect.center = (454, 229)
         self.screen.blit(clic_power_text, clic_power_text_rect)

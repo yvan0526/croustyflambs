@@ -65,7 +65,7 @@ class Etat:
 
 
     # Méthode gérant l'amélioration de la fréquence de l'autoclic
-    def add_autoclic_cps(self, t: int, bonus: int = 1.18) -> None:
+    def add_autoclic_cps(self, t: int, bonus: float = 1.18) -> None:
         if self.peut_add_autoclic_cps():
             self.score -= self.calc_prix(self.nb_upgrade_autoclic_cps, "faible")
             self.autocliqueur.cps = math.ceil(self.autocliqueur.cps * bonus)
