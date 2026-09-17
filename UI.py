@@ -2,6 +2,7 @@ import math
 
 import pygame
 from pygame import Surface
+from pygame import Rect
 from pygame.ftfont import Font
 
 from src.modele.etat import Etat
@@ -159,7 +160,7 @@ class UI:
             score_text = self.score_font.render(f"{score//1000}K", True, (255, 255, 255))
         else:
             score_text = self.score_font.render(f"{score}", True, (255, 255, 255))
-        score_text_rect = score_text.get_rect()
+        score_text_rect: Rect = score_text.get_rect()
         score_text_rect.center = (320, 196)
         self.screen.blit(score_text, score_text_rect)
 
@@ -172,17 +173,17 @@ class UI:
     def display_fuelle_button_down(self):
         self.screen.blit(self.fuelle_button_image, (296, 220))
 
-    def display_window(self, angle):
-        sun_x = 364
-        sun_y = 84
-        x1 = sun_x - 319
-        y1 = sun_y - 194
-        x2 = x1 * math.cos(angle) - y1 * math.sin(angle)
-        y2 = x1 * math.sin(angle) + y1 * math.cos(angle)
-        x = x2 + 319
-        y = y2 + 194
+    def display_window(self, angle: float):
+        sun_x: int = 364
+        sun_y: int = 84
+        x1: int = sun_x - 319
+        y1: int = sun_y - 194
+        x2: float = x1 * math.cos(angle) - y1 * math.sin(angle)
+        y2: float = x1 * math.sin(angle) + y1 * math.cos(angle)
+        x: float = x2 + 319
+        y: float = y2 + 194
 
-        i = 0
+        i: int = 0
         if sun_x - x > 32:
             i = 0
         elif sun_x - x > 23:
@@ -197,15 +198,15 @@ class UI:
         self.screen.blit(self.sky_images[i], (220, 20))
         self.screen.blit(self.moon_images[i], (x, y))
 
-    def display_progress_bar(self, score, score_max):
+    def display_progress_bar(self, score: int, score_max: int):
         self.screen.blit(self.progress_bar_background_image, (200, 332))
         x = -40 + 240 * math.log10(min(score / score_max, 1) * 240 + 1) / math.log10(241)
         self.screen.blit(self.progress_bar_image, (x, 332))
 
-    def display_percent(self, score, score_max):
-        percent = math.log10(min(score / score_max, 1) * 240 + 1) / math.log10(241) * 100
+    def display_percent(self, score: int, score_max: int):
+        percent: float = math.log10(min(score / score_max, 1) * 240 + 1) / math.log10(241) * 100
         percent_text = self.percent_font.render(f"{round(percent, 2)}%", True, (255, 255, 255))
-        percent_text_rect = percent_text.get_rect()
+        percent_text_rect: Rect = percent_text.get_rect()
         percent_text_rect.center = (320, 340)
         self.screen.blit(percent_text, percent_text_rect)
 
@@ -245,7 +246,7 @@ class UI:
     def display_led_upgrade_frequency(self):
         self.screen.blit(self.led_image, (589, 254))
 
-    def display_diodes(self, nb_diodes):
+    def display_diodes(self, nb_diodes: int):
         for i in range(min(nb_diodes, 10)):
             self.screen.blit(self.diode_image, (513 + (i * 9), 215))
 
@@ -258,7 +259,7 @@ class UI:
     def display_led_right_clic(self):
         self.screen.blit(self.led_image, (486, 278))
 
-    def display_clic_price(self, price):
+    def display_clic_price(self, price: int):
         if price >= 1000000000000000:
             price_text = self.price_font.render(f"{price//1000000000000000}P", True, (255, 255, 255))
         elif price >= 1000000000000:
@@ -271,11 +272,11 @@ class UI:
             price_text = self.price_font.render(f"{price//1000}K", True, (255, 255, 255))
         else:
             price_text = self.price_font.render(f"{price}", True, (255, 255, 255))
-        price_text_rect = price_text.get_rect()
+        price_text_rect: Rect = price_text.get_rect()
         price_text_rect.center = (428, 201)
         self.screen.blit(price_text, price_text_rect)
 
-    def display_autoclicker_price(self, price):
+    def display_autoclicker_price(self, price: int):
         if price >= 1000000000000000:
             price_text = self.price_font.render(f"{price // 1000000000000000}P", True, (255, 255, 255))
         elif price >= 1000000000000:
@@ -288,11 +289,11 @@ class UI:
             price_text = self.price_font.render(f"{price//1000}K", True, (255, 255, 255))
         else:
             price_text = self.price_font.render(f"{price}", True, (255, 255, 255))
-        price_text_rect = price_text.get_rect()
+        price_text_rect: Rect = price_text.get_rect()
         price_text_rect.center = (531, 201)
         self.screen.blit(price_text, price_text_rect)
 
-    def display_power_price(self, price):
+    def display_power_price(self, price: int):
         if price >= 1000000000000000:
             price_text = self.price_font.render(f"{price // 1000000000000000}P", True, (255, 255, 255))
         elif price >= 1000000000000:
@@ -305,11 +306,11 @@ class UI:
             price_text = self.price_font.render(f"{price//1000}K", True, (255, 255, 255))
         else:
             price_text = self.price_font.render(f"{price}", True, (255, 255, 255))
-        price_text_rect = price_text.get_rect()
+        price_text_rect: Rect = price_text.get_rect()
         price_text_rect.center = (531, 240)
         self.screen.blit(price_text, price_text_rect)
 
-    def display_frequency_price(self, price):
+    def display_frequency_price(self, price: int):
         if price >= 1000000000000000:
             price_text = self.price_font.render(f"{price // 1000000000000000}P", True, (255, 255, 255))
         elif price >= 1000000000000:
@@ -322,11 +323,11 @@ class UI:
             price_text = self.price_font.render(f"{price//1000}K", True, (255, 255, 255))
         else:
             price_text = self.price_font.render(f"{price}", True, (255, 255, 255))
-        price_text_rect = price_text.get_rect()
+        price_text_rect: Rect = price_text.get_rect()
         price_text_rect.center = (531, 263)
         self.screen.blit(price_text, price_text_rect)
 
-    def display_right_clic_price(self, price):
+    def display_right_clic_price(self, price: int):
         if price >= 1000000000000000:
             price_text = self.price_font.render(f"{price // 1000000000000000}P", True, (255, 255, 255))
         elif price >= 1000000000000:
@@ -339,17 +340,17 @@ class UI:
             price_text = self.price_font.render(f"{price//1000}K", True, (255, 255, 255))
         else:
             price_text = self.price_font.render(f"{price}", True, (255, 255, 255))
-        price_text_rect = price_text.get_rect()
+        price_text_rect: Rect = price_text.get_rect()
         price_text_rect.center = (427, 287)
         self.screen.blit(price_text, price_text_rect)
 
     def display_frequency_stagiaire(self, stagiaire):
-        stagiaire_text = self.price_font.render(f"{stagiaire}", True, (255, 255, 255))
-        stagiaire_text_rect = stagiaire_text.get_rect()
+        stagiaire_text: Surface = self.price_font.render(f"{stagiaire}", True, (255, 255, 255))
+        stagiaire_text_rect: Rect = stagiaire_text.get_rect()
         stagiaire_text_rect.center = (105, 261)
         self.screen.blit(stagiaire_text, stagiaire_text_rect)
 
-    def display_clic_power(self, clic_power):
+    def display_clic_power(self, clic_power: int):
         if clic_power >= 1000000000000000:
             clic_power_text = self.price_font.render(f"{clic_power // 1000000000000000}P f/c", True, (255, 255, 255))
         elif clic_power >= 1000000000000:
@@ -362,7 +363,7 @@ class UI:
             clic_power_text = self.price_font.render(f"{clic_power//1000}K f/c", True, (255, 255, 255))
         else:
             clic_power_text = self.upgrade_screen_font.render(f"{clic_power} f/c", True, (255, 255, 255))
-        clic_power_text_rect = clic_power_text.get_rect()
+        clic_power_text_rect: Rect = clic_power_text.get_rect()
         clic_power_text_rect.center = (454, 229)
         self.screen.blit(clic_power_text, clic_power_text_rect)
 
@@ -397,7 +398,7 @@ class UI:
     def display_red_ligth(self):
         self.screen.blit(self.red_light, (454, 333))
 
-    def get_message_text(self, score):
+    def get_message_text(self, score: int):
         percent = math.log10(min(score / Etat.SCORE_GOAL, 1) * 240 + 1) / math.log10(241) * 100
         if score < 1:
             return "Votre fusée n'a pas décollé.\nLa face cachée de la Lune s'est révélée. Tout le monde meurt."

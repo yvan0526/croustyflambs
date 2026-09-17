@@ -4,7 +4,7 @@ from animation import Animation
 from src.modele.etat import Etat
 
 
-def get_end_animation(ui, score):
+def get_end_animation(ui, score: int):
     percent = math.log10(min(score / Etat.SCORE_GOAL, 1) * 240 + 1) / math.log10(241) * 100
     if score < 1:
         return Animation(ui.screen, ui.end_blanchon_images, 364, 84)
