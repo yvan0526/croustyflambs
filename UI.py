@@ -206,7 +206,7 @@ class UI:
 
     def display_progress_bar(self, score, score_max):
         self.screen.blit(self.progress_bar_background_image, (200, 332))
-        x = min(-40 + (score / score_max) * 240, 200)
+        x = -40 + 240 * math.log10(min(score / score_max, 1) * 240 + 1) / math.log10(241)
         self.screen.blit(self.progress_bar_image, (x, 332))
 
     def check_mouse_position_upgrade_clic_button(self):
