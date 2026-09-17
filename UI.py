@@ -63,6 +63,8 @@ class UI:
     upgrade_screen_font: Font
     # Police d'écriture fréquence stagiaire
     stagiaire_font: Font
+    # Police d'écriture pourcentage progression
+    percent_font: Font
 
     def __init__(self):
         self.screen = pygame.display.set_mode((640, 360), pygame.FULLSCREEN | pygame.SCALED)
@@ -89,6 +91,8 @@ class UI:
         self.upgrade_screen_font = pygame.font.Font("assets/QuinqueFive.ttf", 5)
         # Police d'écriture fréquence stagiaire
         self.stagiaire_font = pygame.font.Font("assets/QuinqueFive.ttf", 5)
+        # Police d'écriture pourcentage progression
+        self.percent_font = pygame.font.Font("assets/QuinqueFive.ttf", 5)
         # Progress bar
         self.progress_bar_background_image = pygame.image.load("assets/Bar_Background.png")
         self.progress_bar_image = pygame.image.load("assets/Bar.png")
@@ -208,6 +212,13 @@ class UI:
         self.screen.blit(self.progress_bar_background_image, (200, 332))
         x = -40 + 240 * math.log10(min(score / score_max, 1) * 240 + 1) / math.log10(241)
         self.screen.blit(self.progress_bar_image, (x, 332))
+
+    def display_percent(self, score, score_max):
+        percent = math.log10(min(score / score_max, 1) * 240 + 1) / math.log10(241) * 100
+        percent_text = self.percent_font.render(f"{math.floor(percent)}%", True, (255, 255, 255))
+        percent_text_rect = percent_text.get_rect()
+        percent_text_rect.center = (320, 340)
+        self.screen.blit(percent_text, percent_text_rect)
 
     def check_mouse_position_upgrade_clic_button(self):
         return 449 < pygame.mouse.get_pos()[0] < 482 and 190 < pygame.mouse.get_pos()[1] < 211

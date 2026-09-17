@@ -10,7 +10,7 @@ class Etat:
     autocliqueur: Autocliqueur
     STAGIAIRE_MAX_APPEL = 5
     COFFEE_BOOST_DURATION = 5000
-
+    SCORE_GOAL = 1000000000000000
 
     def __init__(self):
         self.score = 0
