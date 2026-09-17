@@ -215,7 +215,7 @@ class UI:
 
     def display_percent(self, score, score_max):
         percent = math.log10(min(score / score_max, 1) * 240 + 1) / math.log10(241) * 100
-        percent_text = self.percent_font.render(f"{math.floor(percent)}%", True, (255, 255, 255))
+        percent_text = self.percent_font.render(f"{round(percent, 2)}%", True, (255, 255, 255))
         percent_text_rect = percent_text.get_rect()
         percent_text_rect.center = (320, 340)
         self.screen.blit(percent_text, percent_text_rect)
