@@ -356,10 +356,10 @@ class UI:
         self.screen.blit(self.micro_images[frame_index], (40, 175))
 
     def display_green_ligth(self):
-        self.screen.blit(self.green_light, (453, 333))
+        self.screen.blit(self.green_light, (454, 333))
 
     def display_red_ligth(self):
-        self.screen.blit(self.red_light, (453, 333))
+        self.screen.blit(self.red_light, (454, 333))
 
     def get_message_text(self, score):
         if score < 0:  # Casser la fenêtre met le score à une valeur négative et termine le jeu
