@@ -1,4 +1,7 @@
 import math
+
+import pygame.mixer
+
 import animations
 from UI import UI
 from message import Message
@@ -26,7 +29,7 @@ def main():
     dt: int = 0
     t: int = 0
     # millisecondes * secondes * minutes
-    timer_end = 1000 * 60 * 10
+    timer_end = 100 * 60 * 10
 
     etat: Etat = Etat()
 
@@ -34,8 +37,14 @@ def main():
     moon_angle = moon_start_angle
     button_clicking = False
 
+    # Music
+    pygame.mixer.init()
+    pygame.mixer.music.load("assets/Music/SpamClick.mp3")
+    pygame.mixer.music.play()
+    music_progression: int = 0
+
     #Stagiaire
-    stagiaire_apparition = timer_end /2
+    stagiaire_apparition = 1000 * 5
     stagiaire_message = False
     stagiaire_message_ferme = False
     micro_animation = 0
@@ -53,14 +62,19 @@ def main():
 
         # Message stagiaire
         if t >= stagiaire_apparition and not stagiaire_message:
-            message.show("On a envoyé un stagiaire pour vous aider !", "Ok")
+            message.show("La direction a remarqué un manque d'efficacité de votre part.\n"
+                         "Nous vous avons donc envoyé un stagiaire pour vous aider !\n\n"
+                         "Appelez le pour qu'il vous serve un café afin de vous réveiller et d'augmenter votre rendement.\n"
+                         "Le café vous permet de rester appuyé sur le bouton pendant 5 secondes et ainsi charger le fuëlle très rapidement.\n"
+                         "N'étant pas payé, il ne vous servira que 5 cafés, utilisez-le de manière judicieuse.\n",
+                         "Ok")
             stagiaire_message = True
             stagiaire_message_ferme = True
 
         for event in pygame.event.get():
             # Fenêtre affichée
             if message.active:
-                message.handle_event(event)
+                button_clicking = message.handle_event(event)
 
             # Interruption du jeu
             elif event.type == pygame.QUIT:
@@ -87,9 +101,19 @@ def main():
                     and ui.check_mouse_position_phone_button()):
                 if etat.peut_appeler_stagiaire():
                     etat.appeler_stagiaire(t)
+                    music_progression = pygame.mixer.music.get_pos()
+                    pygame.mixer.music.stop()
+                    pygame.mixer.music.load("assets/Music/StagiairePower.mp3")
+                    pygame.mixer.music.play()
                     if etat.stagiaire_epuise():
                         micro_fermeture_lancee = True
                         micro_fermeture_debut = t
+
+        #Quand il n'y a plus de musique
+        if not pygame.mixer.music.get_busy():
+            pygame.mixer.music.load("assets/Music/SpamClick.mp3")
+            pygame.mixer.music.play(1, music_progression / 1000)
+            music_progression = 0
 
         # Affichage de la Lune
         ui.display_window(moon_angle)
@@ -253,8 +277,7 @@ def main():
                 message.draw()
                 pygame.display.update()
                 for event in pygame.event.get():
-                    if message.active:
-                        message.handle_event(event)
+                    message.handle_event(event)
 
             # Crédits
             message.show(ui.get_credits_text(), 'Quitter')
