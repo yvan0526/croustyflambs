@@ -43,6 +43,11 @@ def main():
     pygame.mixer.music.play()
     music_progression: int = 0
 
+    # Sound
+    button_play = pygame.mixer.Sound("assets/SoundEffect/Button.ogg")
+    button_play.set_volume(0.5)
+    slurp_play = pygame.mixer.Sound("assets/SoundEffect/Slurp.ogg")
+
     #Stagiaire
     stagiaire_apparition = timer_end / 2
     stagiaire_message = False
@@ -102,6 +107,7 @@ def main():
                 if etat.peut_appeler_stagiaire():
                     etat.appeler_stagiaire(t)
                     music_progression = pygame.mixer.music.get_pos()
+                    slurp_play.play()
                     pygame.mixer.music.stop()
                     pygame.mixer.music.load("assets/Music/StagiairePower.mp3")
                     pygame.mixer.music.play()
@@ -219,30 +225,36 @@ def main():
             if ui.check_mouse_position_fuelle_button():
                 ui.display_fuelle_button_down()
                 if not button_clicking or coffee_actif:
+                    button_play.play()
                     etat.clic()
             # Clic bouton auto clicker
             elif ui.check_mouse_position_autoclicker_button():
                 if not button_clicking:
+                    button_play.play()
                     etat.add_autocliqueur(t)
                 ui.display_autoclicker_button_down()
             # Clic bouton fréquence autoclicliker
             elif ui.check_mouse_position_upgrade_frequency_button():
                 if not button_clicking:
+                    button_play.play()
                     etat.add_autoclic_cps(t)
                 ui.display_upgrade_frequency_button_down()
             # Clic bouton puissance autoclicliker
             elif ui.check_mouse_position_upgrade_power_button():
                 if not button_clicking:
+                    button_play.play()
                     etat.add_autoclic_val()
                 ui.display_upgrade_power_button_down()
             # Clic bouton puissance clic
             elif ui.check_mouse_position_upgrade_clic_button():
                 if not button_clicking:
+                    button_play.play()
                     etat.add_valeur_clic()
                 ui.display_upgrade_clic_button_down()
             # Clic bouton clic droit
             elif ui.check_mouse_position_right_clic_button():
                 if not button_clicking:
+                    button_play.play()
                     etat.debloque_clic_droit()
             button_clicking = True
         else:
