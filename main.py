@@ -177,9 +177,6 @@ def main():
 
         # Valeur du clic screen
         ui.display_clic_power(etat.valeur_clic)
-
-        # Fuëlle par seconde screen
-        ui.display_fuelle_per_second(etat.autocliqueur.quantite, etat.autocliqueur.valeur, etat.autocliqueur.cps)
             
         # Détecte la fermeture du message stagiaire pour lancer l'animation
         if stagiaire_message_ferme and message_actif_precedent and not message.active:
