@@ -4,8 +4,6 @@ import pygame
 from pygame import Surface
 from pygame.ftfont import Font
 
-from message import Message
-
 
 class UI:
     # Écran pour l'affichage
@@ -196,17 +194,6 @@ class UI:
 
         self.screen.blit(self.sky_images[i], (220, 20))
         self.screen.blit(self.moon_images[i], (x, y))
-
-    def messagestart(self):
-        message = Message(self.screen, self.message_font)
-        # Message affiché au démarrage
-        message.show("MESSAGE D’URGENCE\n"
-                     "Vous êtes notre seul espoir.\n"
-                     "Une éclipse aura lieu dans 10 minutes.\n"
-                     "Si elle se produit, ce sera la fin du monde.\n"
-                     "Votre mission est simple : remplir entièrement le réservoir de la fusée afin de la lancer et de détruire la Lune avant le debut de l’éclipse.\n"
-                     "Chaque seconde compte. Chaque clic peut faire la différence.\n"
-                     "Ne nous décevez pas.\n", "Ok")
 
     def display_progress_bar(self, score, score_max):
         self.screen.blit(self.progress_bar_background_image, (200, 332))
