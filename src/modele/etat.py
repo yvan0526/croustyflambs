@@ -3,6 +3,10 @@ import math
 from src.modele.autocliqueur import Autocliqueur
 
 # Classe gérant le score et les améliorations
+class GameSounds:
+    pass
+
+
 class Etat:
     score: int
     clic_droit_debloque: bool

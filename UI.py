@@ -398,17 +398,18 @@ class UI:
         self.screen.blit(self.red_light, (454, 333))
 
     def get_message_text(self, score):
+        percent = math.log10(min(score / Etat.SCORE_GOAL, 1) * 240 + 1) / math.log10(241) * 100
         if score < 1:
             return "Votre fusée n'a pas décollé.\nLa face cachée de la Lune s'est révélée. Tout le monde meurt."
-        elif score < Etat.SCORE_GOAL * 0.4:
+        elif percent < 40:
             return "Votre fusée a décollé. Elle s'est malheureusement écrasée par manque de carburant.\nL'IUT2 de Grenoble a été rasé.\nCédric Gérot, s'étant reconverti, a été élu président de la République Française avec 69% des voix."
-        elif score < Etat.SCORE_GOAL * 0.44:
+        elif percent < 44:
             return "Votre fusée a décollé. Elle a dévié de sa trajectoire, s'est arrêtée, et se perd dans l'espace.\nL'éclipse a eu lieu. Rien n'est arrivé. Le monde est sauvé."
-        elif score < Etat.SCORE_GOAL:
+        elif percent < 100:
             return "Votre fusée a décollé. Elle a légèrement dévié de sa trajectoire et s'est arrêtée en orbite lunaire.\nDes habitants de la Lune prennent le contrôle de la fusée et envahissent la Terre.\nTout le monde meurt."
-        elif score <= Etat.SCORE_GOAL * 1.05:
+        elif percent <= 105:
             return "Votre fusée a décollé. Elle a atteint sa cible. La Lune explose.\nLes débris de la Lune retombent sur la Terre.\nTout le monde meurt."
-        elif score > Etat.SCORE_GOAL * 1.05:
+        elif percent > 105:
             return "Votre fusée a décollé. Elle a légèrement dévié de sa trajectoire et se dirige vers le Soleil.\nUne semaine plus tard, le Soleil explose.\n8 minutes plus tard, tout le monde meurt."
         else:
             return "undefined Fin"
@@ -429,4 +430,5 @@ class UI:
                 "\nEnfin, merci à vous d'avoir joué !")
 
     def get_retry_text(self):
-        return ("Souhaitez-vous réessayer, pour obtenir un autre futur pour la Terre ?\n Il faut relancer le jeu pour cela.")
+        return ("Souhaitez-vous réessayer, pour obtenir un autre futur pour la Terre ?"
+                "\n Il faut relancer le jeu pour cela.")
