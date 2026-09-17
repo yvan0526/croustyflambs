@@ -264,8 +264,33 @@ def main():
         keys = pygame.key.get_pressed()
         if keys[pygame.K_ESCAPE]:
             running = False
+        elif keys[pygame.K_1]:
+            # stagiaire
+            t = timer_end // 2
+        elif keys[pygame.K_2]:
+            # 100%
+            etat.score = Etat.SCORE_GOAL
+            moon_angle = -0.005
+        elif keys[pygame.K_3]:
+            # +105%
+            etat.score = (int)(Etat.SCORE_GOAL * 1.06)
+            moon_angle = -0.005
+        elif keys[pygame.K_4]:
+            # 70%
+            etat.score = (int)(Etat.SCORE_GOAL * 0.7)
+            moon_angle = -0.005
+        elif keys[pygame.K_5]:
+            # 30%
+            etat.score = (int)(Etat.SCORE_GOAL * 0.3)
+            moon_angle = -0.005
+        elif keys[pygame.K_6]:
+            # 42%
+            etat.score = (int)(Etat.SCORE_GOAL * 0.42)
+            moon_angle = -0.005
+        elif keys[pygame.K_7]:
+            moon_angle = -0.005
 
-        # Mise à jour de l'affichage
+# Mise à jour de l'affichage
         message.draw()
         pygame.display.update()
 
