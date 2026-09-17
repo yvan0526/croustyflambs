@@ -1,3 +1,5 @@
+import math
+
 from src.modele.autocliqueur import Autocliqueur
 
 # Classe gérant le score et les améliorations
@@ -17,6 +19,9 @@ class Etat:
         self.autocliqueur = Autocliqueur()
         self.stagiaire_appel = 0
         self.coffee_boost_end = 0
+        self.nb_upgrade_clic = 0
+        self.nb_upgrade_autoclic_val = 0
+        self.nb_upgrade_autoclic_cps = 0
 
     # Méthode gérant un clic sur le bouton principal
     def clic(self)-> None :
@@ -38,34 +43,44 @@ class Etat:
         return not self.clic_droit_debloque and self.score >= 1000
 
     # Méthode gérant l'amélioration de la valeur d'un clic
-    def add_valeur_clic(self, bonus: int = 1)-> None :
+    def add_valeur_clic(self, bonus: float = 1.22) -> None:
         if self.peut_add_valeur_clic():
-            self.score -= self.calc_prix(self.valeur_clic, "faible")
-            self.valeur_clic += bonus
+            self.score -= self.calc_prix(self.nb_upgrade_clic, "faible")
+            self.valeur_clic = math.ceil(self.valeur_clic * bonus)
+            self.nb_upgrade_clic += 1
     # Vérifie la possibilité d'améliorer la valeur du clic
-    def peut_add_valeur_clic(self)-> bool :
-        return self.score >= self.calc_prix(self.valeur_clic, "faible")
+    def peut_add_valeur_clic(self) -> bool:
+        return self.score >= self.calc_prix(self.nb_upgrade_clic, "faible")
 
     # Méthode gérant l'amélioration de la valeur de l'autoclic
-    def add_autoclic_val(self, bonus: int = 1)-> None :
+    def add_autoclic_val(self, bonus: float = 1.18) -> None:
         if self.peut_add_autoclic_val():
-            self.score -= self.calc_prix(self.autocliqueur.valeur, "faible")
-            self.autocliqueur.valeur += bonus
+            self.score -= self.calc_prix(self.nb_upgrade_autoclic_val, "faible")
+            self.autocliqueur.valeur = math.ceil(self.autocliqueur.valeur * bonus)
+            self.nb_upgrade_autoclic_val += 1
     # Vérifie la possibilité d'améliorer la valeur de l'autoclic
-    def peut_add_autoclic_val(self)-> bool :
+    def peut_add_autoclic_val(self) -> bool:
         return (self.autocliqueur.quantite > 0
-                and self.score >= self.calc_prix(self.autocliqueur.valeur, "faible"))
+                and self.score >= self.calc_prix(self.nb_upgrade_autoclic_val, "faible"))
+
 
     # Méthode gérant l'amélioration de la fréquence de l'autoclic
-    def add_autoclic_cps(self, t: int, bonus: int = 1)-> None :
+    def add_autoclic_cps(self, t: int, bonus: int = 1.18) -> None:
         if self.peut_add_autoclic_cps():
-            self.score -= self.calc_prix(self.autocliqueur.cps, "faible")
-            self.autocliqueur.cps += bonus
-            self.autocliqueur.temps_ref += int((t - self.autocliqueur.temps_ref) / self.autocliqueur.cps)
-    # Vérifie la possibilité d'améliorer la fréquence de l'autoclic
-    def peut_add_autoclic_cps(self)-> bool :
-        return (self.autocliqueur.quantite > 0
-                and self.score >= self.calc_prix(self.autocliqueur.cps, "faible"))
+            self.score -= self.calc_prix(self.nb_upgrade_autoclic_cps, "faible")
+            self.autocliqueur.cps = math.ceil(self.autocliqueur.cps * bonus)
+            self.autocliqueur.temps_ref += int(
+                (t - self.autocliqueur.temps_ref) / self.autocliqueur.cps
+            )
+            self.nb_upgrade_autoclic_cps += 1
+
+    def peut_add_autoclic_cps(self) -> bool:
+        return (
+                self.autocliqueur.quantite > 0
+                and self.score >= self.calc_prix(
+            self.nb_upgrade_autoclic_cps, "faible"
+        )
+    )
 
     # Méthode gérant l'amélioration du nombre d'autocliqueurs
     def add_autocliqueur(self, t: int, bonus: int = 1)-> None :
@@ -84,9 +99,9 @@ class Etat:
     def calc_prix(nb_up: int, libelle_cout: str) -> int :
         match libelle_cout:
             case "faible":
-                return int(10 * 1.5 ** nb_up)
+                return int(10 * 1.25 ** nb_up)
             case "moyen":
-                return 10 * 5 ** nb_up
+                return 100 * 20 ** nb_up
 
         return -1
         return self.autocliqueur.quantite < 10 and self.score >= self.PRIX_AMELIORATION[self.autocliqueur.quantite]
