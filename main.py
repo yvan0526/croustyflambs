@@ -272,8 +272,7 @@ def main():
                 message.draw()
                 pygame.display.update()
                 for event in pygame.event.get():
-                    if message.active:
-                        message.handle_event(event)
+                    message.handle_event(event)
 
             # Crédits
             message.show(ui.get_credits_text(), 'Quitter')
