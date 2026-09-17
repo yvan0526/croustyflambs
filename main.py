@@ -47,6 +47,7 @@ def main():
     button_play = pygame.mixer.Sound("assets/SoundEffect/Button.ogg")
     button_play.set_volume(0.5)
     slurp_play = pygame.mixer.Sound("assets/SoundEffect/Slurp.ogg")
+    cash_play = pygame.mixer.Sound("assets/SoundEffect/Cash.ogg")
 
     #Stagiaire
     stagiaire_apparition = timer_end / 2
@@ -231,30 +232,44 @@ def main():
             elif ui.check_mouse_position_autoclicker_button():
                 if not button_clicking:
                     button_play.play()
+                    if etat.peut_add_autocliqueur():
+                        cash_play.play()
                     etat.add_autocliqueur(t)
+
                 ui.display_autoclicker_button_down()
             # Clic bouton fréquence autoclicliker
             elif ui.check_mouse_position_upgrade_frequency_button():
                 if not button_clicking:
                     button_play.play()
+                    if etat.peut_add_autoclic_cps():
+                        cash_play.play()
                     etat.add_autoclic_cps(t)
+
                 ui.display_upgrade_frequency_button_down()
             # Clic bouton puissance autoclicliker
             elif ui.check_mouse_position_upgrade_power_button():
                 if not button_clicking:
                     button_play.play()
+                    if etat.peut_add_autoclic_val():
+                        cash_play.play()
                     etat.add_autoclic_val()
+
                 ui.display_upgrade_power_button_down()
             # Clic bouton puissance clic
             elif ui.check_mouse_position_upgrade_clic_button():
                 if not button_clicking:
                     button_play.play()
+                    if etat.peut_add_valeur_clic():
+                        cash_play.play()
                     etat.add_valeur_clic()
+
                 ui.display_upgrade_clic_button_down()
             # Clic bouton clic droit
             elif ui.check_mouse_position_right_clic_button():
                 if not button_clicking:
                     button_play.play()
+                    if etat.peut_debloquer_clic_droit():
+                        cash_play.play()
                     etat.debloque_clic_droit()
             button_clicking = True
         else:
