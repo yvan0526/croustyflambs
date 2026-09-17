@@ -35,7 +35,7 @@ def main():
     button_clicking = False
 
     #Stagiaire
-    stagiaire_apparition = timer_end /2
+    stagiaire_apparition = 1000 * 5
     stagiaire_message = False
     stagiaire_message_ferme = False
     micro_animation = 0
@@ -53,14 +53,19 @@ def main():
 
         # Message stagiaire
         if t >= stagiaire_apparition and not stagiaire_message:
-            message.show("On a envoyé un stagiaire pour vous aider !", "Ok")
+            message.show("La direction a remarqué un manque d'efficacité de votre part.\n"
+                         "Nous vous avons donc envoyé un stagiaire pour vous aider !\n\n"
+                         "Appelez le pour qu'il vous serve un café afin de vous réveiller et d'augmenter votre rendement.\n"
+                         "Le café vous permet de rester appuyé sur le bouton pendant 5 secondes et ainsi charger le fuëlle très rapidement.\n"
+                         "N'étant pas payé, il ne vous servira que 5 cafés, utilisez-le de manière judicieuse.\n",
+                         "Ok")
             stagiaire_message = True
             stagiaire_message_ferme = True
 
         for event in pygame.event.get():
             # Fenêtre affichée
             if message.active:
-                message.handle_event(event)
+                button_clicking = message.handle_event(event)
 
             # Interruption du jeu
             elif event.type == pygame.QUIT:
