@@ -263,6 +263,15 @@ def main():
                 pygame.display.update()
                 for event in pygame.event.get():
                     message.handle_event(event)
+
+            # Réessayer?
+            message.show(ui.get_retry_text(), 'OK')
+            while message.active:
+                message.draw()
+                pygame.display.update()
+                for event in pygame.event.get():
+                    message.handle_event(event)
+
             game_quit = True
 
 if __name__ == '__main__':
