@@ -1,13 +1,8 @@
 import math
-
-import pygame
-
 import animations
 from UI import UI
-from animation import Animation
 from message import Message
 from events import *
-
 from src.modele.etat import Etat
 
 def main():
@@ -63,9 +58,11 @@ def main():
             stagiaire_message_ferme = True
 
         for event in pygame.event.get():
+            # Fenêtre affichée
             if message.active:
                 message.handle_event(event)
 
+            # Interruption du jeu
             elif event.type == pygame.QUIT:
                 pygame.quit()
                 quit()
@@ -74,10 +71,12 @@ def main():
                 etat.score = -1
                 pygame.event.post(pygame.event.Event(GAME_END))
 
+            # Fin du jeu
             elif event.type == GAME_END:
                 message.show(ui.get_message_text(etat.score), 'Fin')
                 pygame.event.post(pygame.event.Event(CREDITS))
 
+            # Crédits
             elif event.type == CREDITS:
                 message.show(ui.get_credits_text(), 'Quitter')
                 pygame.event.post(pygame.event.Event(pygame.QUIT))
@@ -92,7 +91,7 @@ def main():
                         micro_fermeture_lancee = True
                         micro_fermeture_debut = t
 
-        # Lune
+        # Affichage de la Lune
         ui.display_window(moon_angle)
         if moon_angle < 0:
             angle = abs(moon_start_angle) / timer_end * dt
@@ -185,7 +184,7 @@ def main():
         if micro_ouverture_terminee and not micro_fermeture_lancee:
             ui.display_frequency_stagiaire(etat.appels_stagiaire_restants())
 
-
+        # Ajout de points avec le clic automatique
         if (t - etat.autocliqueur.temps_ref) * etat.autocliqueur.cps / 1000 >= etat.autocliqueur.nb_tot_clics:
             etat.clic_auto()
 
