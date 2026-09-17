@@ -103,17 +103,16 @@ def main():
             pygame.event.post(pygame.event.Event(GAME_END))
 
         # Affiche la progress bar
-        # TODO: Mettre le bon score max
-        ui.display_progress_bar(etat.score, 100)
+        ui.display_progress_bar(etat.score, 1000000000000000)
 
         # Affiche le bureau
         ui.display_background()
 
         # Affiche la lumière de la barre de progression
         # TODO: Mettre le bon score max
-        if 100 <= etat.score < 105:
+        if 1000000000000000 <= etat.score < 1500000000000000:
             ui.display_green_ligth()
-        elif etat.score >= 105:
+        elif etat.score >= 1500000000000000:
             ui.display_red_ligth()
 
         # Texte score
@@ -139,10 +138,10 @@ def main():
             ui.display_right_clic_button()
 
         # Prix
-        ui.display_clic_price(etat.calc_prix(etat.valeur_clic, "faible"))
+        ui.display_clic_price(etat.calc_prix(etat.nb_upgrade_clic, "faible"))
         ui.display_autoclicker_price(etat.calc_prix(etat.autocliqueur.quantite, "moyen"))
-        ui.display_power_price(etat.calc_prix(etat.autocliqueur.valeur, "faible"))
-        ui.display_frequency_price(etat.calc_prix(etat.autocliqueur.cps, "faible"))
+        ui.display_power_price(etat.calc_prix(etat.nb_upgrade_autoclic_val, "faible"))
+        ui.display_frequency_price(etat.calc_prix(etat.nb_upgrade_autoclic_cps, "faible"))
         ui.display_right_clic_price(1000)
 
         # Valeur du clic screen
