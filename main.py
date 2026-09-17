@@ -134,9 +134,9 @@ def main():
         ui.display_background()
 
         # Affiche la lumière de la barre de progression
-        if Etat.SCORE_GOAL <= etat.score < (Etat.SCORE_GOAL + Etat.SCORE_GOAL * 0.05):
+        if Etat.SCORE_GOAL <= etat.score <= Etat.SCORE_GOAL * 1.05:
             ui.display_green_ligth()
-        elif etat.score >= (Etat.SCORE_GOAL + Etat.SCORE_GOAL * 0.05):
+        elif etat.score > Etat.SCORE_GOAL * 1.05:
             ui.display_red_ligth()
 
         # Texte score
