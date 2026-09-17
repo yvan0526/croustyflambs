@@ -44,7 +44,7 @@ def main():
     music_progression: int = 0
 
     #Stagiaire
-    stagiaire_apparition = 1000 * 5
+    stagiaire_apparition = timer_end / 2
     stagiaire_message = False
     stagiaire_message_ferme = False
     micro_animation = 0
