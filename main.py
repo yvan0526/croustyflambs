@@ -286,22 +286,22 @@ def main():
         elif keys[pygame.K_2]:
             # 100%
             etat.score = Etat.SCORE_GOAL
-            moon_angle = -0.007
+            moon_angle = -0.01
         elif keys[pygame.K_3]:
             # +105%
             etat.score = (int)(Etat.SCORE_GOAL * 1.06)
-            moon_angle = -0.007
+            moon_angle = -0.01
         elif keys[pygame.K_4]:
             # 70%
             etat.score = 189565033000000
             moon_angle = -0.005
         elif keys[pygame.K_5]:
-            # 30%
-            etat.score = 17430356000000
-            moon_angle = -0.005
-        elif keys[pygame.K_6]:
             # 42%
             etat.score = 37542923000000
+            moon_angle = -0.01
+        elif keys[pygame.K_6]:
+            # 30%
+            etat.score = 17430356000000
             moon_angle = -0.005
         elif keys[pygame.K_7]:
             moon_angle = -0.005
