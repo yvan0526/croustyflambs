@@ -132,7 +132,6 @@ def main():
             moon_angle += angle
         else:
             # Fin timer
-            print("fin timer")
             running = False
             pygame.event.post(pygame.event.Event(GAME_END))
 
